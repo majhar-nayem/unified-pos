@@ -1,0 +1,87 @@
+.pos-icon-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--pos-control-height);
+  height: var(--pos-control-height);
+  min-width: var(--pos-control-height);
+  min-height: var(--pos-control-height);
+  padding: 0;
+  border: var(--pos-border-thin) solid transparent;
+  border-radius: var(--pos-radius-md);
+  font-family: inherit;
+  font-size: var(--pos-text-body-size);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    background-color var(--pos-duration-fast) var(--pos-easing-standard),
+    border-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-icon-button--sm .pos-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.pos-icon-button--md {
+  width: calc(var(--pos-control-height) + var(--pos-space-sm));
+  height: calc(var(--pos-control-height) + var(--pos-space-sm));
+}
+
+.pos-icon-button--lg {
+  width: var(--pos-touch-key);
+  height: var(--pos-touch-key);
+  font-size: var(--pos-text-emphasis-size);
+}
+
+.pos-icon-button--primary {
+  background: var(--pos-color-brand-solid);
+  color: var(--pos-color-brand-on-solid);
+  border-color: var(--pos-color-brand-solid);
+}
+
+.pos-icon-button--primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pos-color-brand-solid) 88%, var(--pos-color-text));
+}
+
+.pos-icon-button--secondary {
+  background: var(--pos-color-surface-raised);
+  color: var(--pos-color-text);
+  border-color: var(--pos-color-border-strong);
+}
+
+.pos-icon-button--secondary:hover:not(:disabled) {
+  background: var(--pos-color-surface-sunken);
+}
+
+.pos-icon-button--danger {
+  background: var(--pos-color-danger-solid);
+  color: var(--pos-color-danger-on-solid);
+  border-color: var(--pos-color-danger-solid);
+}
+
+.pos-icon-button--danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pos-color-danger-solid) 88%, var(--pos-color-text));
+}
+
+.pos-icon-button--ghost {
+  background: transparent;
+  color: var(--pos-color-brand-text);
+}
+
+.pos-icon-button--ghost:hover:not(:disabled) {
+  background: var(--pos-color-brand-subtle);
+}
+
+.pos-icon-button:active:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+.pos-icon-button:disabled {
+  cursor: not-allowed;
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text-muted);
+  border-color: var(--pos-color-border);
+}

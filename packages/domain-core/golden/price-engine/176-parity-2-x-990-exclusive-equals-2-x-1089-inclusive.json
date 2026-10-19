@@ -1,0 +1,29 @@
+{
+  "name": "parity: 2 x 990 exclusive equals 2 x 1089 inclusive",
+  "description": "Exclusive 1980 + 198 GST = 2178; inclusive 2178 holds the same 198 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "2", "defaultUnitPriceMinor": 990 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 2178, "taxMinor": 198, "lines": [{ "taxInclusive": false }] }
+}

@@ -1,0 +1,62 @@
+name: Deploy (reusable)
+
+# worker and payments: rolling update with the deployment circuit breaker.
+# api: CodeDeploy blue/green, 10 % canary, soak while SLO alarms are watched, then 100 %.
+# Finishes with the smoke test through CloudFront.
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      tag:
+        type: string
+        required: true
+      post_shift_watch_minutes:
+        description: Extra SLO watch after the full traffic shift (0 = none)
+        type: number
+        default: 0
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    environment: ${{ inputs.environment }}
+    concurrency:
+      group: deploy-${{ inputs.environment }}
+      cancel-in-progress: false
+    env:
+      PREFIX: ${{ vars.PREFIX }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'ap-southeast-2' }}
+
+      - name: Log in to ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Deploy worker
+        run: infra/scripts/ecs-deploy.sh worker "${{ steps.ecr.outputs.registry }}/${PREFIX}/worker:${{ inputs.tag }}"
+
+      - name: Deploy payments
+        run: infra/scripts/ecs-deploy.sh payments "${{ steps.ecr.outputs.registry }}/${PREFIX}/payments:${{ inputs.tag }}"
+
+      - name: Deploy api (blue/green with canary)
+        run: infra/scripts/api-bluegreen.sh "${{ steps.ecr.outputs.registry }}/${PREFIX}/api:${{ inputs.tag }}"
+
+      - name: SLO watch after the full shift
+        if: inputs.post_shift_watch_minutes > 0
+        run: infra/scripts/slo-watch.sh "${{ inputs.post_shift_watch_minutes }}"
+
+      - name: Smoke test
+        run: infra/scripts/smoke.sh "${{ vars.BASE_URL }}"

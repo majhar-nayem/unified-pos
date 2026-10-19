@@ -1,0 +1,69 @@
+.pos-product-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-md);
+  min-width: 0;
+}
+
+/*
+ * Breakpoints cannot use var() in media queries, so the literal px values mirror
+ * tokens/core.json breakpoints: handheld 480, tablet 800, terminal 1366, wide 1920.
+ */
+.pos-product-grid__tiles {
+  --pos-product-grid-auto: 3;
+
+  display: grid;
+  grid-template-columns: repeat(
+    var(--pos-product-grid-columns, var(--pos-product-grid-auto)),
+    minmax(0, 1fr)
+  );
+  gap: var(--pos-space-sm);
+}
+
+@media (min-width: 480px) {
+  .pos-product-grid__tiles {
+    --pos-product-grid-auto: 4;
+  }
+}
+
+@media (min-width: 800px) {
+  .pos-product-grid__tiles {
+    --pos-product-grid-auto: 5;
+  }
+}
+
+@media (min-width: 1366px) {
+  .pos-product-grid__tiles {
+    --pos-product-grid-auto: 6;
+  }
+}
+
+@media (min-width: 1920px) {
+  .pos-product-grid__tiles {
+    --pos-product-grid-auto: 8;
+  }
+}
+
+.pos-product-grid__pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pos-space-lg);
+}
+
+.pos-product-grid__indicator {
+  min-width: var(--pos-touch-bump);
+  text-align: center;
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  color: var(--pos-color-text-muted);
+}
+
+.pos-product-grid__empty {
+  margin: 0;
+  padding: var(--pos-space-xl) var(--pos-space-md);
+  border: var(--pos-border-thin) dashed var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-md);
+  color: var(--pos-color-text-muted);
+  text-align: center;
+}

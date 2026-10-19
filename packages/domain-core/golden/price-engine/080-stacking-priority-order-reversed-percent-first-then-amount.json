@@ -1,0 +1,54 @@
+{
+  "name": "stacking: priority order reversed (percent first, then amount)",
+  "description": "B: 10% first (200) then A: 500: 700.",
+  "tags": ["stacking", "priority"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 2000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "b",
+          "name": "b",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "priority": 10
+        },
+        {
+          "id": "a",
+          "name": "a",
+          "kind": "amount_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "amount_off", "amountMinor": 500, "per": "order" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "priority": 20
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 700,
+    "promotions": [
+      { "promotionId": "b", "amountMinor": 200 },
+      { "promotionId": "a", "amountMinor": 500 }
+    ]
+  }
+}

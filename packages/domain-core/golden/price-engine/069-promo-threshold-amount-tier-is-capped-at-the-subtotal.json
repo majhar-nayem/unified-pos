@@ -1,0 +1,37 @@
+{
+  "name": "promo threshold: amount tier is capped at the subtotal",
+  "description": "Spend 1000 get 1500 off on a 1200 basket: 1200.",
+  "tags": ["promo", "threshold", "cap"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-a", "quantity": "1", "defaultUnitPriceMinor": 1200 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "threshold",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": {
+              "kind": "threshold",
+              "tiers": [{ "minSubtotalMinor": 1000, "amountMinor": 1500 }]
+            }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 1200, "totalMinor": 0 }
+}

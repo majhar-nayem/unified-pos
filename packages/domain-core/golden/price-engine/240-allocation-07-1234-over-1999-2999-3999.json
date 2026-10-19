@@ -1,0 +1,33 @@
+{
+  "name": "allocation 07: 1234 over 1999/2999/3999",
+  "description": "Hamilton oracle: 274 + 411 + 549 = 1234.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1999 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 2999 },
+        { "id": "l3", "variantId": "v-3", "quantity": "1", "defaultUnitPriceMinor": 3999 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 1234 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 1234,
+    "totalMinor": 7763,
+    "lines": [
+      { "orderDiscountMinor": 274 },
+      { "orderDiscountMinor": 411 },
+      { "orderDiscountMinor": 549 }
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "$description": "Non-colour tokens. Single source of truth (docs/04-design-plan.md section 3.1). Edit here, run `pnpm --filter @pos/ui tokens`.",
+  "space": {
+    "$type": "dimension",
+    "xs": { "$value": 4 },
+    "sm": { "$value": 8 },
+    "md": { "$value": 12 },
+    "lg": { "$value": 16 },
+    "xl": { "$value": 24 },
+    "xxl": { "$value": 32 },
+    "3xl": { "$value": 48 },
+    "4xl": { "$value": 64 }
+  },
+  "touch": {
+    "$type": "dimension",
+    "min": { "$value": 48, "$description": "POS minimum target, 48x48" },
+    "tender": { "$value": 72, "$description": "Primary tender buttons, height" },
+    "key": { "$value": 64, "$description": "Keypad keys, 64x64" },
+    "bump": { "$value": 96, "$description": "KDS bump area, minimum" },
+    "destructiveGap": {
+      "$value": 16,
+      "$description": "Minimum gap between a destructive and a primary action"
+    }
+  },
+  "control": {
+    "$type": "dimension",
+    "$description": "Default control height per surface; admin has comfortable and compact density.",
+    "pos": { "$value": 48 },
+    "adminComfortable": { "$value": 40 },
+    "adminCompact": { "$value": 32 },
+    "kds": { "$value": 72 }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": { "$value": 4 },
+    "md": { "$value": 8 },
+    "lg": { "$value": 12 },
+    "xl": { "$value": 16 },
+    "pill": { "$value": 999 }
+  },
+  "border": {
+    "$type": "dimension",
+    "thin": { "$value": 1 },
+    "thick": { "$value": 2 },
+    "band": { "$value": 8, "$description": "Allergy band and status edge" }
+  },
+  "focus": {
+    "$type": "dimension",
+    "width": { "$value": 3 },
+    "offset": { "$value": 2 }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": {
+        "$value": "system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+        "$description": "System UI stack: speed and localization coverage"
+      },
+      "mono": { "$value": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "semibold": { "$value": 600 },
+      "bold": { "$value": 700 }
+    }
+  },
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "instant": { "$value": 0 },
+      "fast": { "$value": 100 },
+      "base": { "$value": 150, "$description": "Upper bound. Nothing animates longer than 150 ms." }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard": { "$value": "cubic-bezier(0.2, 0, 0, 1)" }
+    }
+  },
+  "breakpoint": {
+    "$type": "dimension",
+    "handheld": { "$value": 480 },
+    "tablet": { "$value": 800 },
+    "terminal": { "$value": 1366 },
+    "wide": { "$value": 1920 }
+  },
+  "zIndex": {
+    "$type": "number",
+    "sticky": { "$value": 200 },
+    "dropdown": { "$value": 300 },
+    "overlay": { "$value": 400 },
+    "modal": { "$value": 500 },
+    "toast": { "$value": 600 },
+    "tooltip": { "$value": 700 }
+  },
+  "textScale": {
+    "$type": "number",
+    "normal": { "$value": 1 },
+    "large": {
+      "$value": 1.25,
+      "$description": "POS large-text mode (x1.25) without layout breakage"
+    }
+  }
+}

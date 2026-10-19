@@ -1,0 +1,39 @@
+{
+  "name": "price: non-member falls back to the location list",
+  "description": "Customer without the group does not see the member list.",
+  "tags": ["price", "list", "customer"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "customer": { "id": "c-2", "groupIds": [] }
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "loc-list",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "loc-list-e1", "variantId": "v-1", "priceMinor": 850 }],
+          "assignments": [{ "scopeKind": "location", "scopeId": "loc-syd" }]
+        },
+        {
+          "id": "member",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "member-e1", "variantId": "v-1", "priceMinor": 800 }],
+          "assignments": [{ "scopeKind": "customer_group", "scopeId": "g-member" }]
+        }
+      ]
+    }
+  },
+  "expected": { "totalMinor": 850 }
+}

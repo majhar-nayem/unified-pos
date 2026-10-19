@@ -1,0 +1,17 @@
+{
+  "keypad.label": "Keypad",
+  "keypad.backspace": "Delete last digit",
+  "keypad.clear": "Clear",
+  "keypad.decimal": "Decimal point",
+  "keypad.pinCount": "{count, plural, =0 {No digits entered} one {# digit entered} other {# digits entered}}",
+  "search.label": "Search",
+  "search.clear": "Clear search",
+  "combobox.empty": "No results",
+  "combobox.loading": "Loading results…",
+  "combobox.results": "{count, plural, one {# result available} other {# results available}}",
+  "stepper.label": "Progress",
+  "stepper.state.complete": "Completed",
+  "stepper.state.current": "Current step",
+  "stepper.state.upcoming": "Not started",
+  "stepper.state.error": "Needs attention"
+}

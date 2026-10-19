@@ -1,0 +1,181 @@
+name: Release
+
+# Tag pipeline (docs/03-implementation-plan.md §10):
+# migrate staging → deploy staging → e2e + k6 + DAST → manual approval → migrate prod (expand only)
+# → blue/green deploy with a 10 % canary → SLO watch (30 min soak inside CodeDeploy, alarm-driven rollback)
+# → 100 %. Contract-phase migrations ship one release later behind a flag.
+#
+# GitHub setup: Environments `staging`, `prod-au` (deployment branches/tags restricted to v*), and
+# `prod-au-approval` with required reviewers. Variables per environment are listed in docs/runbooks/deploy.md.
+
+on:
+  push:
+    tags: ['v*']
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  meta:
+    name: Release metadata
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.meta.outputs.tag }}
+      previous: ${{ steps.meta.outputs.previous }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: meta
+        run: |
+          echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          previous="$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)"
+          # first release: compare against the first commit so every migration is checked
+          echo "previous=${previous:-$(git rev-list --max-parents=0 HEAD | tail -n1)}" >> "$GITHUB_OUTPUT"
+
+  verify:
+    uses: ./.github/workflows/_verify.yml
+
+  images:
+    name: Images
+    needs: [verify]
+    uses: ./.github/workflows/_images.yml
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    with:
+      push: true
+      tag: ${{ github.ref_name }}
+
+  publish-staging:
+    needs: [images]
+    uses: ./.github/workflows/_publish.yml
+    permissions:
+      contents: read
+      id-token: write
+      packages: read
+    with:
+      environment: staging
+      tag: ${{ github.ref_name }}
+
+  migrate-staging:
+    needs: [publish-staging]
+    uses: ./.github/workflows/_migrate.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      environment: staging
+      tag: ${{ github.ref_name }}
+
+  deploy-staging:
+    needs: [migrate-staging]
+    uses: ./.github/workflows/_deploy.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      environment: staging
+      tag: ${{ github.ref_name }}
+
+  e2e-staging:
+    name: E2E against staging
+    needs: [deploy-staging]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: staging
+    env:
+      E2E_API_URL: ${{ vars.BASE_URL }}
+      E2E_OPERATOR_TOKEN: ${{ secrets.E2E_OPERATOR_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm turbo run build --filter=@pos/admin-web... --filter=@pos/pos...
+      - run: pnpm --filter @pos/admin-web exec playwright install --with-deps chromium
+      - name: Admin console flows through the real edge
+        run: infra/scripts/run-if-script.sh @pos/admin-web test:e2e
+      - name: POS shell flows
+        run: infra/scripts/run-if-script.sh @pos/pos test:e2e
+
+  k6-staging:
+    name: k6 load profile (staging)
+    needs: [deploy-staging]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: grafana/setup-k6-action@v1
+      - name: F10 profile at staging scale; thresholds are the §12.1 SLOs
+        run: k6 run -e BASE_URL="${{ vars.BASE_URL }}" -e PROFILE=staging -e OPERATOR_TOKEN="${{ secrets.E2E_OPERATOR_TOKEN }}" --summary-export k6-summary.json infra/load/f10.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k6-summary
+          path: k6-summary.json
+          if-no-files-found: ignore
+
+  dast-staging:
+    name: DAST (OWASP ZAP API scan)
+    needs: [deploy-staging]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - run: infra/scripts/dast-gate.sh "${{ vars.BASE_URL }}" dast-report
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dast-report
+          path: dast-report
+          if-no-files-found: ignore
+
+  approve:
+    name: Manual approval for production
+    needs: [e2e-staging, k6-staging, dast-staging]
+    runs-on: ubuntu-latest
+    environment: prod-au-approval
+    steps:
+      - run: echo "Approved for production by the environment reviewers"
+
+  publish-prod:
+    needs: [approve]
+    uses: ./.github/workflows/_publish.yml
+    permissions:
+      contents: read
+      id-token: write
+      packages: read
+    with:
+      environment: prod-au
+      tag: ${{ github.ref_name }}
+
+  migrate-prod:
+    name: Migrate prod (expand only)
+    needs: [publish-prod, meta]
+    uses: ./.github/workflows/_migrate.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      environment: prod-au
+      tag: ${{ github.ref_name }}
+      expand_only: true
+      base_ref: ${{ needs.meta.outputs.previous }}
+
+  deploy-prod:
+    name: Blue/green deploy prod
+    needs: [migrate-prod]
+    uses: ./.github/workflows/_deploy.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      environment: prod-au
+      tag: ${{ github.ref_name }}
+      post_shift_watch_minutes: 10

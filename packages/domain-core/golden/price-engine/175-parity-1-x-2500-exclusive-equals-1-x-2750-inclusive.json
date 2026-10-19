@@ -1,0 +1,29 @@
+{
+  "name": "parity: 1 x 2500 exclusive equals 1 x 2750 inclusive",
+  "description": "Exclusive 2500 + 250 GST = 2750; inclusive 2750 holds the same 250 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 2500 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 2750, "taxMinor": 250, "lines": [{ "taxInclusive": false }] }
+}

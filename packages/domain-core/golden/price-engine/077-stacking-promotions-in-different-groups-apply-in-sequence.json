@@ -1,0 +1,57 @@
+{
+  "name": "stacking: promotions in different groups apply in sequence",
+  "description": "10% of 2000 = 200; then 100 off the remaining 1800: 300 total.",
+  "tags": ["stacking"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 2000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "a",
+          "name": "a",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "priority": 10,
+          "stackGroup": "g1"
+        },
+        {
+          "id": "b",
+          "name": "b",
+          "kind": "amount_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "amount_off", "amountMinor": 100, "per": "order" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "priority": 20,
+          "stackGroup": "g2"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 300,
+    "totalMinor": 1700,
+    "promotions": [
+      { "promotionId": "a", "amountMinor": 200 },
+      { "promotionId": "b", "amountMinor": 100 }
+    ]
+  }
+}

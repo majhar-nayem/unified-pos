@@ -1,0 +1,61 @@
+{
+  "name": "burger meal deal with a modifier priced into the burger",
+  "description": "Burger 1400 + bacon 200 = 1600 unit, fries 600, drink 450 = 2650; discount 850. Hamilton over [1600,600,450]: 1600*850/2650=513.2, 192.45, 144.3: floors 513,192,144 (849), remainders by 1600*850 mod 2650 = 1360000-513*2650=1360000-1359450=550, 510000-192*2650=510000-508800=1200, 382500-144*2650=382500-381600=900: largest 1200 -> fries: 513,193,144.",
+  "tags": ["brief", "bundle", "modifier"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-burger",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1400,
+          "modifiers": [{ "id": "bacon", "priceMinor": 200 }]
+        },
+        { "id": "l2", "variantId": "v-fries", "quantity": "1", "defaultUnitPriceMinor": 600 },
+        { "id": "l3", "variantId": "v-drink", "quantity": "1", "defaultUnitPriceMinor": 450 }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "meal-deal",
+          "name": "meal-deal",
+          "kind": "fixed_price",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": {
+              "kind": "fixed_price",
+              "priceMinor": 1800,
+              "bundle": [
+                { "targets": { "variantIds": ["v-burger"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-fries"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-drink"] }, "quantity": 1 }
+              ]
+            }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "subtotalMinor": 2650,
+    "promotionDiscountMinor": 850,
+    "totalMinor": 1800,
+    "lines": [
+      { "promotionDiscountMinor": 513 },
+      { "promotionDiscountMinor": 193 },
+      { "promotionDiscountMinor": 144 }
+    ]
+  }
+}

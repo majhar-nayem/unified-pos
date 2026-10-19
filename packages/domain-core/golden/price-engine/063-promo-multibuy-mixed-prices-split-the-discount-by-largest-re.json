@@ -1,0 +1,45 @@
+{
+  "name": "promo multibuy: mixed prices split the discount by largest remainder",
+  "description": "Units 500,400,300 = 1200 for 1000: discount 200 over [500,400,300] -> 83, 67, 50.",
+  "tags": ["promo", "multibuy", "allocation"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-a", "quantity": "1", "defaultUnitPriceMinor": 500 },
+        { "id": "l2", "variantId": "v-b", "quantity": "1", "defaultUnitPriceMinor": 400 },
+        { "id": "l3", "variantId": "v-c", "quantity": "1", "defaultUnitPriceMinor": 300 }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "multibuy",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "multibuy", "quantity": 3, "priceMinor": 1000 }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 200,
+    "lines": [
+      { "promotionDiscountMinor": 83 },
+      { "promotionDiscountMinor": 67 },
+      { "promotionDiscountMinor": 50 }
+    ]
+  }
+}

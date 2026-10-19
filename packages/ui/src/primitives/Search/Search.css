@@ -1,0 +1,30 @@
+.pos-search .pos-input__control::-webkit-search-cancel-button,
+.pos-search .pos-input__control::-webkit-search-decoration {
+  display: none;
+  appearance: none;
+}
+
+.pos-search .pos-input__affix--suffix {
+  padding-inline-end: 0;
+}
+
+.pos-search__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  min-width: var(--pos-touch-min);
+  padding: 0;
+  background: transparent;
+  color: var(--pos-color-text-muted);
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-search__clear:hover {
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text);
+}

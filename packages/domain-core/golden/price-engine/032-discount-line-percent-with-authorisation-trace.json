@@ -1,0 +1,45 @@
+{
+  "name": "discount: line percent with authorisation trace",
+  "description": "10% of 1000 = 100. The trace records the authoriser, method and approval.",
+  "tags": ["discount", "trace"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1000,
+          "manualDiscount": {
+            "id": "d1",
+            "kind": "percent",
+            "value": "10",
+            "reason": "loyal",
+            "authorization": { "authorizedBy": "mgr-7", "method": "pin", "approvalId": "ap-1" }
+          }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "lineDiscountMinor": 100,
+    "totalMinor": 900,
+    "$traceIncludes": [
+      {
+        "step": "line_discount",
+        "ref": "l1",
+        "amountMinor": -100,
+        "detail": "10% reason: loyal authorized by mgr-7 via pin approval ap-1"
+      }
+    ]
+  }
+}

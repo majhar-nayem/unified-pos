@@ -1,0 +1,30 @@
+{
+  "name": "price: a list with only a higher tier falls through to the default",
+  "description": "Entry needs 10 units; 3 bought, so the variant default 1000 x 3 = 3000.",
+  "tags": ["price", "tier"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "3", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "bulk",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "b10", "variantId": "v-1", "priceMinor": 700, "minQuantity": "10" }],
+          "assignments": [{ "scopeKind": "tenant" }]
+        }
+      ]
+    }
+  },
+  "expected": { "subtotalMinor": 3000, "lines": [{ "priceSource": { "kind": "variant_default" } }] }
+}

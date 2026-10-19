@@ -1,0 +1,21 @@
+{
+  "name": "cash rounding: 1007 on a cash tender",
+  "description": "RBA rule for the last digit 7: rounding -2.",
+  "tags": ["cash-rounding"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1007 }],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 1007, "roundingMinor": -2, "amountDueMinor": 1005 }
+}

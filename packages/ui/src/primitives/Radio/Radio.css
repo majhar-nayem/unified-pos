@@ -1,0 +1,104 @@
+.pos-radio-group__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-xs);
+}
+
+.pos-radio-group__items--horizontal {
+  flex-flow: row wrap;
+  gap: var(--pos-space-xs) var(--pos-space-xl);
+}
+
+.pos-radio {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-md);
+  min-height: var(--pos-touch-min);
+  color: var(--pos-color-text);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.pos-radio--disabled {
+  color: var(--pos-color-text-muted);
+  cursor: not-allowed;
+}
+
+.pos-radio__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.pos-radio__input:focus-visible {
+  outline: none;
+}
+
+.pos-radio__dot {
+  position: relative;
+  flex: none;
+  width: var(--pos-space-xl);
+  height: var(--pos-space-xl);
+  background: var(--pos-color-surface);
+  border: var(--pos-border-thick) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-pill);
+  transition:
+    background-color var(--pos-duration-fast) var(--pos-easing-standard),
+    border-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-radio__input:checked + .pos-radio__dot {
+  border-color: var(--pos-color-brand-solid);
+}
+
+.pos-radio__input:checked + .pos-radio__dot::after {
+  content: '';
+  position: absolute;
+  inset: var(--pos-space-xs);
+  background: var(--pos-color-brand-solid);
+  border-radius: var(--pos-radius-pill);
+}
+
+.pos-radio:hover .pos-radio__input:not(:disabled, :checked) + .pos-radio__dot {
+  border-color: var(--pos-color-text);
+}
+
+.pos-radio__input:focus-visible + .pos-radio__dot {
+  outline: var(--pos-focus-width) solid var(--pos-color-focus-ring);
+  outline-offset: var(--pos-focus-offset);
+}
+
+.pos-radio--invalid .pos-radio__dot {
+  border-color: var(--pos-color-danger-border);
+}
+
+.pos-radio__input:disabled + .pos-radio__dot {
+  background: var(--pos-color-surface-sunken);
+  border-color: var(--pos-color-border);
+}
+
+.pos-radio__input:disabled:checked + .pos-radio__dot::after {
+  background: var(--pos-color-border-strong);
+}
+
+.pos-radio__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.pos-radio__label {
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+}
+
+.pos-radio__hint {
+  color: var(--pos-color-text-muted);
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+}

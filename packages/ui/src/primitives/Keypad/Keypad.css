@@ -1,0 +1,121 @@
+.pos-keypad {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--pos-space-md);
+  max-width: 100%;
+}
+
+.pos-keypad__display {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: var(--pos-touch-key);
+  padding: 0 var(--pos-space-lg);
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text);
+  border: var(--pos-border-thin) solid var(--pos-color-border);
+  border-radius: var(--pos-radius-md);
+  font-size: var(--pos-text-heading-size);
+  line-height: var(--pos-text-heading-line);
+  font-weight: var(--pos-weight-semibold);
+  overflow: hidden;
+}
+
+.pos-keypad--pin .pos-keypad__display {
+  justify-content: center;
+}
+
+.pos-keypad__placeholder {
+  color: var(--pos-color-text-muted);
+}
+
+.pos-keypad__dots {
+  display: flex;
+  gap: var(--pos-space-md);
+}
+
+.pos-keypad__dot {
+  width: var(--pos-space-lg);
+  height: var(--pos-space-lg);
+  border: var(--pos-border-thick) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-pill);
+}
+
+.pos-keypad__dot--filled {
+  background: var(--pos-color-text);
+  border-color: var(--pos-color-text);
+}
+
+.pos-keypad__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(var(--pos-touch-key), 1fr));
+  gap: var(--pos-space-sm);
+}
+
+.pos-keypad__key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--pos-touch-key);
+  min-height: var(--pos-touch-key);
+  padding: 0 var(--pos-space-md);
+  background: var(--pos-color-surface-raised);
+  color: var(--pos-color-text);
+  border: var(--pos-border-thin) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-md);
+  font-family: inherit;
+  font-size: var(--pos-text-heading-size);
+  line-height: var(--pos-text-heading-line);
+  font-weight: var(--pos-weight-semibold);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    background-color var(--pos-duration-fast) var(--pos-easing-standard),
+    border-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-keypad__key:hover:not(:disabled) {
+  background: var(--pos-color-surface-sunken);
+}
+
+.pos-keypad__key:active:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+.pos-keypad__key--control {
+  background: var(--pos-color-surface-sunken);
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+}
+
+.pos-keypad__key--control:hover:not(:disabled) {
+  background: var(--pos-color-border);
+}
+
+.pos-keypad__key--action {
+  background: var(--pos-color-brand-solid);
+  color: var(--pos-color-brand-on-solid);
+  border-color: var(--pos-color-brand-solid);
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+}
+
+.pos-keypad__key--action:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pos-color-brand-solid) 88%, var(--pos-color-text));
+}
+
+.pos-keypad__key--wide {
+  grid-column: span 2;
+}
+
+.pos-keypad__key--full {
+  grid-column: 1 / -1;
+}
+
+.pos-keypad__key:disabled {
+  cursor: not-allowed;
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text-muted);
+  border-color: var(--pos-color-border);
+}

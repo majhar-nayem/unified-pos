@@ -1,0 +1,20 @@
+{
+  "name": "parity: inclusive 2 x 495 matches the exclusive twin",
+  "description": "Inclusive 990 extracts 90 GST, equal to the exclusive twin's 90.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "2", "defaultUnitPriceMinor": 495 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 990, "taxMinor": 90, "lines": [{ "taxInclusive": true }] }
+}

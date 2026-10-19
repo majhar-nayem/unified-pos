@@ -1,0 +1,73 @@
+{
+  "name": "burger meal deal twice for two of each",
+  "description": "Two complete sets: two bundles, discount 2 x 650 = 1300, total 4900 - 1300 = 3600.",
+  "tags": ["brief", "bundle"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-burger",
+          "quantity": "2",
+          "defaultUnitPriceMinor": 1400,
+          "itemId": "i-burger"
+        },
+        {
+          "id": "l2",
+          "variantId": "v-fries",
+          "quantity": "2",
+          "defaultUnitPriceMinor": 600,
+          "itemId": "i-fries"
+        },
+        {
+          "id": "l3",
+          "variantId": "v-drink",
+          "quantity": "2",
+          "defaultUnitPriceMinor": 450,
+          "itemId": "i-drink"
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "meal-deal",
+          "name": "meal-deal",
+          "kind": "fixed_price",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": {
+              "kind": "fixed_price",
+              "priceMinor": 1800,
+              "bundle": [
+                { "targets": { "variantIds": ["v-burger"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-fries"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-drink"] }, "quantity": 1 }
+              ]
+            }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 1300,
+    "totalMinor": 3600,
+    "promotions": [{ "promotionId": "meal-deal", "amountMinor": 1300, "applications": 2 }],
+    "lines": [
+      { "promotionDiscountMinor": 744 },
+      { "promotionDiscountMinor": 318 },
+      { "promotionDiscountMinor": 238 }
+    ]
+  }
+}

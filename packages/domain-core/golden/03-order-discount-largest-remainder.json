@@ -1,0 +1,99 @@
+{
+  "name": "03 order-level 10% discount allocated by largest remainder",
+  "description": "Three lines 333/333/334 (total 1000), order discount 10% = 100. Proportional shares are 33.3/33.3/33.4; floors 33/33/33 leave 1 unit, which goes to the largest remainder (l3) so the allocation sums to exactly 100 (step 4). GST on each net 300: 300 x 10/110 = 27.27 -> 27.",
+  "input": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "1",
+        "unitPriceMinor": 333,
+        "taxRate": "0.10",
+        "taxInclusive": true
+      },
+      {
+        "id": "l2",
+        "quantity": "1",
+        "unitPriceMinor": 333,
+        "taxRate": "0.10",
+        "taxInclusive": true
+      },
+      {
+        "id": "l3",
+        "quantity": "1",
+        "unitPriceMinor": 334,
+        "taxRate": "0.10",
+        "taxInclusive": true
+      }
+    ],
+    "orderDiscounts": [{ "id": "d1", "kind": "percent", "value": "10" }],
+    "tender": { "method": "card" }
+  },
+  "expected": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "1",
+        "unitPriceMinor": 333,
+        "grossMinor": 333,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 33,
+        "netMinor": 300,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxMinor": 27,
+        "totalMinor": 300
+      },
+      {
+        "id": "l2",
+        "quantity": "1",
+        "unitPriceMinor": 333,
+        "grossMinor": 333,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 33,
+        "netMinor": 300,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxMinor": 27,
+        "totalMinor": 300
+      },
+      {
+        "id": "l3",
+        "quantity": "1",
+        "unitPriceMinor": 334,
+        "grossMinor": 334,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 34,
+        "netMinor": 300,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxMinor": 27,
+        "totalMinor": 300
+      }
+    ],
+    "charges": [],
+    "subtotalMinor": 1000,
+    "lineDiscountMinor": 0,
+    "orderDiscountMinor": 100,
+    "discountMinor": 100,
+    "netMinor": 900,
+    "taxMinor": 81,
+    "chargesMinor": 0,
+    "totalMinor": 900,
+    "roundingMinor": 0,
+    "amountDueMinor": 900,
+    "trace": [
+      { "step": "base_price", "ref": "l1", "amountMinor": 333 },
+      { "step": "base_price", "ref": "l2", "amountMinor": 333 },
+      { "step": "base_price", "ref": "l3", "amountMinor": 334 },
+      { "step": "order_discount", "ref": "d1", "amountMinor": -100, "detail": "10%" },
+      { "step": "allocation", "ref": "l1", "amountMinor": -33, "detail": "d1" },
+      { "step": "allocation", "ref": "l2", "amountMinor": -33, "detail": "d1" },
+      { "step": "allocation", "ref": "l3", "amountMinor": -34, "detail": "d1" },
+      { "step": "tax", "ref": "l1", "amountMinor": 27 },
+      { "step": "tax", "ref": "l2", "amountMinor": 27 },
+      { "step": "tax", "ref": "l3", "amountMinor": 27 }
+    ]
+  }
+}

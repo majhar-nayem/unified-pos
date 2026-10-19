@@ -1,0 +1,28 @@
+{
+  "name": "discount: fractional percent rounds half up",
+  "description": "12.5% of 999 = 124.875 -> 125.",
+  "tags": ["discount", "rounding"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 999,
+          "manualDiscount": { "id": "d1", "kind": "percent", "value": "12.5" }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "lineDiscountMinor": 125, "totalMinor": 874 }
+}

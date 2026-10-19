@@ -1,0 +1,119 @@
+name: Main
+
+# main pipeline: everything the PR runs, plus e2e, then migrate dev, deploy dev and smoke.
+# Deployment steps run once the dev environment exists (repository variable DEPLOY_ENABLED=true).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  TURBO_TELEMETRY_DISABLED: '1'
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  verify:
+    uses: ./.github/workflows/_verify.yml
+
+  e2e:
+    name: E2E (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: pos
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d pos" --health-interval 5s --health-timeout 3s --health-retries 10
+      redis:
+        image: redis:7
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      E2E_API_URL: http://localhost:3100
+      E2E_OPERATOR_TOKEN: op_ci_operator_token_0001
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Build the api, the console and the pos shell
+        run: pnpm turbo run build --filter=@pos/api... --filter=@pos/admin-web... --filter=@pos/pos...
+      - name: Start the api on migrated Postgres and Redis
+        run: infra/scripts/e2e-api.sh start
+      - name: Install Chromium
+        run: pnpm --filter @pos/admin-web exec playwright install --with-deps chromium
+      - name: Admin console flows
+        run: infra/scripts/run-if-script.sh @pos/admin-web test:e2e
+      - name: POS shell flows
+        run: infra/scripts/run-if-script.sh @pos/pos test:e2e
+      - name: Stop the api
+        if: always()
+        run: infra/scripts/e2e-api.sh stop
+      - name: Upload api log and traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-diagnostics
+          path: |
+            e2e-api.log
+            apps/*/test-results
+          if-no-files-found: ignore
+
+  images:
+    name: Images
+    needs: [verify, e2e]
+    uses: ./.github/workflows/_images.yml
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    with:
+      push: true
+      tag: ${{ github.sha }}
+
+  publish-dev:
+    name: Publish to dev
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+    needs: [images]
+    uses: ./.github/workflows/_publish.yml
+    permissions:
+      contents: read
+      id-token: write
+      packages: read
+    with:
+      environment: dev
+      tag: ${{ github.sha }}
+
+  migrate-dev:
+    name: Migrate dev
+    needs: [publish-dev]
+    uses: ./.github/workflows/_migrate.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      environment: dev
+      tag: ${{ github.sha }}
+
+  deploy-dev:
+    name: Deploy dev and smoke
+    needs: [migrate-dev]
+    uses: ./.github/workflows/_deploy.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      environment: dev
+      tag: ${{ github.sha }}

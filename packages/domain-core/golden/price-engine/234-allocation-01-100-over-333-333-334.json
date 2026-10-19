@@ -1,0 +1,33 @@
+{
+  "name": "allocation 01: 100 over 333/333/334",
+  "description": "Hamilton oracle: 33 + 33 + 34 = 100.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 333 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 333 },
+        { "id": "l3", "variantId": "v-3", "quantity": "1", "defaultUnitPriceMinor": 334 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 100 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 100,
+    "totalMinor": 900,
+    "lines": [
+      { "orderDiscountMinor": 33 },
+      { "orderDiscountMinor": 33 },
+      { "orderDiscountMinor": 34 }
+    ]
+  }
+}

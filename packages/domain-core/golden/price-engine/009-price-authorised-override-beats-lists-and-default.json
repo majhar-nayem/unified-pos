@@ -1,0 +1,51 @@
+{
+  "name": "price: authorised override beats lists and default",
+  "description": "Override 800 x 2 = 1600 (tax 145.45 -> 145). The source records who authorised it.",
+  "tags": ["price", "override"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "2",
+          "defaultUnitPriceMinor": 1000,
+          "priceOverride": {
+            "unitPriceMinor": 800,
+            "reason": "damaged box",
+            "authorization": { "authorizedBy": "mgr-7", "approvalId": "ap-9", "method": "pin" }
+          }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "pl",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "pl-e1", "variantId": "v-1", "priceMinor": 900 }],
+          "assignments": [{ "scopeKind": "tenant" }]
+        }
+      ]
+    }
+  },
+  "expected": {
+    "totalMinor": 1600,
+    "taxMinor": 145,
+    "lines": [
+      {
+        "baseUnitPriceMinor": 800,
+        "priceSource": { "kind": "override", "authorizedBy": "mgr-7", "approvalId": "ap-9" }
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "manual percent 33 of 100",
+  "description": "100 x 33% half up = 33.",
+  "tags": ["discount", "sweep"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 100,
+          "manualDiscount": { "id": "d", "kind": "percent", "value": "33" }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "lineDiscountMinor": 33, "totalMinor": 67 }
+}

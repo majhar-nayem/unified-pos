@@ -1,0 +1,130 @@
+.pos-ticket {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  max-width: 100%;
+  border: var(--pos-border-thick) solid var(--palette-border);
+  border-radius: var(--pos-radius-lg);
+  overflow: hidden;
+  background: var(--pos-color-surface-raised);
+  color: var(--pos-color-text);
+}
+
+/* Late and critical tickets also get a heavier frame: urgency is never colour alone. */
+.pos-ticket[data-bucket='late'] {
+  border-width: calc(var(--pos-border-thick) * 2);
+}
+
+.pos-ticket[data-bucket='critical'] {
+  border-width: var(--pos-border-band);
+}
+
+.pos-ticket__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  column-gap: var(--pos-space-md);
+  padding: var(--pos-space-md) var(--pos-space-lg);
+  background: var(--palette-bg);
+  color: var(--palette-fg);
+  font-size: var(--pos-text-heading-size);
+  line-height: var(--pos-text-heading-line);
+  font-weight: var(--pos-weight-bold);
+}
+
+.pos-ticket[data-bucket='critical'] .pos-ticket__header {
+  border-block-end: var(--pos-border-band) solid var(--palette-border);
+}
+
+.pos-ticket__id {
+  display: flex;
+  align-items: baseline;
+  gap: var(--pos-space-md);
+  min-width: 0;
+}
+
+.pos-ticket__source {
+  overflow-wrap: anywhere;
+}
+
+.pos-ticket__age {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-sm);
+}
+
+.pos-ticket__age-icon {
+  width: var(--pos-text-heading-size);
+  height: var(--pos-text-heading-size);
+}
+
+.pos-ticket__bucket,
+.pos-ticket__meta {
+  margin: 0;
+  grid-column: 1 / -1;
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  font-weight: var(--pos-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.pos-ticket__bucket {
+  text-transform: uppercase;
+}
+
+.pos-ticket__strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pos-space-sm);
+  padding: var(--pos-space-sm) var(--pos-space-lg);
+  border-block-end: var(--pos-border-thin) solid var(--pos-color-border);
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  font-weight: var(--pos-weight-semibold);
+}
+
+.pos-ticket__items {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pos-ticket__item {
+  padding: var(--pos-space-md) var(--pos-space-lg);
+  border-block-end: var(--pos-border-thin) solid var(--pos-color-border);
+}
+
+.pos-ticket__action {
+  min-height: var(--pos-touch-bump);
+  width: 100%;
+  padding: 0 var(--pos-space-lg);
+  border: 0;
+  border-block-start: var(--pos-border-thick) solid var(--pos-color-border-strong);
+  background: var(--pos-color-brand-solid);
+  color: var(--pos-color-brand-on-solid);
+  font-family: inherit;
+  font-size: var(--pos-text-heading-size);
+  line-height: var(--pos-text-heading-line);
+  font-weight: var(--pos-weight-bold);
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-ticket__action[data-action='bump'] {
+  background: var(--pos-color-success-solid);
+  color: var(--pos-color-success-on-solid);
+}
+
+.pos-ticket__action:hover {
+  filter: brightness(1.08);
+}
+
+.pos-ticket__action:active {
+  filter: brightness(0.92);
+}

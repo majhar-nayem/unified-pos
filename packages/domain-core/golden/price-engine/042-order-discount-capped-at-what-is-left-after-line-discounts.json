@@ -1,0 +1,29 @@
+{
+  "name": "order discount: capped at what is left after line discounts",
+  "description": "Line discount takes 600 of 1000; an order discount of 900 is capped at the remaining 400.",
+  "tags": ["order-discount", "cap"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1000,
+          "manualDiscount": { "id": "ld", "kind": "amount", "value": 600 }
+        }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 900 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "lineDiscountMinor": 600, "orderDiscountMinor": 400, "totalMinor": 0 }
+}

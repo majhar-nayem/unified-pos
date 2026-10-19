@@ -1,0 +1,28 @@
+{
+  "name": "allocation 16: 5000 over 8888/1111",
+  "description": "Hamilton oracle: 4444 + 556 = 5000.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 8888 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 1111 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 5000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 5000,
+    "totalMinor": 4999,
+    "lines": [{ "orderDiscountMinor": 4444 }, { "orderDiscountMinor": 556 }]
+  }
+}

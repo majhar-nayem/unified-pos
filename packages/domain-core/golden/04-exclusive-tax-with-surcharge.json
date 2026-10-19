@@ -1,0 +1,86 @@
+{
+  "name": "04 tax-exclusive basket (USD) with a taxed surcharge",
+  "description": "US-style exclusive sales tax 8.875%. 3 x $19.99 = 5997, tax 5997 x 0.08875 = 532.23 -> 532, line total 6529. A $2.50 tax-exempt line. A $1.50 card surcharge (step 6) taxed exclusively: 13.31 -> 13, charge total 163. Order total 6529 + 250 + 163 = 6942.",
+  "input": {
+    "currency": "USD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "3",
+        "unitPriceMinor": 1999,
+        "taxRate": "0.08875",
+        "taxInclusive": false
+      },
+      { "id": "l2", "quantity": "1", "unitPriceMinor": 250, "taxRate": "0", "taxInclusive": false }
+    ],
+    "charges": [
+      {
+        "id": "c1",
+        "kind": "surcharge",
+        "amountMinor": 150,
+        "taxRate": "0.08875",
+        "taxInclusive": false
+      }
+    ],
+    "tender": { "method": "card" }
+  },
+  "expected": {
+    "currency": "USD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "3",
+        "unitPriceMinor": 1999,
+        "grossMinor": 5997,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 5997,
+        "taxRate": "0.08875",
+        "taxInclusive": false,
+        "taxMinor": 532,
+        "totalMinor": 6529
+      },
+      {
+        "id": "l2",
+        "quantity": "1",
+        "unitPriceMinor": 250,
+        "grossMinor": 250,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 250,
+        "taxRate": "0",
+        "taxInclusive": false,
+        "taxMinor": 0,
+        "totalMinor": 250
+      }
+    ],
+    "charges": [
+      {
+        "id": "c1",
+        "kind": "surcharge",
+        "amountMinor": 150,
+        "taxInclusive": false,
+        "taxMinor": 13,
+        "totalMinor": 163
+      }
+    ],
+    "subtotalMinor": 6247,
+    "lineDiscountMinor": 0,
+    "orderDiscountMinor": 0,
+    "discountMinor": 0,
+    "netMinor": 6247,
+    "taxMinor": 545,
+    "chargesMinor": 163,
+    "totalMinor": 6942,
+    "roundingMinor": 0,
+    "amountDueMinor": 6942,
+    "trace": [
+      { "step": "base_price", "ref": "l1", "amountMinor": 5997 },
+      { "step": "base_price", "ref": "l2", "amountMinor": 250 },
+      { "step": "tax", "ref": "l1", "amountMinor": 532 },
+      { "step": "tax", "ref": "l2", "amountMinor": 0 },
+      { "step": "charge", "ref": "c1", "amountMinor": 150, "detail": "surcharge" },
+      { "step": "tax", "ref": "c1", "amountMinor": 13 }
+    ]
+  }
+}

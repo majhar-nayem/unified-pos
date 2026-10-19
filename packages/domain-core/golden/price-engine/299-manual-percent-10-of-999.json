@@ -1,0 +1,28 @@
+{
+  "name": "manual percent 10 of 999",
+  "description": "999 x 10% half up = 100.",
+  "tags": ["discount", "sweep"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 999,
+          "manualDiscount": { "id": "d", "kind": "percent", "value": "10" }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "lineDiscountMinor": 100, "totalMinor": 899 }
+}

@@ -1,0 +1,64 @@
+name: Terraform
+
+# Format, validate and lint every environment offline (no AWS credentials), and publish the dev plan
+# computed from placeholder values as an artifact. Applying is a deliberate, manual operation.
+
+on:
+  pull_request:
+    paths:
+      - 'infra/terraform/**'
+      - 'infra/alerts/**'
+      - 'infra/scripts/tf-offline.sh'
+      - '.github/workflows/terraform.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'infra/terraform/**'
+      - 'infra/alerts/**'
+
+concurrency:
+  group: terraform-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  static:
+    name: fmt and tflint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.16.6
+          terraform_wrapper: false
+      - uses: terraform-linters/setup-tflint@v4
+      - run: terraform fmt -recursive -check infra/terraform
+      - name: tflint
+        working-directory: infra/terraform
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          tflint --init
+          tflint --recursive --format compact
+
+  validate:
+    name: validate and plan ${{ matrix.environment }} (placeholders)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [dev, staging, prod-au]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.16.6
+          terraform_wrapper: false
+      - name: Offline validate and plan
+        run: infra/scripts/tf-offline.sh "${{ matrix.environment }}" plan
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plan-${{ matrix.environment }}
+          path: infra/terraform/envs/${{ matrix.environment }}/plan.offline.txt

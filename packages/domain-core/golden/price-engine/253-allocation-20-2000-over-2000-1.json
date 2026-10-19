@@ -1,0 +1,28 @@
+{
+  "name": "allocation 20: 2000 over 2000/1",
+  "description": "Hamilton oracle: 1999 + 1 = 2000.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 2000 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 1 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 2000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 2000,
+    "totalMinor": 1,
+    "lines": [{ "orderDiscountMinor": 1999 }, { "orderDiscountMinor": 1 }]
+  }
+}

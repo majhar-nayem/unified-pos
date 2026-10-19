@@ -1,0 +1,85 @@
+name: Verify (reusable)
+
+# Quality gates shared by the PR, main and release pipelines (docs/03-implementation-plan.md §9, §10).
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  TURBO_TELEMETRY_DISABLED: '1'
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  lint:
+    name: Lint (module boundaries included)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm typecheck
+
+  unit:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm test:unit
+
+  golden:
+    name: Golden files (pricing and tax)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Build domain-core
+        run: pnpm turbo run build --filter=@pos/domain-core...
+      - name: Run every golden suite
+        run: pnpm --filter @pos/domain-core exec vitest run golden
+
+  integration:
+    name: Integration (Testcontainers, RLS, outbox)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      # ubuntu-latest ships Docker, which Testcontainers uses.
+      - run: pnpm test:integration
+
+  cross-tenant:
+    name: Cross-tenant harness (generated from OpenAPI)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Build the api and its dependencies
+        run: pnpm turbo run build --filter=@pos/api...
+      - name: Foreign-tenant and out-of-scope requests must 404
+        run: pnpm --filter @pos/api exec vitest run src/cross-tenant.integration.test.ts
+
+  storybook:
+    name: Storybook build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Build Storybook when the design-system stream has shipped it
+        run: infra/scripts/run-if-script.sh @pos/ui build-storybook

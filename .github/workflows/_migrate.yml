@@ -1,0 +1,64 @@
+name: Migrate database (reusable)
+
+# Runs `pnpm --filter @pos/db migrate` against a target environment as a one-off Fargate task in its VPC
+# (the migration image comes from that environment's ECR). Migrations are expand-only: with expand_only the
+# job first rejects destructive statements in files changed since base_ref (infra/scripts/check-expand-only.sh).
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: GitHub Environment (dev, staging, prod-au)
+        type: string
+        required: true
+      tag:
+        type: string
+        required: true
+      expand_only:
+        type: boolean
+        default: false
+      base_ref:
+        description: Previous release tag or ref to diff migrations against (expand_only)
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  migrate:
+    name: Migrate ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: ${{ inputs.environment }}
+    concurrency:
+      group: migrate-${{ inputs.environment }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reject destructive migrations (expand-only)
+        if: inputs.expand_only
+        env:
+          BASE_REF: ${{ inputs.base_ref }}
+        run: infra/scripts/check-expand-only.sh "${BASE_REF:-origin/main}"
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'ap-southeast-2' }}
+
+      - name: Log in to ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Run migration task
+        env:
+          PREFIX: ${{ vars.PREFIX }}
+          SUBNETS: ${{ vars.MIGRATE_SUBNETS }}
+          SECURITY_GROUPS: ${{ vars.MIGRATE_SECURITY_GROUPS }}
+          IMAGE: ${{ steps.ecr.outputs.registry }}/${{ vars.PREFIX }}/migrate:${{ inputs.tag }}
+        run: infra/scripts/migrate-task.sh "$IMAGE"

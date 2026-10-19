@@ -1,0 +1,21 @@
+{
+  "name": "cash rounding: split tender whose cash remainder is already on a 5c boundary",
+  "description": "Total 2005, card 1000, cash 1005: no rounding.",
+  "tags": ["cash-rounding", "tender", "split"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 2005 }],
+      "tenders": [{ "method": "card", "amountMinor": 1000 }, { "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "roundingMinor": 0, "amountDueMinor": 2005 }
+}

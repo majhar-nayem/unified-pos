@@ -1,0 +1,29 @@
+{
+  "name": "parity: 6 x 6000 exclusive equals 6 x 6600 inclusive",
+  "description": "Exclusive 36000 + 3600 GST = 39600; inclusive 39600 holds the same 3600 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "6", "defaultUnitPriceMinor": 6000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 39600, "taxMinor": 3600, "lines": [{ "taxInclusive": false }] }
+}

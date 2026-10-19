@@ -1,0 +1,33 @@
+{
+  "name": "order discount: 100 across three equal lines goes 34,33,33",
+  "description": "333 x 3 = 999; 100 -> floors 33,33,33, spare unit to the first line (equal remainders, lowest index).",
+  "tags": ["order-discount", "allocation"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 333 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 333 },
+        { "id": "l3", "variantId": "v-3", "quantity": "1", "defaultUnitPriceMinor": 333 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 100 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 100,
+    "totalMinor": 899,
+    "lines": [
+      { "orderDiscountMinor": 34 },
+      { "orderDiscountMinor": 33 },
+      { "orderDiscountMinor": 33 }
+    ]
+  }
+}

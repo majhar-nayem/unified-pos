@@ -1,0 +1,36 @@
+{
+  "name": "promo skipped promotions leave a trace entry",
+  "description": "Skips are recorded in the ordered trace.",
+  "tags": ["promo", "trace"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "paused"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "$traceIncludes": [{ "step": "promotion_skipped", "ref": "p", "detail": "inactive" }]
+  }
+}

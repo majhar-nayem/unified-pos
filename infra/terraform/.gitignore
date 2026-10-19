@@ -1,0 +1,14 @@
+.terraform/
+.terraform.lock.hcl.bak
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan*
+crash.log
+# real values live outside the repository or in these local files
+terraform.tfvars
+*.auto.tfvars
+secrets.tfvars
+offline_override.tf
+offline.tfstate
+tfplan.offline

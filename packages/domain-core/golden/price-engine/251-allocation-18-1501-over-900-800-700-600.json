@@ -1,0 +1,35 @@
+{
+  "name": "allocation 18: 1501 over 900/800/700/600",
+  "description": "Hamilton oracle: 451 + 400 + 350 + 300 = 1501.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 900 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 800 },
+        { "id": "l3", "variantId": "v-3", "quantity": "1", "defaultUnitPriceMinor": 700 },
+        { "id": "l4", "variantId": "v-4", "quantity": "1", "defaultUnitPriceMinor": 600 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 1501 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 1501,
+    "totalMinor": 1499,
+    "lines": [
+      { "orderDiscountMinor": 451 },
+      { "orderDiscountMinor": 400 },
+      { "orderDiscountMinor": 350 },
+      { "orderDiscountMinor": 300 }
+    ]
+  }
+}

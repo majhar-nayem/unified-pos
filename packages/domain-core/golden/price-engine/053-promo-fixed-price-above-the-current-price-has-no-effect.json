@@ -1,0 +1,38 @@
+{
+  "name": "promo fixed_price above the current price has no effect",
+  "description": "Fixed price 900 on a 700 item: skipped with no_effect.",
+  "tags": ["promo", "fixed_price"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 700 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "fixed_price",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "fixed_price", "priceMinor": 900 }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 0,
+    "totalMinor": 700,
+    "skippedPromotions": [{ "promotionId": "p", "reason": "no_effect" }]
+  }
+}

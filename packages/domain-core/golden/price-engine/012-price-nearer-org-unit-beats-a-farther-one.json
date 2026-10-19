@@ -1,0 +1,38 @@
+{
+  "name": "price: nearer org unit beats a farther one",
+  "description": "orgUnitPath is nearest first, so ou-nsw (850) beats ou-root (900).",
+  "tags": ["price", "list", "scope"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "root-list",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "root-list-e1", "variantId": "v-1", "priceMinor": 900 }],
+          "assignments": [{ "scopeKind": "org_unit", "scopeId": "ou-root" }]
+        },
+        {
+          "id": "nsw-list",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "nsw-list-e1", "variantId": "v-1", "priceMinor": 850 }],
+          "assignments": [{ "scopeKind": "org_unit", "scopeId": "ou-nsw" }]
+        }
+      ]
+    }
+  },
+  "expected": { "totalMinor": 850, "lines": [{ "priceSource": { "priceListId": "nsw-list" } }] }
+}

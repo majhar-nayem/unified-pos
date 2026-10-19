@@ -1,0 +1,100 @@
+.pos-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--pos-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pos-space-lg);
+}
+
+.pos-dialog__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--pos-color-scrim);
+}
+
+.pos-dialog__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 560px;
+  max-height: 100%;
+  border: var(--pos-border-thin) solid var(--pos-color-border);
+  border-radius: var(--pos-radius-lg);
+  background: var(--pos-color-surface-raised);
+  color: var(--pos-color-text);
+  box-shadow: var(--pos-shadow-3);
+}
+
+.pos-dialog__panel--sm {
+  max-width: 400px;
+}
+
+.pos-dialog__panel--lg {
+  max-width: 800px;
+}
+
+.pos-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--pos-space-md);
+  padding: var(--pos-space-lg) var(--pos-space-lg) var(--pos-space-sm);
+}
+
+.pos-dialog__title {
+  margin: 0;
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+  font-weight: var(--pos-weight-semibold);
+}
+
+.pos-dialog__close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--pos-control-height);
+  height: var(--pos-control-height);
+  margin: calc(var(--pos-space-sm) * -1) calc(var(--pos-space-sm) * -1) 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  background: transparent;
+  color: var(--pos-color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-dialog__close:hover {
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text);
+}
+
+.pos-dialog__close:active {
+  background: var(--pos-color-border);
+}
+
+.pos-dialog__body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--pos-space-sm) var(--pos-space-lg) var(--pos-space-lg);
+}
+
+.pos-dialog__description {
+  margin: 0 0 var(--pos-space-md);
+  color: var(--pos-color-text-muted);
+}
+
+.pos-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  /* Keeps destructive and primary actions at least 16 px apart. */
+  gap: var(--pos-touch-destructive-gap);
+  padding: var(--pos-space-md) var(--pos-space-lg) var(--pos-space-lg);
+  border-top: var(--pos-border-thin) solid var(--pos-color-border);
+}

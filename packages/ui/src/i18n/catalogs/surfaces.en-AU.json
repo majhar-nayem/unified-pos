@@ -1,0 +1,19 @@
+{
+  "tag.remove": "Remove {label}",
+  "tag.removeGeneric": "Remove tag",
+  "toast.region": "Notifications",
+  "toast.dismiss": "Dismiss notification",
+  "dialog.close": "Close dialog",
+  "sheet.close": "Close panel",
+  "tabs.count": "{count, plural, one {# item} other {# items}}",
+  "table.selectAll": "Select all rows",
+  "table.selectRow": "Select row {row}",
+  "table.empty": "No rows to show",
+  "emptyState.title": "Nothing here yet",
+  "banner.offline": "Offline — tickets from this device only",
+  "banner.degraded": "KDS hub degraded — printing fallback active at {station}",
+  "banner.cloudRouting": "Cloud routing — hub unreachable",
+  "banner.warning": "Connection unstable — some features may be limited",
+  "banner.dismiss": "Dismiss",
+  "table.selectColumn": "Select"
+}

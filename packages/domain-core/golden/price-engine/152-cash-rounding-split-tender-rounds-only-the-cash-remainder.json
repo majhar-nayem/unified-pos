@@ -1,0 +1,21 @@
+{
+  "name": "cash rounding: split tender rounds only the cash remainder",
+  "description": "Total 2003, card pays 1000, cash remainder 1003 -> 1005 (+2).",
+  "tags": ["cash-rounding", "tender", "split"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 2003 }],
+      "tenders": [{ "method": "card", "amountMinor": 1000 }, { "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "roundingMinor": 2, "amountDueMinor": 2005 }
+}

@@ -1,0 +1,6 @@
+item_ref,item_name,item_kind,category_code,tax_class_code,sold_by,unit,sku,variant_name,option_values,price,cost,barcode,barcode_kind,pack_quantity,track_inventory
+tee,Logo T-shirt,product,apparel,standard,unit,each,TEE-S,Small,size=S,29.95,12.00,9300000000017,ean13,1,true
+tee,Logo T-shirt,,,,,,TEE-M,Medium,size=M,29.95,12.00,9300000000024,,,
+tee,,,,,,,TEE-M,,,,,9300000000048,code128,12,
+bananas,"Bananas, loose",product,produce,gst_free,weight,kg,BAN-KG,,,4.99,2.50,9300000000031,plu,,
+espresso,Espresso,menu_item,,standard,,,,,,4.00,,,,,false

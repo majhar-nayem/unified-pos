@@ -1,0 +1,7 @@
+{
+  "summary": { "rows": 3, "items": 3, "variants": 3, "barcodes": 1, "errors": 2 },
+  "errors": [
+    { "line": 3, "column": "barcode", "code": "DUPLICATE_BARCODE" },
+    { "line": 4, "column": "barcode", "code": "BARCODE_IN_USE" }
+  ]
+}

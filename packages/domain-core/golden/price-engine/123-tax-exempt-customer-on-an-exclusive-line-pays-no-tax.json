@@ -1,0 +1,35 @@
+{
+  "name": "tax: exempt customer on an exclusive line pays no tax",
+  "description": "1000 exclusive: the 100 GST that would have been added is recorded as exempt, none is charged.",
+  "tags": ["tax", "exempt"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "customer": { "id": "c", "taxExempt": true }
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": {
+    "totalMinor": 1000,
+    "taxMinor": 0,
+    "taxExemptMinor": 100,
+    "lines": [{ "taxExemptMinor": 100, "totalMinor": 1000 }]
+  }
+}

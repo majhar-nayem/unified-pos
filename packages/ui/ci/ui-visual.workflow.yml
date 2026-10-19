@@ -1,0 +1,32 @@
+# Proposed GitHub Actions job for the design system's real-browser checks (axe with colour contrast and
+# Playwright visual regression). .github/** is owned by S-INFRA, so this lives with the package; move it
+# to .github/workflows/ui-visual.yml when wiring CI. Unit-level axe already runs in the normal
+# `pnpm test:unit` step because every story is rendered and axe-checked by Vitest.
+name: UI visual
+
+on:
+  pull_request:
+    paths: ['packages/ui/**']
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @pos/ui exec playwright install --with-deps chromium
+      - run: pnpm --filter @pos/ui build-storybook
+      # Linux baselines live in playwright/__snapshots__/linux. Generate once with:
+      #   pnpm --filter @pos/ui test:visual:update   (inside this CI image) and commit the result.
+      - run: pnpm --filter @pos/ui test:visual
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ui-visual-report
+          path: packages/ui/node_modules/.cache/playwright-report

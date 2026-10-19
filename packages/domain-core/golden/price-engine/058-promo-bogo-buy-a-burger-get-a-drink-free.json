@@ -1,0 +1,58 @@
+{
+  "name": "promo bogo: buy a burger, get a drink free",
+  "description": "Two burgers and one drink: the drink is free (450).",
+  "tags": ["promo", "bogo", "cross-item"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-burger",
+          "quantity": "2",
+          "defaultUnitPriceMinor": 1400,
+          "itemId": "i-burger"
+        },
+        {
+          "id": "l2",
+          "variantId": "v-drink",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 450,
+          "itemId": "i-drink"
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "bogo",
+          "rules": {
+            "version": 1,
+            "targets": { "variantIds": ["v-burger"] },
+            "effect": {
+              "kind": "bogo",
+              "buyQuantity": 1,
+              "getQuantity": 1,
+              "getTargets": { "variantIds": ["v-drink"] }
+            }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 450,
+    "totalMinor": 2800,
+    "lines": [{ "promotionDiscountMinor": 0 }, { "promotionDiscountMinor": 450 }]
+  }
+}

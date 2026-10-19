@@ -1,0 +1,179 @@
+.pos-cart-line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-sm);
+  min-width: 0;
+  border-bottom: var(--pos-border-thin) solid var(--pos-color-border);
+  background: var(--pos-color-surface);
+  color: var(--pos-color-text);
+}
+
+.pos-cart-line__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-xs);
+  min-width: 0;
+  min-height: var(--pos-touch-min);
+  padding: var(--pos-space-sm) var(--pos-space-md);
+  border-inline-start: var(--pos-border-band) solid transparent;
+}
+
+.pos-cart-line__main--button {
+  width: 100%;
+  border-top: 0;
+  border-bottom: 0;
+  border-inline-end: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* In a listbox the option element is the row itself. */
+.pos-cart-line--interactive {
+  gap: var(--pos-space-xs);
+  min-height: var(--pos-touch-min);
+  padding: var(--pos-space-sm) var(--pos-space-md);
+  border-inline-start: var(--pos-border-band) solid transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pos-cart-line__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pos-space-md);
+  min-width: 0;
+}
+
+.pos-cart-line__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+  font-weight: var(--pos-weight-semibold);
+}
+
+.pos-cart-line__total {
+  flex: none;
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+  font-weight: var(--pos-weight-semibold);
+}
+
+.pos-cart-line__detail,
+.pos-cart-line__note {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  color: var(--pos-color-text-muted);
+}
+
+.pos-cart-line__detail {
+  padding-inline-start: var(--pos-space-md);
+}
+
+.pos-cart-line__row--meta {
+  align-items: center;
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  color: var(--pos-color-text-muted);
+}
+
+.pos-cart-line__discount {
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  font-weight: var(--pos-weight-medium);
+  color: var(--pos-color-success-text);
+}
+
+.pos-cart-line__discount-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pos-cart-line__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pos-touch-destructive-gap);
+  padding: 0 var(--pos-space-md) var(--pos-space-sm);
+}
+
+.pos-cart-line__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pos-touch-destructive-gap);
+}
+
+/* Selection is a thick band plus a tint (not colour alone), also exposed as aria-selected / aria-pressed. */
+.pos-cart-line--selected {
+  background: var(--pos-color-brand-subtle);
+}
+
+.pos-cart-line--selected.pos-cart-line--interactive,
+.pos-cart-line--selected .pos-cart-line__main {
+  border-inline-start-color: var(--pos-color-brand-solid);
+}
+
+.pos-cart-line--interactive:hover:not(.pos-cart-line--selected),
+.pos-cart-line__main--button:hover {
+  background: var(--pos-color-surface-sunken);
+}
+
+.pos-cart-line--selected .pos-cart-line__main--button:hover {
+  background: transparent;
+}
+
+.pos-cart-line--voided .pos-cart-line__name,
+.pos-cart-line--voided .pos-cart-line__total,
+.pos-cart-line--voided .pos-cart-line__qty {
+  text-decoration: line-through;
+  color: var(--pos-color-text-muted);
+}
+
+.pos-cart-line--unsent {
+  border-inline-start-style: dashed;
+}
+
+.pos-cart-line--pending-approval {
+  background: var(--pos-color-warning-subtle);
+}
+
+.pos-cart-lines {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pos-cart-lines__list {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pos-cart-lines__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pos-touch-destructive-gap);
+  padding: var(--pos-space-sm) var(--pos-space-md);
+  border-bottom: var(--pos-border-thin) solid var(--pos-color-border);
+  background: var(--pos-color-surface-sunken);
+}
+
+.pos-cart-lines__empty {
+  margin: 0;
+  padding: var(--pos-space-xl) var(--pos-space-md);
+  color: var(--pos-color-text-muted);
+  text-align: center;
+}

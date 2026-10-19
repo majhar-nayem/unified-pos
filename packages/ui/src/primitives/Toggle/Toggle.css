@@ -1,0 +1,102 @@
+.pos-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-md);
+  min-height: var(--pos-touch-min);
+  color: var(--pos-color-text);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.pos-toggle--disabled {
+  color: var(--pos-color-text-muted);
+  cursor: not-allowed;
+}
+
+.pos-toggle__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.pos-toggle__input:focus-visible {
+  outline: none;
+}
+
+.pos-toggle__track {
+  position: relative;
+  flex: none;
+  width: var(--pos-space-3xl);
+  height: calc(var(--pos-space-xl) + var(--pos-space-sm));
+  background: var(--pos-color-surface-sunken);
+  border: var(--pos-border-thick) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-pill);
+  transition:
+    background-color var(--pos-duration-fast) var(--pos-easing-standard),
+    border-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-toggle__thumb {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: var(--pos-space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pos-space-xl);
+  height: var(--pos-space-xl);
+  margin-top: calc(var(--pos-space-xl) / -2);
+  background: var(--pos-color-text-muted);
+  color: var(--pos-color-brand-on-solid);
+  border-radius: var(--pos-radius-pill);
+}
+
+.pos-toggle__check {
+  display: none;
+  width: var(--pos-space-lg);
+  height: var(--pos-space-lg);
+}
+
+.pos-toggle__input:checked + .pos-toggle__track {
+  background: var(--pos-color-brand-solid);
+  border-color: var(--pos-color-brand-solid);
+}
+
+.pos-toggle__input:checked + .pos-toggle__track .pos-toggle__thumb {
+  inset-inline-start: calc(100% - var(--pos-space-xl) - var(--pos-space-xs));
+  background: var(--pos-color-brand-on-solid);
+  color: var(--pos-color-brand-solid);
+}
+
+.pos-toggle__input:checked + .pos-toggle__track .pos-toggle__check {
+  display: block;
+}
+
+.pos-toggle:hover .pos-toggle__input:not(:disabled) + .pos-toggle__track {
+  border-color: var(--pos-color-text);
+}
+
+.pos-toggle__input:focus-visible + .pos-toggle__track {
+  outline: var(--pos-focus-width) solid var(--pos-color-focus-ring);
+  outline-offset: var(--pos-focus-offset);
+}
+
+.pos-toggle__input:disabled + .pos-toggle__track {
+  background: var(--pos-color-surface-sunken);
+  border-color: var(--pos-color-border);
+}
+
+.pos-toggle__input:disabled + .pos-toggle__track .pos-toggle__thumb {
+  background: var(--pos-color-border-strong);
+}
+
+.pos-toggle__label {
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+}

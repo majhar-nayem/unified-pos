@@ -1,0 +1,57 @@
+{
+  "name": "edge: the trace lists the pipeline steps in order",
+  "description": "Sequence numbers increase from 1 and steps follow the pipeline order.",
+  "tags": ["edge", "trace"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1000,
+          "manualDiscount": { "id": "d", "kind": "amount", "value": 100 }
+        }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 50 }],
+      "charges": [{ "id": "sc", "kind": "service_charge", "amountMinor": 110 }],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "$stepOrder": [
+      "price_resolution",
+      "line_discount",
+      "promotion",
+      "order_discount",
+      "allocation",
+      "tax",
+      "charge",
+      "tax",
+      "cash_rounding"
+    ]
+  }
+}

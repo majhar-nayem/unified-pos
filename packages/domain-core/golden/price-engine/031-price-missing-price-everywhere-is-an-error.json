@@ -1,0 +1,17 @@
+{
+  "name": "price: missing price everywhere is an error",
+  "description": "No override, no list, no default.",
+  "tags": ["price", "error"],
+  "input": {
+    "draft": { "currency": "AUD", "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1" }] },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expectError": "no price list prices variant"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "price: the latest validFrom wins among valid entries of equal tier",
+  "description": "Two valid entries: the newer (700) replaces the older (800).",
+  "tags": ["price", "validity"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "seasonal",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [
+            {
+              "id": "old",
+              "variantId": "v-1",
+              "priceMinor": 800,
+              "validFrom": "2026-01-01T00:00:00Z"
+            },
+            {
+              "id": "new",
+              "variantId": "v-1",
+              "priceMinor": 700,
+              "validFrom": "2026-10-01T00:00:00Z"
+            }
+          ],
+          "assignments": [{ "scopeKind": "tenant" }]
+        }
+      ]
+    }
+  },
+  "expected": { "totalMinor": 700, "lines": [{ "priceSource": { "entryId": "new" } }] }
+}

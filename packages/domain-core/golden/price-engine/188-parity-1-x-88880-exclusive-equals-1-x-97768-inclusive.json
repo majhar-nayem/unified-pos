@@ -1,0 +1,29 @@
+{
+  "name": "parity: 1 x 88880 exclusive equals 1 x 97768 inclusive",
+  "description": "Exclusive 88880 + 8888 GST = 97768; inclusive 97768 holds the same 8888 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 88880 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 97768, "taxMinor": 8888, "lines": [{ "taxInclusive": false }] }
+}

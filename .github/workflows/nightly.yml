@@ -1,0 +1,42 @@
+name: Nightly
+
+# Nightly load profile against staging (docs/03-implementation-plan.md §9: 1k registers, 200 orders/s, SLO report).
+# Reliability and contract suites join here when their streams ship them.
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # 03:00 AEST
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: k6 profile (smoke, staging, full)
+        default: full
+        type: choice
+        options: [smoke, staging, full]
+
+permissions:
+  contents: read
+
+jobs:
+  load:
+    name: k6 F10 profile
+    if: ${{ vars.NIGHTLY_LOAD_ENABLED == 'true' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: grafana/setup-k6-action@v1
+      - name: Run
+        env:
+          PROFILE: ${{ inputs.profile || 'full' }}
+        run: |
+          k6 run -e BASE_URL="${{ vars.BASE_URL }}" -e PROFILE="${PROFILE}" \
+            -e OPERATOR_TOKEN="${{ secrets.E2E_OPERATOR_TOKEN }}" \
+            --summary-export k6-summary.json infra/load/f10.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k6-summary
+          path: k6-summary.json
+          if-no-files-found: ignore

@@ -1,0 +1,20 @@
+{
+  "name": "parity: inclusive 3 x 1364 matches the exclusive twin",
+  "description": "Inclusive 4092 extracts 372 GST, equal to the exclusive twin's 372.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "3", "defaultUnitPriceMinor": 1364 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 4092, "taxMinor": 372, "lines": [{ "taxInclusive": true }] }
+}

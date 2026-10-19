@@ -1,0 +1,28 @@
+{
+  "name": "discount: percent above 100 is rejected",
+  "description": "Validation error.",
+  "tags": ["discount", "error"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1000,
+          "manualDiscount": { "id": "d1", "kind": "percent", "value": "101" }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expectError": "percent must be between 0 and 100"
+}

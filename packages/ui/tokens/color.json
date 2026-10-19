@@ -1,0 +1,997 @@
+{
+  "$description": "Colour tokens. Hex lives only in `palette`; themes reference it. `status` palettes carry bg/fg/border; every status is also rendered with an icon and a label, never colour alone.",
+  "palette": {
+    "$type": "color",
+    "neutral": {
+      "0": {
+        "$value": "#ffffff"
+      },
+      "50": {
+        "$value": "#f8fafc"
+      },
+      "100": {
+        "$value": "#f1f5f9"
+      },
+      "200": {
+        "$value": "#e2e8f0"
+      },
+      "300": {
+        "$value": "#cbd5e1"
+      },
+      "400": {
+        "$value": "#94a3b8"
+      },
+      "500": {
+        "$value": "#64748b"
+      },
+      "600": {
+        "$value": "#475569"
+      },
+      "700": {
+        "$value": "#334155"
+      },
+      "800": {
+        "$value": "#1e293b"
+      },
+      "900": {
+        "$value": "#0f172a"
+      },
+      "950": {
+        "$value": "#020617"
+      }
+    },
+    "blue": {
+      "50": {
+        "$value": "#eff6ff"
+      },
+      "100": {
+        "$value": "#dbeafe"
+      },
+      "200": {
+        "$value": "#bfdbfe"
+      },
+      "300": {
+        "$value": "#93c5fd"
+      },
+      "400": {
+        "$value": "#60a5fa"
+      },
+      "500": {
+        "$value": "#3b82f6"
+      },
+      "600": {
+        "$value": "#2563eb"
+      },
+      "700": {
+        "$value": "#1d4ed8"
+      },
+      "800": {
+        "$value": "#1e40af"
+      },
+      "900": {
+        "$value": "#1e3a8a"
+      }
+    },
+    "green": {
+      "50": {
+        "$value": "#f0fdf4"
+      },
+      "100": {
+        "$value": "#dcfce7"
+      },
+      "200": {
+        "$value": "#bbf7d0"
+      },
+      "300": {
+        "$value": "#86efac"
+      },
+      "400": {
+        "$value": "#4ade80"
+      },
+      "500": {
+        "$value": "#22c55e"
+      },
+      "600": {
+        "$value": "#16a34a"
+      },
+      "700": {
+        "$value": "#15803d"
+      },
+      "800": {
+        "$value": "#166534"
+      },
+      "900": {
+        "$value": "#14532d"
+      }
+    },
+    "amber": {
+      "50": {
+        "$value": "#fffbeb"
+      },
+      "100": {
+        "$value": "#fef3c7"
+      },
+      "200": {
+        "$value": "#fde68a"
+      },
+      "300": {
+        "$value": "#fcd34d"
+      },
+      "400": {
+        "$value": "#fbbf24"
+      },
+      "500": {
+        "$value": "#f59e0b"
+      },
+      "600": {
+        "$value": "#d97706"
+      },
+      "700": {
+        "$value": "#b45309"
+      },
+      "800": {
+        "$value": "#92400e"
+      },
+      "900": {
+        "$value": "#78350f"
+      }
+    },
+    "orange": {
+      "50": {
+        "$value": "#fff7ed"
+      },
+      "100": {
+        "$value": "#ffedd5"
+      },
+      "200": {
+        "$value": "#fed7aa"
+      },
+      "300": {
+        "$value": "#fdba74"
+      },
+      "400": {
+        "$value": "#fb923c"
+      },
+      "500": {
+        "$value": "#f97316"
+      },
+      "600": {
+        "$value": "#ea580c"
+      },
+      "700": {
+        "$value": "#c2410c"
+      },
+      "800": {
+        "$value": "#9a3412"
+      },
+      "900": {
+        "$value": "#7c2d12"
+      }
+    },
+    "red": {
+      "50": {
+        "$value": "#fef2f2"
+      },
+      "100": {
+        "$value": "#fee2e2"
+      },
+      "200": {
+        "$value": "#fecaca"
+      },
+      "300": {
+        "$value": "#fca5a5"
+      },
+      "400": {
+        "$value": "#f87171"
+      },
+      "500": {
+        "$value": "#ef4444"
+      },
+      "600": {
+        "$value": "#dc2626"
+      },
+      "700": {
+        "$value": "#b91c1c"
+      },
+      "800": {
+        "$value": "#991b1b"
+      },
+      "900": {
+        "$value": "#7f1d1d"
+      }
+    },
+    "sky": {
+      "50": {
+        "$value": "#f0f9ff"
+      },
+      "100": {
+        "$value": "#e0f2fe"
+      },
+      "200": {
+        "$value": "#bae6fd"
+      },
+      "300": {
+        "$value": "#7dd3fc"
+      },
+      "400": {
+        "$value": "#38bdf8"
+      },
+      "500": {
+        "$value": "#0ea5e9"
+      },
+      "600": {
+        "$value": "#0284c7"
+      },
+      "700": {
+        "$value": "#0369a1"
+      },
+      "800": {
+        "$value": "#075985"
+      },
+      "900": {
+        "$value": "#0c4a6e"
+      }
+    },
+    "violet": {
+      "50": {
+        "$value": "#f5f3ff"
+      },
+      "100": {
+        "$value": "#ede9fe"
+      },
+      "200": {
+        "$value": "#ddd6fe"
+      },
+      "300": {
+        "$value": "#c4b5fd"
+      },
+      "400": {
+        "$value": "#a78bfa"
+      },
+      "500": {
+        "$value": "#8b5cf6"
+      },
+      "600": {
+        "$value": "#7c3aed"
+      },
+      "700": {
+        "$value": "#6d28d9"
+      },
+      "800": {
+        "$value": "#5b21b6"
+      },
+      "900": {
+        "$value": "#4c1d95"
+      }
+    },
+    "teal": {
+      "50": {
+        "$value": "#f0fdfa"
+      },
+      "100": {
+        "$value": "#ccfbf1"
+      },
+      "200": {
+        "$value": "#99f6e4"
+      },
+      "300": {
+        "$value": "#5eead4"
+      },
+      "400": {
+        "$value": "#2dd4bf"
+      },
+      "500": {
+        "$value": "#14b8a6"
+      },
+      "600": {
+        "$value": "#0d9488"
+      },
+      "700": {
+        "$value": "#0f766e"
+      },
+      "800": {
+        "$value": "#115e59"
+      },
+      "900": {
+        "$value": "#134e4a"
+      }
+    },
+    "alpha": {
+      "scrim": {
+        "$value": "rgb(2 6 23 / 0.6)"
+      },
+      "shadowLight": {
+        "$value": "rgb(15 23 42 / 0.16)"
+      },
+      "shadowDark": {
+        "$value": "rgb(0 0 0 / 0.5)"
+      }
+    }
+  },
+  "themes": {
+    "light": {
+      "color": {
+        "bg": {
+          "$value": "{palette.neutral.50}"
+        },
+        "surface": {
+          "$value": "{palette.neutral.0}"
+        },
+        "surfaceRaised": {
+          "$value": "{palette.neutral.0}"
+        },
+        "surfaceSunken": {
+          "$value": "{palette.neutral.100}"
+        },
+        "border": {
+          "$value": "{palette.neutral.200}"
+        },
+        "borderStrong": {
+          "$value": "{palette.neutral.500}"
+        },
+        "text": {
+          "$value": "{palette.neutral.900}"
+        },
+        "textMuted": {
+          "$value": "{palette.neutral.600}"
+        },
+        "focusRing": {
+          "$value": "{palette.blue.700}"
+        },
+        "scrim": {
+          "$value": "{palette.alpha.scrim}"
+        },
+        "brand": {
+          "solid": {
+            "$value": "{palette.blue.700}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.0}"
+          },
+          "subtle": {
+            "$value": "{palette.blue.100}"
+          },
+          "text": {
+            "$value": "{palette.blue.800}"
+          },
+          "border": {
+            "$value": "{palette.blue.700}"
+          }
+        },
+        "success": {
+          "solid": {
+            "$value": "{palette.green.700}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.0}"
+          },
+          "subtle": {
+            "$value": "{palette.green.100}"
+          },
+          "text": {
+            "$value": "{palette.green.900}"
+          },
+          "border": {
+            "$value": "{palette.green.700}"
+          }
+        },
+        "warning": {
+          "solid": {
+            "$value": "{palette.amber.400}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.900}"
+          },
+          "subtle": {
+            "$value": "{palette.amber.100}"
+          },
+          "text": {
+            "$value": "{palette.amber.900}"
+          },
+          "border": {
+            "$value": "{palette.amber.700}"
+          }
+        },
+        "danger": {
+          "solid": {
+            "$value": "{palette.red.700}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.0}"
+          },
+          "subtle": {
+            "$value": "{palette.red.100}"
+          },
+          "text": {
+            "$value": "{palette.red.900}"
+          },
+          "border": {
+            "$value": "{palette.red.700}"
+          }
+        },
+        "info": {
+          "solid": {
+            "$value": "{palette.sky.700}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.0}"
+          },
+          "subtle": {
+            "$value": "{palette.sky.100}"
+          },
+          "text": {
+            "$value": "{palette.sky.900}"
+          },
+          "border": {
+            "$value": "{palette.sky.700}"
+          }
+        },
+        "offline": {
+          "solid": {
+            "$value": "{palette.neutral.700}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.0}"
+          },
+          "subtle": {
+            "$value": "{palette.neutral.200}"
+          },
+          "text": {
+            "$value": "{palette.neutral.900}"
+          },
+          "border": {
+            "$value": "{palette.neutral.600}"
+          }
+        },
+        "shadow": {
+          "1": {
+            "$value": "0 1px 2px {palette.alpha.shadowLight}"
+          },
+          "2": {
+            "$value": "0 4px 12px {palette.alpha.shadowLight}"
+          },
+          "3": {
+            "$value": "0 12px 32px {palette.alpha.shadowLight}"
+          }
+        }
+      },
+      "status": {
+        "table": {
+          "available": {
+            "bg": {
+              "$value": "{palette.green.100}"
+            },
+            "fg": {
+              "$value": "{palette.green.900}"
+            },
+            "border": {
+              "$value": "{palette.green.700}"
+            }
+          },
+          "occupied": {
+            "bg": {
+              "$value": "{palette.blue.100}"
+            },
+            "fg": {
+              "$value": "{palette.blue.900}"
+            },
+            "border": {
+              "$value": "{palette.blue.700}"
+            }
+          },
+          "reserved": {
+            "bg": {
+              "$value": "{palette.violet.100}"
+            },
+            "fg": {
+              "$value": "{palette.violet.900}"
+            },
+            "border": {
+              "$value": "{palette.violet.700}"
+            }
+          },
+          "dirty": {
+            "bg": {
+              "$value": "{palette.orange.100}"
+            },
+            "fg": {
+              "$value": "{palette.orange.900}"
+            },
+            "border": {
+              "$value": "{palette.orange.700}"
+            }
+          },
+          "blocked": {
+            "bg": {
+              "$value": "{palette.neutral.200}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.900}"
+            },
+            "border": {
+              "$value": "{palette.neutral.600}"
+            }
+          }
+        },
+        "kdsAge": {
+          "fresh": {
+            "bg": {
+              "$value": "{palette.sky.100}"
+            },
+            "fg": {
+              "$value": "{palette.sky.900}"
+            },
+            "border": {
+              "$value": "{palette.sky.700}"
+            }
+          },
+          "aging": {
+            "bg": {
+              "$value": "{palette.amber.200}"
+            },
+            "fg": {
+              "$value": "{palette.amber.900}"
+            },
+            "border": {
+              "$value": "{palette.amber.700}"
+            }
+          },
+          "late": {
+            "bg": {
+              "$value": "{palette.orange.700}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.0}"
+            },
+            "border": {
+              "$value": "{palette.orange.900}"
+            }
+          },
+          "critical": {
+            "bg": {
+              "$value": "{palette.red.800}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.0}"
+            },
+            "border": {
+              "$value": "{palette.red.900}"
+            }
+          }
+        },
+        "payment": {
+          "processing": {
+            "bg": {
+              "$value": "{palette.sky.100}"
+            },
+            "fg": {
+              "$value": "{palette.sky.900}"
+            },
+            "border": {
+              "$value": "{palette.sky.700}"
+            }
+          },
+          "authorized": {
+            "bg": {
+              "$value": "{palette.teal.100}"
+            },
+            "fg": {
+              "$value": "{palette.teal.900}"
+            },
+            "border": {
+              "$value": "{palette.teal.700}"
+            }
+          },
+          "captured": {
+            "bg": {
+              "$value": "{palette.green.100}"
+            },
+            "fg": {
+              "$value": "{palette.green.900}"
+            },
+            "border": {
+              "$value": "{palette.green.700}"
+            }
+          },
+          "uncertain": {
+            "bg": {
+              "$value": "{palette.amber.100}"
+            },
+            "fg": {
+              "$value": "{palette.amber.900}"
+            },
+            "border": {
+              "$value": "{palette.amber.700}"
+            }
+          },
+          "failed": {
+            "bg": {
+              "$value": "{palette.red.100}"
+            },
+            "fg": {
+              "$value": "{palette.red.900}"
+            },
+            "border": {
+              "$value": "{palette.red.700}"
+            }
+          },
+          "offlineApproved": {
+            "bg": {
+              "$value": "{palette.amber.100}"
+            },
+            "fg": {
+              "$value": "{palette.amber.900}"
+            },
+            "border": {
+              "$value": "{palette.amber.700}"
+            }
+          },
+          "expired": {
+            "bg": {
+              "$value": "{palette.red.100}"
+            },
+            "fg": {
+              "$value": "{palette.red.900}"
+            },
+            "border": {
+              "$value": "{palette.red.700}"
+            }
+          },
+          "capsReached": {
+            "bg": {
+              "$value": "{palette.neutral.200}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.900}"
+            },
+            "border": {
+              "$value": "{palette.neutral.600}"
+            }
+          }
+        }
+      }
+    },
+    "dark": {
+      "color": {
+        "bg": {
+          "$value": "{palette.neutral.950}"
+        },
+        "surface": {
+          "$value": "{palette.neutral.900}"
+        },
+        "surfaceRaised": {
+          "$value": "{palette.neutral.800}"
+        },
+        "surfaceSunken": {
+          "$value": "{palette.neutral.950}"
+        },
+        "border": {
+          "$value": "{palette.neutral.700}"
+        },
+        "borderStrong": {
+          "$value": "{palette.neutral.400}"
+        },
+        "text": {
+          "$value": "{palette.neutral.50}"
+        },
+        "textMuted": {
+          "$value": "{palette.neutral.300}"
+        },
+        "focusRing": {
+          "$value": "{palette.sky.300}"
+        },
+        "scrim": {
+          "$value": "{palette.alpha.scrim}"
+        },
+        "brand": {
+          "solid": {
+            "$value": "{palette.blue.400}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.950}"
+          },
+          "subtle": {
+            "$value": "{palette.blue.900}"
+          },
+          "text": {
+            "$value": "{palette.blue.100}"
+          },
+          "border": {
+            "$value": "{palette.blue.400}"
+          }
+        },
+        "success": {
+          "solid": {
+            "$value": "{palette.green.400}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.950}"
+          },
+          "subtle": {
+            "$value": "{palette.green.900}"
+          },
+          "text": {
+            "$value": "{palette.green.100}"
+          },
+          "border": {
+            "$value": "{palette.green.400}"
+          }
+        },
+        "warning": {
+          "solid": {
+            "$value": "{palette.amber.400}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.950}"
+          },
+          "subtle": {
+            "$value": "{palette.amber.900}"
+          },
+          "text": {
+            "$value": "{palette.amber.100}"
+          },
+          "border": {
+            "$value": "{palette.amber.400}"
+          }
+        },
+        "danger": {
+          "solid": {
+            "$value": "{palette.red.400}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.950}"
+          },
+          "subtle": {
+            "$value": "{palette.red.900}"
+          },
+          "text": {
+            "$value": "{palette.red.100}"
+          },
+          "border": {
+            "$value": "{palette.red.400}"
+          }
+        },
+        "info": {
+          "solid": {
+            "$value": "{palette.sky.400}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.950}"
+          },
+          "subtle": {
+            "$value": "{palette.sky.900}"
+          },
+          "text": {
+            "$value": "{palette.sky.100}"
+          },
+          "border": {
+            "$value": "{palette.sky.400}"
+          }
+        },
+        "offline": {
+          "solid": {
+            "$value": "{palette.neutral.300}"
+          },
+          "onSolid": {
+            "$value": "{palette.neutral.950}"
+          },
+          "subtle": {
+            "$value": "{palette.neutral.700}"
+          },
+          "text": {
+            "$value": "{palette.neutral.50}"
+          },
+          "border": {
+            "$value": "{palette.neutral.400}"
+          }
+        },
+        "shadow": {
+          "1": {
+            "$value": "0 1px 2px {palette.alpha.shadowDark}"
+          },
+          "2": {
+            "$value": "0 4px 12px {palette.alpha.shadowDark}"
+          },
+          "3": {
+            "$value": "0 12px 32px {palette.alpha.shadowDark}"
+          }
+        }
+      },
+      "status": {
+        "table": {
+          "available": {
+            "bg": {
+              "$value": "{palette.green.900}"
+            },
+            "fg": {
+              "$value": "{palette.green.100}"
+            },
+            "border": {
+              "$value": "{palette.green.400}"
+            }
+          },
+          "occupied": {
+            "bg": {
+              "$value": "{palette.blue.900}"
+            },
+            "fg": {
+              "$value": "{palette.blue.100}"
+            },
+            "border": {
+              "$value": "{palette.blue.400}"
+            }
+          },
+          "reserved": {
+            "bg": {
+              "$value": "{palette.violet.900}"
+            },
+            "fg": {
+              "$value": "{palette.violet.100}"
+            },
+            "border": {
+              "$value": "{palette.violet.400}"
+            }
+          },
+          "dirty": {
+            "bg": {
+              "$value": "{palette.orange.900}"
+            },
+            "fg": {
+              "$value": "{palette.orange.100}"
+            },
+            "border": {
+              "$value": "{palette.orange.400}"
+            }
+          },
+          "blocked": {
+            "bg": {
+              "$value": "{palette.neutral.700}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.50}"
+            },
+            "border": {
+              "$value": "{palette.neutral.400}"
+            }
+          }
+        },
+        "kdsAge": {
+          "fresh": {
+            "bg": {
+              "$value": "{palette.sky.900}"
+            },
+            "fg": {
+              "$value": "{palette.sky.100}"
+            },
+            "border": {
+              "$value": "{palette.sky.400}"
+            }
+          },
+          "aging": {
+            "bg": {
+              "$value": "{palette.amber.900}"
+            },
+            "fg": {
+              "$value": "{palette.amber.100}"
+            },
+            "border": {
+              "$value": "{palette.amber.400}"
+            }
+          },
+          "late": {
+            "bg": {
+              "$value": "{palette.orange.500}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.950}"
+            },
+            "border": {
+              "$value": "{palette.orange.300}"
+            }
+          },
+          "critical": {
+            "bg": {
+              "$value": "{palette.red.400}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.950}"
+            },
+            "border": {
+              "$value": "{palette.red.300}"
+            }
+          }
+        },
+        "payment": {
+          "processing": {
+            "bg": {
+              "$value": "{palette.sky.900}"
+            },
+            "fg": {
+              "$value": "{palette.sky.100}"
+            },
+            "border": {
+              "$value": "{palette.sky.400}"
+            }
+          },
+          "authorized": {
+            "bg": {
+              "$value": "{palette.teal.900}"
+            },
+            "fg": {
+              "$value": "{palette.teal.100}"
+            },
+            "border": {
+              "$value": "{palette.teal.400}"
+            }
+          },
+          "captured": {
+            "bg": {
+              "$value": "{palette.green.900}"
+            },
+            "fg": {
+              "$value": "{palette.green.100}"
+            },
+            "border": {
+              "$value": "{palette.green.400}"
+            }
+          },
+          "uncertain": {
+            "bg": {
+              "$value": "{palette.amber.900}"
+            },
+            "fg": {
+              "$value": "{palette.amber.100}"
+            },
+            "border": {
+              "$value": "{palette.amber.400}"
+            }
+          },
+          "failed": {
+            "bg": {
+              "$value": "{palette.red.900}"
+            },
+            "fg": {
+              "$value": "{palette.red.100}"
+            },
+            "border": {
+              "$value": "{palette.red.400}"
+            }
+          },
+          "offlineApproved": {
+            "bg": {
+              "$value": "{palette.amber.900}"
+            },
+            "fg": {
+              "$value": "{palette.amber.100}"
+            },
+            "border": {
+              "$value": "{palette.amber.400}"
+            }
+          },
+          "expired": {
+            "bg": {
+              "$value": "{palette.red.900}"
+            },
+            "fg": {
+              "$value": "{palette.red.100}"
+            },
+            "border": {
+              "$value": "{palette.red.400}"
+            }
+          },
+          "capsReached": {
+            "bg": {
+              "$value": "{palette.neutral.700}"
+            },
+            "fg": {
+              "$value": "{palette.neutral.50}"
+            },
+            "border": {
+              "$value": "{palette.neutral.400}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

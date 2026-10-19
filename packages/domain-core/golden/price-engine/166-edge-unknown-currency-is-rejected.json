@@ -1,0 +1,20 @@
+{
+  "name": "edge: unknown currency is rejected",
+  "description": "ZZZ.",
+  "tags": ["edge", "error"],
+  "input": {
+    "draft": {
+      "currency": "ZZZ",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expectError": "Unknown currency"
+}

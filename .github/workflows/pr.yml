@@ -1,0 +1,46 @@
+name: PR
+
+# Pull request pipeline (docs/03-implementation-plan.md §10):
+# lint, typecheck, unit, golden, integration (Testcontainers), cross-tenant, Storybook, image build and scan.
+# The ephemeral preview environment (preview-<pr>) is not built yet; see docs/releases/s-infra.md.
+
+on:
+  pull_request:
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    uses: ./.github/workflows/_verify.yml
+
+  images:
+    name: Images
+    uses: ./.github/workflows/_images.yml
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    with:
+      push: false
+      tag: pr-${{ github.event.pull_request.number }}
+
+  # Single required status check for branch protection.
+  gate:
+    name: PR gate
+    if: always()
+    needs: [verify, images]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every stage must have passed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "results: ${RESULTS}"
+          case "${RESULTS}" in
+            *failure* | *cancelled*) exit 1 ;;
+          esac

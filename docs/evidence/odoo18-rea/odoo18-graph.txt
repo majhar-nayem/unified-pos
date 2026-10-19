@@ -1,0 +1,198 @@
+== ENDPOINT NODES ==
+  cardType | {"endpoint_kind":"network","value":"cardType","mechanism":"call:additional_response.get","interpretation":"candidate"}
+  pspReference | {"endpoint_kind":"network","value":"pspReference","mechanism":"call:additional_response.get","interpretation":"candidate"}
+  route endpoint | {"endpoint_kind":"route","value":"/point_of_sale/static/src/sounds/beep","mechanism":"property:path"}
+  route endpoint | {"endpoint_kind":"route","value":"/point_of_sale/static/src/sounds/bell","mechanism":"property:path"}
+  cardHolderName | {"endpoint_kind":"network","value":"cardHolderName","mechanism":"call:additional_response.get","interpretation":"candidate"}
+  frontend_lang | {"endpoint_kind":"network","value":"frontend_lang","mechanism":"call:cookie.get","interpretation":"candidate"}
+  name | {"endpoint_kind":"network","value":"name","mechanism":"call:params.get","interpretation":"candidate"}
+  network endpoint | {"endpoint_kind":"network","value":"/web/dataset/call_kw","mechanism":"call:navigator.sendBeacon"}
+  network endpoint | {"endpoint_kind":"network","value":"http://localhost:8069/hw_proxy/customer_facing_display","mechanism":"call:fetch"}
+  value | {"endpoint_kind":"network","value":"value","mechanism":"call:params.get","interpretation":"candidate"}
+  route endpoint | {"endpoint_kind":"route","value":"/point_of_sale/static/src/sounds/error","mechanism":"property:path"}
+  message | {"endpoint_kind":"network","value":"message","mechanism":"call:params.get","interpretation":"candidate"}
+  PAYMENT | {"endpoint_kind":"network","value":"PAYMENT","mechanism":"call:result.delete","interpretation":"candidate"}
+  route endpoint | {"endpoint_kind":"route","value":"/point_of_sale/static/src/sounds/notification","mechanism":"property:path"}
+== STORAGE NODES ==
+  session-storage | {"storage_kind":"session-storage","name":null,"mechanism":"call:sessionStorage.setItem"}
+  local-storage | {"storage_kind":"local-storage","name":null,"mechanism":"call:localStorage.removeItem"}
+  pos_reload_recovery | {"storage_kind":"session-storage","name":"pos_reload_recovery","mechanism":"call:browser.sessionStorage.getItem"}
+  local-storage | {"storage_kind":"local-storage","name":null,"mechanism":"call:localStorage.removeItem"}
+  session-storage | {"storage_kind":"session-storage","name":null,"mechanism":"call:sessionStorage.getItem"}
+  local-storage | {"storage_kind":"local-storage","name":null,"mechanism":"call:localStorage.getItem"}
+  floorPlanStyle | {"storage_kind":"local-storage","name":"floorPlanStyle","mechanism":"call:localStorage.getItem"}
+  local-storage | {"storage_kind":"local-storage","name":null,"mechanism":"call:localStorage.removeItem"}
+  productListView | {"storage_kind":"local-storage","name":"productListView","mechanism":"call:window.localStorage.setItem"}
+  session-storage | {"storage_kind":"session-storage","name":null,"mechanism":"call:sessionStorage.removeItem"}
+  local-storage | {"storage_kind":"local-storage","name":null,"mechanism":"call:localStorage.removeItem"}
+  p2pRequestId | {"storage_kind":"local-storage","name":"p2pRequestId","mechanism":"call:localStorage.getItem"}
+  local-storage | {"storage_kind":"local-storage","name":null,"mechanism":"call:localStorage.setItem"}
+  session-storage | {"storage_kind":"session-storage","name":null,"mechanism":"call:sessionStorage.getItem"}
+  productListView | {"storage_kind":"local-storage","name":"productListView","mechanism":"call:window.localStorage.getItem"}
+  pos.sequenceNumbers | {"storage_kind":"local-storage","name":"pos.sequenceNumbers","mechanism":"call:localStorage.setItem"}
+  floorPlanStyle | {"storage_kind":"local-storage","name":"floorPlanStyle","mechanism":"call:localStorage.setItem"}
+  referenceId | {"storage_kind":"local-storage","name":"referenceId","mechanism":"call:localStorage.getItem"}
+== MODULES PER ADDON (javascript-module nodes with semantic_role source-module) ==
+  point_of_sale 168
+  pos_adyen 4
+  pos_discount 3
+  pos_epson_printer 2
+  pos_event 13
+  pos_hr 15
+  pos_hr_restaurant 2
+  pos_loyalty 23
+  pos_online_payment 8
+  pos_online_payment_self_order 6
+  pos_paytm 3
+  pos_razorpay 3
+  pos_restaurant 40
+  pos_restaurant_loyalty 2
+  pos_sale 10
+  pos_self_order 47
+  pos_six 5
+  pos_sms 2
+  pos_stripe 2
+  pos_viva_wallet 7
+== IMPORT EDGE COUNT == 3442
+== CROSS-ADDON IMPORTS ==
+== IMPORTED ODOO FRAMEWORK NAMESPACES == [["point_of_sale",1386],["web",1251],["odoo",437],["pos_self_order",144],["pos_restaurant",66],["pos_loyalty",22],["account",12],["pos_hr",6],["pos_event",6],["web_tour",6],["barcodes",6],["pos_online_payment",4],["pos_viva_wallet",4],["pos_six",4],["pos_paytm",2],["mail",2],["pos_epson_printer",2],["pos_sale",2],["pos_razorpay",2],["pos_stripe",2]]
+== MODULE PATH KEYWORD FOOTPRINT ==
+  offline 4
+      pos_restaurant/static/src/overrides/models/devices_synchronisation.js
+      point_of_sale/static/src/app/models/utils/indexed_db.js
+      point_of_sale/static/src/app/store/devices_synchronisation.js
+      point_of_sale/static/src/app/navbar/sync_popup/sync_popup.js
+  payment_terminals 7
+      pos_stripe/static/src/app/payment_stripe.js
+      pos_paytm/static/src/js/payment_paytm.js
+      pos_razorpay/static/src/app/payment_razorpay.js
+      pos_six/static/src/app/payment_six.js
+      pos_viva_wallet/static/src/app/payment_viva_wallet.js
+      pos_adyen/static/src/app/payment_adyen.js
+      point_of_sale/static/src/app/payment/payment_interface.js
+  restaurant 8
+      pos_restaurant/static/src/app/floor_screen/floor_screen.js
+      point_of_sale/static/src/app/store/make_awaitable_dialog.js
+      pos_restaurant/static/src/app/models/restaurant_table.js
+      pos_self_order/static/src/app/components/popup_table/popup_table.js
+      pos_restaurant/static/src/app/bill_screen/bill_screen.js
+      pos_restaurant/static/src/app/split_bill_screen/split_bill_screen.js
+      pos_self_order/static/src/app/models/restaurant_floor.js
+      pos_restaurant/static/src/overrides/components/navbar/table_selector/table_selector.js
+  selforder 39
+      pos_self_order/static/src/app/router.js
+      pos_online_payment_self_order/static/src/components/order_widget/order_widget.js
+      pos_self_order/static/src/overrides/components/product_info_popup/product_info_popup.js
+      pos_self_order/static/src/overrides/components/product_info_banner/product_info_banner.js
+      pos_online_payment_self_order/static/src/self_order_service.js
+      pos_self_order/static/src/app/components/timeout_popup/timeout_popup.js
+      pos_self_order/static/src/app/utils.js
+      pos_self_order/static/src/app/models/pos_order.js
+      pos_self_order/static/src/app/pages/product_page/product_page.js
+      pos_self_order/static/src/overrides/models/pos_store.js
+      pos_self_order/static/src/app/pages/confirmation_page/confirmation_page.js
+      pos_self_order/static/src/app/self_order_service.js
+      pos_self_order/static/src/app/pages/eating_location_page/eating_location_page.js
+      pos_self_order/static/src/app/pages/payment_page/payment_page.js
+      pos_online_payment_self_order/static/src/pages/payment_page/payment_page.js
+      pos_self_order/static/src/app/pages/stand_number_page/stand_number_page.js
+      pos_self_order/static/src/app/components/loading_overlay/loading_overlay.js
+      pos_self_order/static/src/app/components/language_popup/language_popup.js
+      pos_self_order/static/src/app/data_service_options.js
+      pos_self_order/static/src/app/components/cancel_popup/cancel_popup.js
+      pos_self_order/static/src/app/pages/product_list_page/product_list_page.js
+      pos_self_order/static/src/backend/qr_order_button/qr_order_button.js
+      pos_self_order/static/src/app/components/attribute_selection/attribute_selection.js
+      pos_self_order/static/src/app/components/popup_table/popup_table.js
+      pos_self_order/static/src/app/data_service.js
+      pos_self_order/static/src/app/pages/combo_page/combo_page.js
+      pos_self_order/static/src/app/pages/order_history_page/order_history_page.js
+      pos_self_order/static/src/app/pages/cart_page/cart_page.js
+      pos_self_order/static/src/app/models/pos_order_line.js
+      pos_self_order/static/src/app/components/product_info_popup/product_info_popup.js
+      pos_self_order/static/src/app/components/combo_selection/combo_selection.js
+      pos_self_order/static/src/app/pages/landing_page/landing_page.js
+      pos_self_order/static/src/app/components/out_of_paper_popup/out_of_paper_popup.js
+      pos_self_order/static/src/app/self_order_router_service.js
+      pos_self_order/static/src/app/components/product_card/product_card.js
+      pos_self_order/static/src/app/self_order_index.js
+      pos_self_order/static/src/app/models/restaurant_floor.js
+      pos_self_order/static/src/upgrade_selection_field.js
+      pos_self_order/static/src/app/components/order_widget/order_widget.js
+  loyalty 14
+      pos_loyalty/static/src/overrides/components/product_screen/order_summary/order_summary.js
+      pos_loyalty/static/src/overrides/components/control_buttons/control_buttons.js
+      pos_loyalty/static/src/overrides/models/pos_order.js
+      pos_loyalty/static/src/overrides/models/data_service_options.js
+      pos_loyalty/static/src/overrides/models/loyalty_card.js
+      pos_loyalty/static/src/utils/manage_giftcard_popup/manage_giftcard_popup.js
+      pos_loyalty/static/src/overrides/components/payment_screen/payment_screen.js
+      pos_loyalty/static/src/overrides/models/pos_store.js
+      pos_restaurant_loyalty/static/src/overrides/models/pos_store.js
+      pos_loyalty/static/src/overrides/components/partner_list_screen/partner_list_screen.js
+      pos_loyalty/static/src/overrides/models/pos_order_line.js
+      pos_loyalty/static/src/overrides/components/ticket_screen/ticket_screen.js
+      pos_loyalty/static/src/overrides/components/partner_line/partner_line.js
+      pos_loyalty/static/src/overrides/components/product_screen/product_screen.js
+  hardware 19
+      point_of_sale/static/src/customer_display/customer_display_data_service.js
+      pos_epson_printer/static/src/overrides/models/pos_store.js
+      point_of_sale/static/src/app/printer/printer_service.js
+      point_of_sale/static/src/app/printer/base_printer.js
+      point_of_sale/static/src/app/printer/hw_printer.js
+      point_of_sale/static/src/app/barcode/barcode_reader_hook.js
+      point_of_sale/static/src/app/screens/scale_screen/scale_screen.js
+      point_of_sale/static/src/app/hardware_proxy/hardware_proxy_service.js
+      point_of_sale/static/src/customer_display/customer_facing_qr.js
+      pos_online_payment/static/src/overrides/customer_display_overrides/customer_display.js
+      point_of_sale/static/src/customer_display/customer_display.js
+      point_of_sale/static/src/app/navbar/proxy_status/proxy_status.js
+      point_of_sale/static/src/app/printer/render_service.js
+      point_of_sale/static/src/customer_display/utils.js
+      point_of_sale/static/src/app/barcode/barcode_reader_service.js
+      point_of_sale/static/src/app/screens/scale_screen/scale_service.js
+      point_of_sale/static/src/app/screens/product_screen/camera_barcode_scanner.js
+      pos_epson_printer/static/src/app/epson_printer.js
+      point_of_sale/static/src/app/printer/pos_printer_service.js
+  pricing 4
+      pos_discount/static/src/overrides/models/pos_order_line.js
+      pos_discount/static/src/overrides/components/control_buttons/control_buttons.js
+      point_of_sale/static/src/app/models/account_tax.js
+      point_of_sale/static/src/app/models/utils/tax_utils.js
+  receipts 15
+      pos_restaurant/static/src/app/tip_receipt/tip_receipt.js
+      point_of_sale/static/src/app/screens/receipt_screen/receipt/receipt_header/receipt_header.js
+      pos_event/static/src/app/screens/receipt_screen/receipt_screen.js
+      pos_sms/static/src/overrides/receipt_screen.js
+      point_of_sale/static/src/app/screens/ticket_screen/invoice_button/invoice_button.js
+      point_of_sale/static/src/app/screens/ticket_screen/search_bar/search_bar.js
+      point_of_sale/static/src/app/screens/ticket_screen/ticket_screen.js
+      point_of_sale/static/src/app/screens/receipt_screen/receipt_screen.js
+      pos_restaurant/static/src/overrides/components/receipt_header_patch.js
+      point_of_sale/static/src/app/models/pos_order_line_refund.js
+      point_of_sale/static/src/app/navbar/cash_move_popup/cash_move_receipt/cash_move_receipt.js
+      point_of_sale/static/src/app/screens/receipt_screen/receipt/order_receipt.js
+      pos_restaurant/static/src/overrides/components/receipt_screen/receipt_screen.js
+      pos_loyalty/static/src/overrides/components/ticket_screen/ticket_screen.js
+      pos_restaurant/static/src/overrides/components/ticket_screen/ticket_screen.js
+  hr 20
+      pos_restaurant/static/src/overrides/models/devices_synchronisation.js
+      pos_hr/static/src/overrides/screens/product_screen/order_summary/order_summary.js
+      pos_hr/static/src/overrides/components/navbar/cash_move_popup/cash_move_popup.js
+      point_of_sale/static/src/app/navbar/cashier_name/cashier_name.js
+      point_of_sale/static/src/app/screens/login_screen/login_screen.js
+      pos_sale/static/src/overrides/models/Chrome.js
+      pos_hr/static/src/overrides/components/closing_popup/closing_popup.js
+      point_of_sale/static/src/app/store/devices_synchronisation.js
+      pos_hr/static/src/overrides/screens/login_screen/login_screen.js
+      pos_hr_restaurant/static/src/overrides/components/navbar/navbar.js
+      pos_hr/static/src/overrides/models/pos_store.js
+      pos_hr_restaurant/static/src/overrides/models/pos_store.js
+      pos_hr/static/src/overrides/components/cashier_name/cashier_name.js
+      pos_hr/static/src/overrides/screens/product_screen/product_info_popup/product_info_popup.js
+      pos_hr/static/src/app/print_report_button/print_report_button.js
+      pos_hr/static/src/app/select_cashier_mixin.js
+      pos_hr/static/src/overrides/models/pos_order.js
+      pos_hr/static/src/overrides/models/Chrome.js
+      pos_hr/static/src/overrides/components/payment_screen/payment_screen.js
+      pos_hr/static/src/overrides/components/navbar/navbar.js

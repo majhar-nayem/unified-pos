@@ -1,0 +1,82 @@
+.pos-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--pos-space-md);
+  padding: var(--pos-space-sm) var(--pos-space-lg);
+  border: var(--pos-border-thin) solid var(--tone-border);
+  border-radius: var(--pos-radius-md);
+  background: var(--tone-bg);
+  color: var(--tone-fg);
+  font-weight: var(--pos-weight-medium);
+}
+
+.pos-banner[data-tone='info'] {
+  --tone-bg: var(--pos-color-info-subtle);
+  --tone-fg: var(--pos-color-info-text);
+  --tone-border: var(--pos-color-info-border);
+}
+
+.pos-banner[data-tone='success'] {
+  --tone-bg: var(--pos-color-success-subtle);
+  --tone-fg: var(--pos-color-success-text);
+  --tone-border: var(--pos-color-success-border);
+}
+
+.pos-banner[data-tone='warning'] {
+  --tone-bg: var(--pos-color-warning-subtle);
+  --tone-fg: var(--pos-color-warning-text);
+  --tone-border: var(--pos-color-warning-border);
+}
+
+.pos-banner[data-tone='danger'] {
+  --tone-bg: var(--pos-color-danger-subtle);
+  --tone-fg: var(--pos-color-danger-text);
+  --tone-border: var(--pos-color-danger-border);
+}
+
+.pos-banner[data-tone='offline'] {
+  --tone-bg: var(--pos-color-offline-subtle);
+  --tone-fg: var(--pos-color-offline-text);
+  --tone-border: var(--pos-color-offline-border);
+}
+
+.pos-banner__icon {
+  align-self: flex-start;
+  margin-top: var(--pos-space-xs);
+}
+
+.pos-banner__content {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pos-banner__action {
+  flex: none;
+}
+
+.pos-banner__dismiss {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--pos-control-height);
+  height: var(--pos-control-height);
+  margin-block: calc(var(--pos-space-sm) * -1);
+  margin-inline-end: calc(var(--pos-space-sm) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-banner__dismiss:hover {
+  background: color-mix(in srgb, var(--tone-fg) 12%, transparent);
+}
+
+.pos-banner__dismiss:active {
+  background: color-mix(in srgb, var(--tone-fg) 22%, transparent);
+}

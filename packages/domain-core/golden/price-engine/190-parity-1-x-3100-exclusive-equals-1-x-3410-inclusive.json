@@ -1,0 +1,29 @@
+{
+  "name": "parity: 1 x 3100 exclusive equals 1 x 3410 inclusive",
+  "description": "Exclusive 3100 + 310 GST = 3410; inclusive 3410 holds the same 310 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 3100 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 3410, "taxMinor": 310, "lines": [{ "taxInclusive": false }] }
+}

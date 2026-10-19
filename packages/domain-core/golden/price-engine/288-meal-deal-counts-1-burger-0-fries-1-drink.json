@@ -1,0 +1,45 @@
+{
+  "name": "meal deal counts: 1 burger, 0 fries, 1 drink",
+  "description": "0 bundle(s) x 650 off.",
+  "tags": ["brief", "bundle", "sweep"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-burger", "quantity": "1", "defaultUnitPriceMinor": 1400 },
+        { "id": "l3", "variantId": "v-drink", "quantity": "1", "defaultUnitPriceMinor": 450 }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "meal-deal",
+          "name": "meal-deal",
+          "kind": "fixed_price",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": {
+              "kind": "fixed_price",
+              "priceMinor": 1800,
+              "bundle": [
+                { "targets": { "variantIds": ["v-burger"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-fries"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-drink"] }, "quantity": 1 }
+              ]
+            }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 0, "totalMinor": 1850 }
+}

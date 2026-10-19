@@ -1,0 +1,54 @@
+{
+  "name": "charge: 10 percent service charge, GST inclusive",
+  "description": "Lines 5348; charge 534.8 -> 535 (tax 535/11 = 48.6 -> 49). Total 5883.",
+  "tags": ["charge"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "2", "defaultUnitPriceMinor": 1850 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 1200 },
+        {
+          "id": "l3",
+          "variantId": "v-3",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 448,
+          "taxClassId": "free"
+        }
+      ],
+      "charges": [{ "id": "sc", "kind": "service_charge", "percent": "10" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-std",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": true,
+        "country": "AU"
+      },
+      {
+        "id": "gst-free",
+        "name": "GST-free",
+        "taxClassId": "free",
+        "rate": "0",
+        "inclusiveDefault": true,
+        "country": "AU"
+      }
+    ]
+  },
+  "expected": {
+    "subtotalMinor": 5348,
+    "chargesMinor": 535,
+    "totalMinor": 5883,
+    "charges": [{ "amountMinor": 535, "taxMinor": 49, "totalMinor": 535 }]
+  }
+}

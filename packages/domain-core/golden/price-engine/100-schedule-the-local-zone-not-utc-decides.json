@@ -1,0 +1,35 @@
+{
+  "name": "schedule: the local zone, not UTC, decides",
+  "description": "02:00Z is 13:00 Sydney but 02:00 London-ish UTC; a 12:00-14:00 window applies in Sydney.",
+  "tags": ["schedule", "timezone"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "lunch",
+          "name": "lunch",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "schedule": { "windows": [{ "from": "12:00", "to": "14:00" }] }
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 100 }
+}

@@ -1,0 +1,20 @@
+name: Set up workspace
+description: Node 22, pnpm (version from package.json), and a frozen-lockfile install.
+
+inputs:
+  install:
+    description: Run pnpm install
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      # Version comes from "packageManager" in package.json.
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm
+    - if: inputs.install == 'true'
+      shell: bash
+      run: pnpm install --frozen-lockfile

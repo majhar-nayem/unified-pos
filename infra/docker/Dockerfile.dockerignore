@@ -1,0 +1,14 @@
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+**/coverage
+**/*.tsbuildinfo
+**/src-tauri/target
+.git
+.github
+infra/terraform
+docs
+.env
+.env.*
+!.env.example

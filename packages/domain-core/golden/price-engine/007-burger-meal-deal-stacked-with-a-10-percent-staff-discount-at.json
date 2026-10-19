@@ -1,0 +1,81 @@
+{
+  "name": "burger meal deal stacked with a 10 percent staff discount at order level",
+  "description": "Meal deal brings 2450 to 1800; a 10% order discount then takes 180 off the remaining 1800 (allocated 1028/441/331 -> 103,44,33 by largest remainder: exact 102.8,44.1,33.1 -> floors 102,44,33 = 179, spare to .8 -> 103,44,33). Total 1620.",
+  "tags": ["brief", "bundle", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-burger",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1400,
+          "itemId": "i-burger"
+        },
+        {
+          "id": "l2",
+          "variantId": "v-fries",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 600,
+          "itemId": "i-fries"
+        },
+        {
+          "id": "l3",
+          "variantId": "v-drink",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 450,
+          "itemId": "i-drink"
+        }
+      ],
+      "manualDiscounts": [
+        {
+          "id": "staff",
+          "kind": "percent",
+          "value": "10",
+          "authorization": { "authorizedBy": "mgr-1", "method": "pin" }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "meal-deal",
+          "name": "meal-deal",
+          "kind": "fixed_price",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": {
+              "kind": "fixed_price",
+              "priceMinor": 1800,
+              "bundle": [
+                { "targets": { "variantIds": ["v-burger"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-fries"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-drink"] }, "quantity": 1 }
+              ]
+            }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 180,
+    "totalMinor": 1620,
+    "discountMinor": 830,
+    "lines": [
+      { "orderDiscountMinor": 103 },
+      { "orderDiscountMinor": 44 },
+      { "orderDiscountMinor": 33 }
+    ]
+  }
+}

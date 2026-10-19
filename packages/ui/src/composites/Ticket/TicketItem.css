@@ -1,0 +1,106 @@
+.pos-ticket-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--pos-space-md);
+  row-gap: var(--pos-space-sm);
+  align-items: start;
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+}
+
+.pos-ticket-item[data-changed] {
+  margin: calc(-1 * var(--pos-space-sm));
+  padding: var(--pos-space-sm);
+  border-inline-start: var(--pos-border-band) solid var(--pos-color-warning-border);
+  border-radius: var(--pos-radius-md);
+  background: var(--pos-color-warning-subtle);
+}
+
+.pos-ticket-item__qty {
+  font-weight: var(--pos-weight-bold);
+  min-width: var(--pos-space-xl);
+  text-align: end;
+}
+
+.pos-ticket-item__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pos-space-xs);
+  min-width: 0;
+}
+
+.pos-ticket-item__name,
+.pos-ticket-item__notes,
+.pos-ticket-item__voided {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.pos-ticket-item__name {
+  font-weight: var(--pos-weight-semibold);
+}
+
+.pos-ticket-item__modifiers {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+}
+
+.pos-ticket-item__modifier {
+  overflow-wrap: anywhere;
+}
+
+.pos-ticket-item__modifier[data-changed] {
+  background: var(--pos-color-warning-subtle);
+  color: var(--pos-color-warning-text);
+  font-weight: var(--pos-weight-semibold);
+}
+
+.pos-ticket-item__marker {
+  font-weight: var(--pos-weight-bold);
+}
+
+.pos-ticket-item__notes {
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  font-style: italic;
+  color: var(--pos-color-text-muted);
+}
+
+.pos-ticket-item[data-voided] .pos-ticket-item__qty,
+.pos-ticket-item[data-voided] .pos-ticket-item__name,
+.pos-ticket-item[data-voided] .pos-ticket-item__modifiers,
+.pos-ticket-item[data-voided] .pos-ticket-item__notes {
+  text-decoration: line-through;
+  color: var(--pos-color-text-muted);
+}
+
+.pos-ticket-item__voided {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-sm);
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  font-weight: var(--pos-weight-bold);
+  color: var(--pos-color-danger-text);
+}
+
+.pos-ticket-item__allergy {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--pos-space-sm);
+  padding: var(--pos-space-sm) var(--pos-space-md);
+  border: var(--pos-border-thick) solid var(--pos-color-danger-border);
+  border-radius: var(--pos-radius-sm);
+  background: var(--pos-color-danger-solid);
+  color: var(--pos-color-danger-on-solid);
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  font-weight: var(--pos-weight-bold);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}

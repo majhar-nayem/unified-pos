@@ -1,0 +1,46 @@
+{
+  "name": "promo bogo: buy two get the cheapest of three free across variants",
+  "description": "Units 600, 500, 400: the cheapest (400) is free.",
+  "tags": ["promo", "bogo"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-a", "quantity": "1", "defaultUnitPriceMinor": 600 },
+        { "id": "l2", "variantId": "v-b", "quantity": "1", "defaultUnitPriceMinor": 500 },
+        { "id": "l3", "variantId": "v-c", "quantity": "1", "defaultUnitPriceMinor": 400 }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "bogo",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "bogo", "buyQuantity": 2, "getQuantity": 1 }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 400,
+    "totalMinor": 1100,
+    "lines": [
+      { "promotionDiscountMinor": 0 },
+      { "promotionDiscountMinor": 0 },
+      { "promotionDiscountMinor": 400 }
+    ]
+  }
+}

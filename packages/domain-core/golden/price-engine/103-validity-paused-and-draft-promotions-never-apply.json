@@ -1,0 +1,49 @@
+{
+  "name": "validity: paused and draft promotions never apply",
+  "description": "Status paused and draft are inactive.",
+  "tags": ["validity", "status"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p1",
+          "name": "p1",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "paused"
+        },
+        {
+          "id": "p2",
+          "name": "p2",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "draft"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 0,
+    "skippedPromotions": [{ "reason": "inactive" }, { "reason": "inactive" }]
+  }
+}

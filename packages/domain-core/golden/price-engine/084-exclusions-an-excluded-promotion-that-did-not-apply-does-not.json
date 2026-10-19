@@ -1,0 +1,49 @@
+{
+  "name": "exclusions: an excluded promotion that did not apply does not block",
+  "description": "B excludes A but A does not apply (wrong category), so B applies.",
+  "tags": ["exclusion"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "a",
+          "name": "a",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "categoryIds": ["cat-none"] },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "priority": 10
+        },
+        {
+          "id": "b",
+          "name": "b",
+          "kind": "amount_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "conditions": { "excludesPromotionIds": ["a"] },
+            "effect": { "kind": "amount_off", "amountMinor": 50, "per": "order" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "priority": 20
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 50, "promotions": [{ "promotionId": "b" }] }
+}

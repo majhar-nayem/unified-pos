@@ -1,0 +1,28 @@
+{
+  "name": "manual percent 15 of 333",
+  "description": "333 x 15% half up = 50.",
+  "tags": ["discount", "sweep"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 333,
+          "manualDiscount": { "id": "d", "kind": "percent", "value": "15" }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "lineDiscountMinor": 50, "totalMinor": 283 }
+}

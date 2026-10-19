@@ -1,0 +1,21 @@
+{
+  "name": "cash rounding: card tender is never rounded",
+  "description": "1003 on card stays 1003.",
+  "tags": ["cash-rounding", "tender"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1003 }],
+      "tenders": [{ "method": "card" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "roundingMinor": 0, "amountDueMinor": 1003 }
+}

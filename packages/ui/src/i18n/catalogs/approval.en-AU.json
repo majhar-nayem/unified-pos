@@ -1,0 +1,18 @@
+{
+  "approvalPrompt.title": "Manager approval needed",
+  "approvalPrompt.action": "Action: {action}",
+  "approvalPrompt.requestedBy": "Requested by {name}",
+  "approvalPrompt.reason": "Reason: {reason}",
+  "approvalPrompt.limit": "Over your limit: {limit}",
+  "approvalPrompt.pinLabel": "Manager PIN",
+  "approvalPrompt.approve": "Approve",
+  "approvalPrompt.cancel": "Cancel",
+  "approvalPrompt.passkey": "Use passkey",
+  "approvalPrompt.passkeyHint": "Approve with a manager passkey or security key",
+  "approvalPrompt.method": "Approval method",
+  "approvalPrompt.methodPin": "PIN",
+  "approvalPrompt.methodPasskey": "Passkey",
+  "approvalPrompt.verifying": "Checking approval…",
+  "approvalPrompt.denied": "Approval denied. Check the PIN and try again.",
+  "approvalPrompt.error": "Could not verify approval. Try again or call a manager."
+}

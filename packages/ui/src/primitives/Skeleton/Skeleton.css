@@ -1,0 +1,40 @@
+.pos-skeleton {
+  display: block;
+  background: var(--pos-color-surface-sunken);
+  border: var(--pos-border-thin) solid var(--pos-color-border);
+}
+
+.pos-skeleton--text {
+  width: 100%;
+  height: var(--pos-space-md);
+  border-radius: var(--pos-radius-sm);
+}
+
+.pos-skeleton--block {
+  width: 100%;
+  height: 96px;
+  border-radius: var(--pos-radius-md);
+}
+
+.pos-skeleton--circle {
+  width: var(--pos-touch-min);
+  height: var(--pos-touch-min);
+  border-radius: var(--pos-radius-pill);
+}
+
+.pos-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-sm);
+  width: 100%;
+}
+
+.pos-skeleton-lines > .pos-skeleton[data-last] {
+  width: 60%;
+}
+
+.pos-skeleton-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-sm);
+}

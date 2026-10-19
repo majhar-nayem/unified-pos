@@ -1,0 +1,25 @@
+[package]
+name = "pos-register"
+version = "0.0.0"
+description = "Unified POS register (Tauri 2 shell)"
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "pos_register_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Local SQLite store (docs/01 §8.1). Plain SQLite: SQLCipher is not wired yet (see docs/releases/s-f6a.md).
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
+# Device key pair and small secrets live in the OS keychain; signing happens here so the private key never reaches the webview.
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service", "crypto-rust"] }
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+rand = "0.8"
+base64 = "0.22"

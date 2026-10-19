@@ -1,0 +1,104 @@
+{
+  "name": "02 mixed GST rates, line discount, weighed item",
+  "description": "Flat white $4.80 with a 25% manual line discount (step 2), GST-free bread 2 x $3.50, and 1.2550 kg of GST-free apples at $5.99/kg (599 x 1.2550 = 751.745 -> 752). Tax only on the coffee: 360 x 10/110 = 32.73 -> 33.",
+  "input": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "1",
+        "unitPriceMinor": 480,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxClass": "standard",
+        "discount": { "id": "d-l1", "kind": "percent", "value": "25", "authorizedBy": "mgr-7" }
+      },
+      {
+        "id": "l2",
+        "quantity": "2",
+        "unitPriceMinor": 350,
+        "taxRate": "0",
+        "taxInclusive": true,
+        "taxClass": "gst_free"
+      },
+      {
+        "id": "l3",
+        "quantity": "1.2550",
+        "unitPriceMinor": 599,
+        "taxRate": "0",
+        "taxInclusive": true,
+        "taxClass": "gst_free"
+      }
+    ],
+    "tender": { "method": "card" }
+  },
+  "expected": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "1",
+        "unitPriceMinor": 480,
+        "grossMinor": 480,
+        "lineDiscountMinor": 120,
+        "orderDiscountMinor": 0,
+        "netMinor": 360,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxMinor": 33,
+        "totalMinor": 360
+      },
+      {
+        "id": "l2",
+        "quantity": "2",
+        "unitPriceMinor": 350,
+        "grossMinor": 700,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 700,
+        "taxRate": "0",
+        "taxInclusive": true,
+        "taxMinor": 0,
+        "totalMinor": 700
+      },
+      {
+        "id": "l3",
+        "quantity": "1.2550",
+        "unitPriceMinor": 599,
+        "grossMinor": 752,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 752,
+        "taxRate": "0",
+        "taxInclusive": true,
+        "taxMinor": 0,
+        "totalMinor": 752
+      }
+    ],
+    "charges": [],
+    "subtotalMinor": 1932,
+    "lineDiscountMinor": 120,
+    "orderDiscountMinor": 0,
+    "discountMinor": 120,
+    "netMinor": 1812,
+    "taxMinor": 33,
+    "chargesMinor": 0,
+    "totalMinor": 1812,
+    "roundingMinor": 0,
+    "amountDueMinor": 1812,
+    "trace": [
+      { "step": "base_price", "ref": "l1", "amountMinor": 480 },
+      { "step": "base_price", "ref": "l2", "amountMinor": 700 },
+      { "step": "base_price", "ref": "l3", "amountMinor": 752 },
+      {
+        "step": "line_discount",
+        "ref": "l1",
+        "amountMinor": -120,
+        "detail": "25% authorized by mgr-7"
+      },
+      { "step": "tax", "ref": "l1", "amountMinor": 33 },
+      { "step": "tax", "ref": "l2", "amountMinor": 0 },
+      { "step": "tax", "ref": "l3", "amountMinor": 0 }
+    ]
+  }
+}

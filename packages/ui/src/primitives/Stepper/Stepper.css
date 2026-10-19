@@ -1,0 +1,105 @@
+.pos-stepper {
+  display: flex;
+  gap: var(--pos-space-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pos-stepper--vertical {
+  flex-direction: column;
+}
+
+.pos-stepper__item {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pos-stepper__step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pos-space-md);
+  width: 100%;
+  min-height: var(--pos-touch-min);
+  padding: 0;
+  background: transparent;
+  color: var(--pos-color-text);
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  font: inherit;
+  text-align: start;
+}
+
+.pos-stepper__step--button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pos-stepper__step--button:hover .pos-stepper__label {
+  text-decoration: underline;
+}
+
+.pos-stepper__marker {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--pos-space-3xl);
+  height: var(--pos-space-3xl);
+  min-width: var(--pos-space-3xl);
+  background: var(--pos-color-surface);
+  color: var(--pos-color-text-muted);
+  border: var(--pos-border-thick) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-pill);
+  font-weight: var(--pos-weight-semibold);
+}
+
+.pos-stepper__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: var(--pos-space-sm);
+}
+
+.pos-stepper__label {
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  font-weight: var(--pos-weight-medium);
+}
+
+.pos-stepper__description {
+  color: var(--pos-color-text-muted);
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+}
+
+.pos-stepper__item--complete .pos-stepper__marker {
+  background: var(--pos-color-success-solid);
+  color: var(--pos-color-success-on-solid);
+  border-color: var(--pos-color-success-solid);
+}
+
+.pos-stepper__item--current .pos-stepper__marker {
+  background: var(--pos-color-brand-solid);
+  color: var(--pos-color-brand-on-solid);
+  border-color: var(--pos-color-brand-solid);
+}
+
+.pos-stepper__item--current .pos-stepper__label {
+  font-weight: var(--pos-weight-bold);
+}
+
+.pos-stepper__item--upcoming .pos-stepper__label {
+  color: var(--pos-color-text-muted);
+}
+
+.pos-stepper__item--error .pos-stepper__marker {
+  background: var(--pos-color-danger-subtle);
+  color: var(--pos-color-danger-text);
+  border-color: var(--pos-color-danger-border);
+}
+
+.pos-stepper__item--error .pos-stepper__label {
+  color: var(--pos-color-danger-text);
+}

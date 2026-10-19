@@ -1,0 +1,26 @@
+{
+  "name": "charge: tax-exempt customer does not pay GST on a charge",
+  "description": "110 inclusive charge, tax 10 exempt: total 100 for the charge.",
+  "tags": ["charge", "exempt"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1100 }],
+      "customer": { "id": "c", "taxExempt": true },
+      "charges": [{ "id": "fee", "kind": "surcharge", "amountMinor": 110 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "totalMinor": 1100,
+    "taxExemptMinor": 110,
+    "charges": [{ "taxExemptMinor": 10, "totalMinor": 100 }]
+  }
+}

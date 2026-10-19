@@ -1,0 +1,29 @@
+{
+  "name": "parity: 5 x 600 exclusive equals 5 x 660 inclusive",
+  "description": "Exclusive 3000 + 300 GST = 3300; inclusive 3300 holds the same 300 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "5", "defaultUnitPriceMinor": 600 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 3300, "taxMinor": 300, "lines": [{ "taxInclusive": false }] }
+}

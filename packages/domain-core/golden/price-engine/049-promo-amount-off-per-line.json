@@ -1,0 +1,49 @@
+{
+  "name": "promo amount_off per line",
+  "description": "100 off each targeted line once: two lines -> 200.",
+  "tags": ["promo", "amount_off"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-a",
+          "quantity": "3",
+          "defaultUnitPriceMinor": 400,
+          "tags": ["x"]
+        },
+        {
+          "id": "l2",
+          "variantId": "v-b",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 300,
+          "tags": ["x"]
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "amount_off",
+          "rules": {
+            "version": 1,
+            "targets": { "tags": ["x"] },
+            "effect": { "kind": "amount_off", "amountMinor": 100, "per": "line" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 200, "totalMinor": 1300 }
+}

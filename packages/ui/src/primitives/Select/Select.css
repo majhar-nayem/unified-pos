@@ -1,0 +1,79 @@
+.pos-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--pos-control-height);
+  background: var(--pos-color-surface);
+  color: var(--pos-color-text);
+  border: var(--pos-border-thin) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-md);
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  transition:
+    background-color var(--pos-duration-fast) var(--pos-easing-standard),
+    border-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-select--sm {
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+}
+
+.pos-select--lg {
+  min-height: calc(var(--pos-control-height) + var(--pos-space-sm));
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+}
+
+.pos-select:hover:not(.pos-select--disabled) {
+  border-color: var(--pos-color-text);
+}
+
+.pos-select:focus-within {
+  border-color: var(--pos-color-focus-ring);
+  outline: var(--pos-focus-width) solid var(--pos-color-focus-ring);
+  outline-offset: var(--pos-focus-offset);
+}
+
+.pos-select--invalid,
+.pos-select--invalid:hover:not(.pos-select--disabled) {
+  border-color: var(--pos-color-danger-border);
+  box-shadow: inset 0 0 0 var(--pos-border-thin) var(--pos-color-danger-border);
+}
+
+.pos-select--disabled {
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text-muted);
+  border-color: var(--pos-color-border);
+  cursor: not-allowed;
+}
+
+.pos-select__control {
+  flex: 1;
+  align-self: stretch;
+  min-width: 0;
+  padding: 0 var(--pos-space-3xl) 0 var(--pos-space-md);
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  font: inherit;
+  appearance: none;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+.pos-select__control:focus-visible {
+  outline: none;
+}
+
+.pos-select__control:disabled {
+  cursor: not-allowed;
+}
+
+.pos-select__chevron {
+  position: absolute;
+  inset-inline-end: var(--pos-space-md);
+  pointer-events: none;
+  color: var(--pos-color-text-muted);
+}

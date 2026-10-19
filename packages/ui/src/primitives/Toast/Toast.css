@@ -1,0 +1,164 @@
+.pos-toast-region {
+  position: fixed;
+  z-index: var(--pos-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-sm);
+  width: min(420px, calc(100% - var(--pos-space-xl)));
+  pointer-events: none;
+}
+
+.pos-toast-region[data-placement='bottom-end'] {
+  inset-block-end: var(--pos-space-lg);
+  inset-inline-end: var(--pos-space-lg);
+}
+
+.pos-toast-region[data-placement='top-end'] {
+  inset-block-start: var(--pos-space-lg);
+  inset-inline-end: var(--pos-space-lg);
+}
+
+.pos-toast-region[data-placement='bottom-center'] {
+  inset-block-end: var(--pos-space-lg);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+.pos-toast-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-sm);
+}
+
+.pos-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pos-space-md);
+  padding: var(--pos-space-md) var(--pos-space-sm) var(--pos-space-md) var(--pos-space-lg);
+  border: var(--pos-border-thin) solid var(--pos-color-border);
+  border-inline-start: var(--pos-border-band) solid var(--tone-border);
+  border-radius: var(--pos-radius-md);
+  background: var(--pos-color-surface-raised);
+  color: var(--pos-color-text);
+  box-shadow: var(--pos-shadow-3);
+  pointer-events: auto;
+  /* A single short fade; no motion beyond 150 ms. */
+  animation: pos-toast-in var(--pos-duration-base) var(--pos-easing-standard);
+}
+
+@keyframes pos-toast-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pos-toast {
+    animation: none;
+  }
+}
+
+.pos-toast[data-tone='success'] {
+  --tone-border: var(--pos-color-success-border);
+  --tone-fg: var(--pos-color-success-text);
+}
+
+.pos-toast[data-tone='warning'] {
+  --tone-border: var(--pos-color-warning-border);
+  --tone-fg: var(--pos-color-warning-text);
+}
+
+.pos-toast[data-tone='danger'] {
+  --tone-border: var(--pos-color-danger-border);
+  --tone-fg: var(--pos-color-danger-text);
+}
+
+.pos-toast[data-tone='info'] {
+  --tone-border: var(--pos-color-info-border);
+  --tone-fg: var(--pos-color-info-text);
+}
+
+.pos-toast[data-tone='offline'] {
+  --tone-border: var(--pos-color-offline-border);
+  --tone-fg: var(--pos-color-offline-text);
+}
+
+.pos-toast__icon {
+  margin-top: var(--pos-space-xs);
+  color: var(--tone-border);
+}
+
+.pos-toast__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pos-space-xs);
+  min-width: 0;
+}
+
+.pos-toast__title {
+  font-weight: var(--pos-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.pos-toast__description {
+  color: var(--pos-color-text-muted);
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  overflow-wrap: anywhere;
+}
+
+.pos-toast__action {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--pos-control-height);
+  padding: 0 var(--pos-space-sm);
+  margin: 0 calc(var(--pos-space-sm) * -1);
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  background: transparent;
+  color: var(--pos-color-brand-text);
+  font: inherit;
+  font-weight: var(--pos-weight-semibold);
+  cursor: pointer;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-toast__action:hover {
+  background: var(--pos-color-brand-subtle);
+}
+
+.pos-toast__action:active {
+  background: var(--pos-color-border);
+}
+
+.pos-toast__dismiss {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--pos-control-height);
+  height: var(--pos-control-height);
+  margin-block: calc(var(--pos-space-sm) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  background: transparent;
+  color: var(--pos-color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-toast__dismiss:hover {
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text);
+}
+
+.pos-toast__dismiss:active {
+  background: var(--pos-color-border);
+}

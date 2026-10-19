@@ -1,0 +1,33 @@
+{
+  "name": "price: tenant price list beats the variant default",
+  "description": "List price 900.",
+  "tags": ["price", "list"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "pl",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "pl-e1", "variantId": "v-1", "priceMinor": 900 }],
+          "assignments": [{ "scopeKind": "tenant" }]
+        }
+      ]
+    }
+  },
+  "expected": {
+    "totalMinor": 900,
+    "lines": [{ "priceSource": { "kind": "price_list", "priceListId": "pl", "entryId": "pl-e1" } }]
+  }
+}

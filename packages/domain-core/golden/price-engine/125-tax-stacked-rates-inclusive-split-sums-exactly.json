@@ -1,0 +1,50 @@
+{
+  "name": "tax: stacked rates, inclusive split sums exactly",
+  "description": "10800 inclusive at 6% + 2% -> tax 10800 x 0.08/1.08 = 800 split 600/200.",
+  "tags": ["tax", "multi-rate"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 10800 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "state",
+        "name": "State",
+        "taxClassId": null,
+        "rate": "0.06",
+        "inclusiveDefault": true,
+        "priority": 100
+      },
+      {
+        "id": "city",
+        "name": "City",
+        "taxClassId": null,
+        "rate": "0.02",
+        "inclusiveDefault": true,
+        "priority": 99
+      }
+    ],
+    "stackTaxRules": true
+  },
+  "expected": {
+    "totalMinor": 10800,
+    "taxMinor": 800,
+    "lines": [
+      {
+        "taxes": [
+          { "ruleId": "state", "amountMinor": 600 },
+          { "ruleId": "city", "amountMinor": 200 }
+        ]
+      }
+    ]
+  }
+}

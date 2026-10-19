@@ -1,0 +1,96 @@
+.pos-input {
+  display: flex;
+  align-items: center;
+  min-height: var(--pos-control-height);
+  background: var(--pos-color-surface);
+  color: var(--pos-color-text);
+  border: var(--pos-border-thin) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-md);
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  transition:
+    background-color var(--pos-duration-fast) var(--pos-easing-standard),
+    border-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-input--sm {
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+}
+
+.pos-input--lg {
+  min-height: calc(var(--pos-control-height) + var(--pos-space-sm));
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+}
+
+.pos-input:hover:not(.pos-input--disabled) {
+  border-color: var(--pos-color-text);
+}
+
+.pos-input:focus-within {
+  border-color: var(--pos-color-focus-ring);
+  outline: var(--pos-focus-width) solid var(--pos-color-focus-ring);
+  outline-offset: var(--pos-focus-offset);
+}
+
+.pos-input--invalid,
+.pos-input--invalid:hover:not(.pos-input--disabled) {
+  border-color: var(--pos-color-danger-border);
+  box-shadow: inset 0 0 0 var(--pos-border-thin) var(--pos-color-danger-border);
+}
+
+.pos-input--readonly {
+  background: var(--pos-color-surface-sunken);
+}
+
+.pos-input--disabled {
+  background: var(--pos-color-surface-sunken);
+  color: var(--pos-color-text-muted);
+  border-color: var(--pos-color-border);
+  cursor: not-allowed;
+}
+
+.pos-input__control {
+  flex: 1;
+  align-self: stretch;
+  min-width: 0;
+  padding: 0 var(--pos-space-md);
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-radius: var(--pos-radius-md);
+  font: inherit;
+}
+
+.pos-input__control:focus-visible {
+  outline: none;
+}
+
+.pos-input__control::placeholder {
+  color: var(--pos-color-text-muted);
+}
+
+.pos-input__control:disabled {
+  cursor: not-allowed;
+}
+
+.pos-input__affix {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  color: var(--pos-color-text-muted);
+  white-space: nowrap;
+}
+
+.pos-input__affix--prefix {
+  padding-inline-start: var(--pos-space-md);
+}
+
+.pos-input__affix--prefix + .pos-input__control {
+  padding-inline-start: var(--pos-space-sm);
+}
+
+.pos-input__affix--suffix {
+  padding-inline-end: var(--pos-space-md);
+}

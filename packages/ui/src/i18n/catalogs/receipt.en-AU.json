@@ -1,0 +1,7 @@
+{
+  "receipt.payment.settled": "Settled",
+  "receipt.payment.pending": "Pending — collected offline, not yet settled",
+  "receipt.payment.pendingConfirmation": "Pending — awaiting confirmation from the provider",
+  "receipt.payment.inProgress": "Pending — payment in progress",
+  "receipt.payment.notCollected": "Not collected"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "charge: service charge is computed after discounts",
+  "description": "1000 less 200 = 800 net; 10% = 80.",
+  "tags": ["charge", "discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 200 }],
+      "charges": [{ "id": "sc", "kind": "service_charge", "percent": "10" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "chargesMinor": 80, "totalMinor": 880 }
+}

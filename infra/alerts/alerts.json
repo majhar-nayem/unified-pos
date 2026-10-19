@@ -1,0 +1,597 @@
+{
+  "alerts": [
+    {
+      "id": "slo-availability-burn-14.4x-1h",
+      "description": "API 5xx ratio over 1h is burning the 99.95 % availability budget at 14.4x",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0.0072,
+      "period": 3600,
+      "evaluation_periods": 1,
+      "treat_missing_data": "notBreaching",
+      "notify": false,
+      "metrics": [
+        {
+          "id": "err",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "HTTPCode_Target_5XX_Count",
+            "stat": "Sum",
+            "period": 3600,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "req",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "RequestCount",
+            "stat": "Sum",
+            "period": 3600,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "ratio",
+          "expression": "IF(req > 0, err / req, 0)",
+          "label": "5xx ratio 1h",
+          "return_data": true
+        }
+      ]
+    },
+    {
+      "id": "slo-availability-burn-14.4x-5m",
+      "description": "API 5xx ratio over 5m is burning the 99.95 % availability budget at 14.4x",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0.0072,
+      "period": 300,
+      "evaluation_periods": 1,
+      "treat_missing_data": "notBreaching",
+      "notify": false,
+      "metrics": [
+        {
+          "id": "err",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "HTTPCode_Target_5XX_Count",
+            "stat": "Sum",
+            "period": 300,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "req",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "RequestCount",
+            "stat": "Sum",
+            "period": 300,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "ratio",
+          "expression": "IF(req > 0, err / req, 0)",
+          "label": "5xx ratio 5m",
+          "return_data": true
+        }
+      ]
+    },
+    {
+      "id": "slo-availability-burn-6x-6h",
+      "description": "API 5xx ratio over 6h is burning the 99.95 % availability budget at 6x",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0.003,
+      "period": 21600,
+      "evaluation_periods": 1,
+      "treat_missing_data": "notBreaching",
+      "notify": false,
+      "metrics": [
+        {
+          "id": "err",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "HTTPCode_Target_5XX_Count",
+            "stat": "Sum",
+            "period": 21600,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "req",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "RequestCount",
+            "stat": "Sum",
+            "period": 21600,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "ratio",
+          "expression": "IF(req > 0, err / req, 0)",
+          "label": "5xx ratio 6h",
+          "return_data": true
+        }
+      ]
+    },
+    {
+      "id": "slo-availability-burn-6x-30m",
+      "description": "API 5xx ratio over 30m is burning the 99.95 % availability budget at 6x",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0.003,
+      "period": 1800,
+      "evaluation_periods": 1,
+      "treat_missing_data": "notBreaching",
+      "notify": false,
+      "metrics": [
+        {
+          "id": "err",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "HTTPCode_Target_5XX_Count",
+            "stat": "Sum",
+            "period": 1800,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "req",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "RequestCount",
+            "stat": "Sum",
+            "period": 1800,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "ratio",
+          "expression": "IF(req > 0, err / req, 0)",
+          "label": "5xx ratio 30m",
+          "return_data": true
+        }
+      ]
+    },
+    {
+      "id": "slo-availability-burn-3x-1d",
+      "description": "API 5xx ratio over 1d is burning the 99.95 % availability budget at 3x",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0.0015,
+      "period": 86400,
+      "evaluation_periods": 1,
+      "treat_missing_data": "notBreaching",
+      "notify": false,
+      "metrics": [
+        {
+          "id": "err",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "HTTPCode_Target_5XX_Count",
+            "stat": "Sum",
+            "period": 86400,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "req",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "RequestCount",
+            "stat": "Sum",
+            "period": 86400,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "ratio",
+          "expression": "IF(req > 0, err / req, 0)",
+          "label": "5xx ratio 1d",
+          "return_data": true
+        }
+      ]
+    },
+    {
+      "id": "slo-availability-burn-3x-2h",
+      "description": "API 5xx ratio over 2h is burning the 99.95 % availability budget at 3x",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0.0015,
+      "period": 7200,
+      "evaluation_periods": 1,
+      "treat_missing_data": "notBreaching",
+      "notify": false,
+      "metrics": [
+        {
+          "id": "err",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "HTTPCode_Target_5XX_Count",
+            "stat": "Sum",
+            "period": 7200,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "req",
+          "metric": {
+            "namespace": "AWS/ApplicationELB",
+            "name": "RequestCount",
+            "stat": "Sum",
+            "period": 7200,
+            "dimensions": {
+              "LoadBalancer": "$alb"
+            }
+          }
+        },
+        {
+          "id": "ratio",
+          "expression": "IF(req > 0, err / req, 0)",
+          "label": "5xx ratio 2h",
+          "return_data": true
+        }
+      ]
+    },
+    {
+      "id": "outbox-backlog-high",
+      "description": "Outbox backlog above 500 events for 5 minutes",
+      "severity": "ticket",
+      "runbook": "docs/runbooks/on-call.md#outbox-backlog",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 500,
+      "period": 60,
+      "evaluation_periods": 5,
+      "datapoints_to_alarm": 5,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.outbox.backlog",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "worker"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "outbox-backlog-critical",
+      "description": "Outbox backlog above 5000 events: relay is not keeping up",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#outbox-backlog",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 5000,
+      "period": 60,
+      "evaluation_periods": 3,
+      "datapoints_to_alarm": 3,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.outbox.backlog",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "worker"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "outbox-relay-stalled",
+      "description": "Oldest unpublished outbox event is older than 5 minutes",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#outbox-backlog",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 300,
+      "period": 60,
+      "evaluation_periods": 3,
+      "datapoints_to_alarm": 3,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.outbox.oldest_age.seconds",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "worker"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sync-lag-high",
+      "description": "Sync feed lag above the 5 s objective for 5 minutes",
+      "severity": "ticket",
+      "runbook": "docs/runbooks/on-call.md#sync-lag",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 5,
+      "period": 60,
+      "evaluation_periods": 5,
+      "datapoints_to_alarm": 5,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.sync.lag.seconds",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "api"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sync-lag-critical",
+      "description": "Sync feed lag above 60 s: devices are not receiving changes",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#sync-lag",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 60,
+      "period": 60,
+      "evaluation_periods": 3,
+      "datapoints_to_alarm": 3,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.sync.lag.seconds",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "api"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "payment-uncertain",
+      "description": "Payment attempts stuck in uncertain for 10 minutes (reconciliation has not resolved them)",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#payment-uncertain",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0,
+      "period": 300,
+      "evaluation_periods": 2,
+      "datapoints_to_alarm": 2,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.payment.uncertain.count",
+            "stat": "Maximum",
+            "period": 300,
+            "dimensions": {
+              "service.name": "payments"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "audit-chain-verification-failure",
+      "description": "Audit chain verification failed",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#audit-chain",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0,
+      "period": 300,
+      "evaluation_periods": 1,
+      "datapoints_to_alarm": 1,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.audit.chain.verification_failures",
+            "stat": "Maximum",
+            "period": 300,
+            "dimensions": {
+              "service.name": "worker"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cross-tenant-access-attempt",
+      "description": "A request tried to reach another tenant's data",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#cross-tenant",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0,
+      "period": 300,
+      "evaluation_periods": 1,
+      "datapoints_to_alarm": 1,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.cross_tenant.attempts",
+            "stat": "Maximum",
+            "period": 300,
+            "dimensions": {
+              "service.name": "api"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rls-context-missing-api",
+      "description": "api ran a query without a tenant context (must be zero)",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#rls-context-missing",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0,
+      "period": 60,
+      "evaluation_periods": 1,
+      "datapoints_to_alarm": 1,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.rls.context_missing",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "api"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rls-context-missing-worker",
+      "description": "worker ran a query without a tenant context (must be zero)",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#rls-context-missing",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0,
+      "period": 60,
+      "evaluation_periods": 1,
+      "datapoints_to_alarm": 1,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.rls.context_missing",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "worker"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rls-context-missing-payments",
+      "description": "payments ran a query without a tenant context (must be zero)",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#rls-context-missing",
+      "comparison": "GreaterThanThreshold",
+      "threshold": 0,
+      "period": 60,
+      "evaluation_periods": 1,
+      "datapoints_to_alarm": 1,
+      "treat_missing_data": "notBreaching",
+      "metrics": [
+        {
+          "id": "m",
+          "return_data": true,
+          "metric": {
+            "namespace": "POS/App",
+            "name": "pos.rls.context_missing",
+            "stat": "Maximum",
+            "period": 60,
+            "dimensions": {
+              "service.name": "payments"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "composites": [
+    {
+      "id": "slo-availability-fast-burn",
+      "description": "Availability budget burning at 14.4x over both 1h and 5m",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "alarms": [
+        "slo-availability-burn-14.4x-1h",
+        "slo-availability-burn-14.4x-5m"
+      ]
+    },
+    {
+      "id": "slo-availability-slow-burn",
+      "description": "Availability budget burning at 6x over both 6h and 30m",
+      "severity": "page",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "alarms": [
+        "slo-availability-burn-6x-6h",
+        "slo-availability-burn-6x-30m"
+      ]
+    },
+    {
+      "id": "slo-availability-ticket-burn",
+      "description": "Availability budget burning at 3x over both 1d and 2h",
+      "severity": "ticket",
+      "runbook": "docs/runbooks/on-call.md#slo-burn",
+      "alarms": [
+        "slo-availability-burn-3x-1d",
+        "slo-availability-burn-3x-2h"
+      ]
+    }
+  ]
+}

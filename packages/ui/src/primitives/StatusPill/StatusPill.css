@@ -1,0 +1,84 @@
+.pos-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-xs);
+  padding: var(--pos-space-xs) var(--pos-space-md);
+  border: var(--pos-border-thin) solid var(--pos-color-border);
+  border-radius: var(--pos-radius-pill);
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  font-weight: var(--pos-weight-semibold);
+  white-space: nowrap;
+}
+
+.pos-pill--sm {
+  padding: 0 var(--pos-space-sm);
+}
+
+.pos-pill[data-tone],
+.pos-badge[data-tone] {
+  background: var(--tone-bg);
+  color: var(--tone-fg);
+  border-color: var(--tone-border);
+}
+
+.pos-pill[data-tone='brand'],
+.pos-badge[data-tone='brand'] {
+  --tone-bg: var(--pos-color-brand-subtle);
+  --tone-fg: var(--pos-color-brand-text);
+  --tone-border: var(--pos-color-brand-border);
+}
+
+.pos-pill[data-tone='success'],
+.pos-badge[data-tone='success'] {
+  --tone-bg: var(--pos-color-success-subtle);
+  --tone-fg: var(--pos-color-success-text);
+  --tone-border: var(--pos-color-success-border);
+}
+
+.pos-pill[data-tone='warning'],
+.pos-badge[data-tone='warning'] {
+  --tone-bg: var(--pos-color-warning-subtle);
+  --tone-fg: var(--pos-color-warning-text);
+  --tone-border: var(--pos-color-warning-border);
+}
+
+.pos-pill[data-tone='danger'],
+.pos-badge[data-tone='danger'] {
+  --tone-bg: var(--pos-color-danger-subtle);
+  --tone-fg: var(--pos-color-danger-text);
+  --tone-border: var(--pos-color-danger-border);
+}
+
+.pos-pill[data-tone='info'],
+.pos-badge[data-tone='info'] {
+  --tone-bg: var(--pos-color-info-subtle);
+  --tone-fg: var(--pos-color-info-text);
+  --tone-border: var(--pos-color-info-border);
+}
+
+.pos-pill[data-tone='offline'],
+.pos-badge[data-tone='offline'] {
+  --tone-bg: var(--pos-color-offline-subtle);
+  --tone-fg: var(--pos-color-offline-text);
+  --tone-border: var(--pos-color-offline-border);
+}
+
+.pos-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--pos-space-xl);
+  height: var(--pos-space-xl);
+  padding: 0 var(--pos-space-sm);
+  border: var(--pos-border-thin) solid var(--tone-border);
+  border-radius: var(--pos-radius-pill);
+  font-size: var(--pos-text-caption-size);
+  font-weight: var(--pos-weight-bold);
+}
+
+.pos-pill[data-palette] {
+  background: var(--palette-bg);
+  color: var(--palette-fg);
+  border-color: var(--palette-border);
+}

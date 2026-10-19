@@ -1,0 +1,42 @@
+{
+  "name": "promo amount_off per unit",
+  "description": "100 off each of three hot items (400 each): 300.",
+  "tags": ["promo", "amount_off"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-coffee",
+          "quantity": "3",
+          "defaultUnitPriceMinor": 400,
+          "tags": ["hot"]
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "amount_off",
+          "rules": {
+            "version": 1,
+            "targets": { "tags": ["hot"] },
+            "effect": { "kind": "amount_off", "amountMinor": 100, "per": "unit" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 300, "totalMinor": 900 }
+}

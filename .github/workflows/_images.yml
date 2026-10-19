@@ -1,0 +1,93 @@
+name: Images (reusable)
+
+# Builds api, worker, payments and the migration image from infra/docker/Dockerfile.
+# push=false (pull requests): build, load and scan only.
+# push=true: push to GHCR; _publish.yml copies the same digest into each environment's ECR.
+
+on:
+  workflow_call:
+    inputs:
+      push:
+        type: boolean
+        default: false
+      tag:
+        description: Image tag (commit sha, or the release version)
+        type: string
+        required: true
+    outputs:
+      registry:
+        description: Lower-case GHCR repository prefix, e.g. ghcr.io/org/repo
+        value: ${{ jobs.build.outputs.registry }}
+
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+
+jobs:
+  build:
+    name: Image ${{ matrix.image }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: api
+            target: runtime
+            app: api
+          - image: worker
+            target: runtime
+            app: worker
+          - image: payments
+            target: runtime
+            app: payments
+          - image: migrate
+            target: migrate
+            app: ''
+    outputs:
+      registry: ${{ steps.names.outputs.registry }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Image names
+        id: names
+        run: |
+          repo="${GITHUB_REPOSITORY,,}"
+          echo "registry=ghcr.io/${repo}" >> "$GITHUB_OUTPUT"
+          echo "ref=ghcr.io/${repo}/${{ matrix.image }}:${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        if: inputs.push
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: infra/docker/Dockerfile
+          target: ${{ matrix.target }}
+          build-args: |
+            APP=${{ matrix.app }}
+          push: ${{ inputs.push }}
+          load: ${{ !inputs.push }}
+          tags: ${{ steps.names.outputs.ref }}
+          cache-from: type=gha,scope=${{ matrix.image }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}
+          provenance: ${{ inputs.push }}
+          sbom: ${{ inputs.push }}
+
+      - name: Container scan (blocking on high and critical)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ steps.names.outputs.ref }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+          vuln-type: os,library

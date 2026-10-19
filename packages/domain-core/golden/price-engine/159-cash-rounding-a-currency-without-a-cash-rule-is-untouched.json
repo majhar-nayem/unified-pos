@@ -1,0 +1,21 @@
+{
+  "name": "cash rounding: a currency without a cash rule is untouched",
+  "description": "USD has no cash rounding in the registry.",
+  "tags": ["cash-rounding", "currency"],
+  "input": {
+    "draft": {
+      "currency": "USD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1003 }],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "roundingMinor": 0 }
+}

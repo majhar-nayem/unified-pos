@@ -1,0 +1,28 @@
+{
+  "name": "allocation 13: 77 over 499/501",
+  "description": "Hamilton oracle: 38 + 39 = 77.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 499 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 501 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 77 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 77,
+    "totalMinor": 923,
+    "lines": [{ "orderDiscountMinor": 38 }, { "orderDiscountMinor": 39 }]
+  }
+}

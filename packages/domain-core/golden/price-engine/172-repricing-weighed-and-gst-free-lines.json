@@ -1,0 +1,48 @@
+{
+  "name": "repricing: weighed and GST-free lines",
+  "description": "Stable re-pricing with a free class and decimals.",
+  "tags": ["repricing"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-apple",
+          "quantity": "1.2550",
+          "defaultUnitPriceMinor": 599,
+          "taxClassId": "free"
+        },
+        { "id": "l2", "variantId": "v-coffee", "quantity": "3", "defaultUnitPriceMinor": 480 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "percent", "value": "7.5" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-std",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": true,
+        "country": "AU"
+      },
+      {
+        "id": "gst-free",
+        "name": "GST-free",
+        "taxClassId": "free",
+        "rate": "0",
+        "inclusiveDefault": true,
+        "country": "AU"
+      }
+    ]
+  },
+  "expected": {}
+}

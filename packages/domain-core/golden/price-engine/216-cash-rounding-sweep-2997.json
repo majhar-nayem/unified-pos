@@ -1,0 +1,21 @@
+{
+  "name": "cash rounding sweep 2997",
+  "description": "Oracle: 2997 -> 2995.",
+  "tags": ["cash-rounding", "sweep"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 2997 }],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "roundingMinor": -2, "amountDueMinor": 2995 }
+}

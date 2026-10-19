@@ -1,0 +1,29 @@
+{
+  "name": "cash rounding: zero total",
+  "description": "A fully discounted order owes nothing in cash.",
+  "tags": ["cash-rounding"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1000,
+          "manualDiscount": { "id": "d", "kind": "percent", "value": "100" }
+        }
+      ],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 0, "roundingMinor": 0 }
+}

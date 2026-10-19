@@ -1,0 +1,39 @@
+{
+  "name": "price: customer-specific list beats the group list",
+  "description": "Customer assignment (specificity 30) beats group (20): 700.",
+  "tags": ["price", "list", "customer"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "customer": { "id": "c-1", "groupIds": ["g-member"] }
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "member",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "member-e1", "variantId": "v-1", "priceMinor": 800 }],
+          "assignments": [{ "scopeKind": "customer_group", "scopeId": "g-member" }]
+        },
+        {
+          "id": "vip",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "vip-e1", "variantId": "v-1", "priceMinor": 700 }],
+          "assignments": [{ "scopeKind": "customer", "scopeId": "c-1" }]
+        }
+      ]
+    }
+  },
+  "expected": { "totalMinor": 700, "lines": [{ "priceSource": { "priceListId": "vip" } }] }
+}

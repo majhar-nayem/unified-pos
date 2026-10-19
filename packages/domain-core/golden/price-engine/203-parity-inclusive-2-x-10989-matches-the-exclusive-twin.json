@@ -1,0 +1,20 @@
+{
+  "name": "parity: inclusive 2 x 10989 matches the exclusive twin",
+  "description": "Inclusive 21978 extracts 1998 GST, equal to the exclusive twin's 1998.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "2", "defaultUnitPriceMinor": 10989 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 21978, "taxMinor": 1998, "lines": [{ "taxInclusive": true }] }
+}

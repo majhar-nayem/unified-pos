@@ -1,0 +1,41 @@
+{
+  "name": "@pos/db",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Postgres access: migration runner over the canonical db/*.sql, tenant-scoped transactions, Drizzle schema",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "migrations"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "migrate": "tsx src/cli/migrate.ts",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "grants": "tsx src/cli/grants.ts",
+    "schema:check": "tsx src/cli/schema-check.ts"
+  },
+  "dependencies": {
+    "@pos/contracts": "workspace:*",
+    "drizzle-orm": "0.45.4",
+    "pg": "8.23.1",
+    "uuid": "14.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/pg": "8.23.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "allocation 02: 2 over 1/1/1",
+  "description": "Hamilton oracle: 1 + 1 + 0 = 2.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 1 },
+        { "id": "l3", "variantId": "v-3", "quantity": "1", "defaultUnitPriceMinor": 1 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 2 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 2,
+    "totalMinor": 1,
+    "lines": [{ "orderDiscountMinor": 1 }, { "orderDiscountMinor": 1 }, { "orderDiscountMinor": 0 }]
+  }
+}

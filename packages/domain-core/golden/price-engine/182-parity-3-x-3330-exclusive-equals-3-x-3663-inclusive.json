@@ -1,0 +1,29 @@
+{
+  "name": "parity: 3 x 3330 exclusive equals 3 x 3663 inclusive",
+  "description": "Exclusive 9990 + 999 GST = 10989; inclusive 10989 holds the same 999 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "3", "defaultUnitPriceMinor": 3330 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 10989, "taxMinor": 999, "lines": [{ "taxInclusive": false }] }
+}

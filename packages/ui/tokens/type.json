@@ -1,0 +1,27 @@
+{
+  "$description": "Type scales per surface. Same five roles everywhere so components are surface-agnostic; the surface picks the pixel values. KDS defines three sizes in the plan, mapped onto the five roles.",
+  "scale": {
+    "pos": {
+      "caption": { "$value": 14, "$description": "meta", "lineHeight": 20 },
+      "body": { "$value": 16, "$description": "body", "lineHeight": 24 },
+      "emphasis": { "$value": 20, "$description": "line item", "lineHeight": 28 },
+      "heading": { "$value": 28, "$description": "totals", "lineHeight": 36 },
+      "display": { "$value": 40, "$description": "grand total", "lineHeight": 48 }
+    },
+    "admin": {
+      "caption": { "$value": 12, "lineHeight": 16 },
+      "body": { "$value": 14, "lineHeight": 20 },
+      "emphasis": { "$value": 16, "lineHeight": 24 },
+      "heading": { "$value": 20, "lineHeight": 28 },
+      "display": { "$value": 24, "lineHeight": 32 }
+    },
+    "kds": {
+      "caption": { "$value": 20, "$description": "modifiers", "lineHeight": 28 },
+      "body": { "$value": 20, "$description": "modifiers", "lineHeight": 28 },
+      "emphasis": { "$value": 24, "$description": "items", "lineHeight": 32 },
+      "heading": { "$value": 32, "$description": "ticket header", "lineHeight": 40 },
+      "display": { "$value": 32, "$description": "ticket header", "lineHeight": 40 }
+    }
+  },
+  "defaultTheme": { "pos": "light", "admin": "light", "kds": "dark" }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "parity: 9 x 770 exclusive equals 9 x 847 inclusive",
+  "description": "Exclusive 6930 + 693 GST = 7623; inclusive 7623 holds the same 693 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "9", "defaultUnitPriceMinor": 770 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 7623, "taxMinor": 693, "lines": [{ "taxInclusive": false }] }
+}

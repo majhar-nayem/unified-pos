@@ -1,0 +1,33 @@
+{
+  "name": "allocation 19: 600 over 123/456/789",
+  "description": "Hamilton oracle: 54 + 200 + 346 = 600.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 123 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 456 },
+        { "id": "l3", "variantId": "v-3", "quantity": "1", "defaultUnitPriceMinor": 789 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 600 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 600,
+    "totalMinor": 768,
+    "lines": [
+      { "orderDiscountMinor": 54 },
+      { "orderDiscountMinor": 200 },
+      { "orderDiscountMinor": 346 }
+    ]
+  }
+}

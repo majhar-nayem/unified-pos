@@ -1,0 +1,39 @@
+{
+  "name": "tax: stacked state and city rates, exclusive",
+  "description": "10000 at 6% + 2%: 600 + 200 = 800, total 10800.",
+  "tags": ["tax", "multi-rate"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 10000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "state",
+        "name": "State",
+        "taxClassId": null,
+        "rate": "0.06",
+        "inclusiveDefault": false,
+        "priority": 100
+      },
+      {
+        "id": "city",
+        "name": "City",
+        "taxClassId": null,
+        "rate": "0.02",
+        "inclusiveDefault": false,
+        "priority": 99
+      }
+    ],
+    "stackTaxRules": true
+  },
+  "expected": { "totalMinor": 10800, "taxMinor": 800 }
+}

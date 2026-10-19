@@ -1,0 +1,29 @@
+{
+  "name": "parity: 3 x 1240 exclusive equals 3 x 1364 inclusive",
+  "description": "Exclusive 3720 + 372 GST = 4092; inclusive 4092 holds the same 372 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "3", "defaultUnitPriceMinor": 1240 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 4092, "taxMinor": 372, "lines": [{ "taxInclusive": false }] }
+}

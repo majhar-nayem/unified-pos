@@ -1,0 +1,29 @@
+{
+  "name": "parity: 2 x 4500 exclusive equals 2 x 4950 inclusive",
+  "description": "Exclusive 9000 + 900 GST = 9900; inclusive 9900 holds the same 900 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "2", "defaultUnitPriceMinor": 4500 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 9900, "taxMinor": 900, "lines": [{ "taxInclusive": false }] }
+}

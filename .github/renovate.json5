@@ -1,0 +1,80 @@
+// Renovate configuration (https://docs.renovatebot.com/configuration-options/).
+// Version policy: the repository deliberately pins the stable majors validated in Sprint 0
+// (docs/releases/sprint-0.md); majors of those frameworks are opened as a dashboard item, not a PR.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:recommended', ':semanticCommitsDisabled', 'helpers:pinGitHubActionDigests'],
+  timezone: 'Australia/Sydney',
+  schedule: ['before 6am on monday'],
+  prConcurrentLimit: 10,
+  labels: ['dependencies'],
+  dependencyDashboard: true,
+  lockFileMaintenance: { enabled: true, schedule: ['before 6am on monday'] },
+  // Security fixes bypass the schedule.
+  vulnerabilityAlerts: { enabled: true, schedule: ['at any time'], labels: ['security'] },
+  osvVulnerabilityAlerts: true,
+  packageRules: [
+    {
+      description: 'Keep the validated stable majors until someone chooses to move',
+      matchPackageNames: [
+        'typescript',
+        'eslint',
+        'vitest',
+        'next',
+        'react',
+        'react-dom',
+        '@nestjs/**',
+        'drizzle-orm',
+        'zod',
+      ],
+      matchUpdateTypes: ['major'],
+      dependencyDashboardApproval: true,
+    },
+    {
+      description: 'Node runtime stays on the 22 LTS line',
+      matchPackageNames: ['node', '@types/node'],
+      matchUpdateTypes: ['major'],
+      enabled: false,
+    },
+    {
+      description: 'OpenTelemetry packages move together',
+      groupName: 'opentelemetry',
+      matchPackageNames: ['@opentelemetry/**'],
+    },
+    {
+      description: 'Terraform providers',
+      groupName: 'terraform providers',
+      matchManagers: ['terraform'],
+      matchDepTypes: ['required_provider'],
+    },
+    {
+      description: 'GitHub Actions',
+      groupName: 'github actions',
+      matchManagers: ['github-actions'],
+      minimumReleaseAge: '3 days',
+    },
+    {
+      description: 'Testcontainers',
+      groupName: 'testcontainers',
+      matchPackageNames: ['testcontainers', '@testcontainers/**'],
+    },
+  ],
+  customManagers: [
+    {
+      description: 'Container images referenced as Terraform variable defaults',
+      customType: 'regex',
+      managerFilePatterns: ['/^infra/terraform/.*\\.tf$/'],
+      matchStrings: [
+        'default\\s*=\\s*"(?<depName>public\\.ecr\\.aws/[^:"]+):(?<currentValue>v?[0-9][^"]*)"',
+      ],
+      datasourceTemplate: 'docker',
+    },
+    {
+      description: 'Container images pinned inside scripts and workflows',
+      customType: 'regex',
+      managerFilePatterns: ['/^\\.github/workflows/.*\\.ya?ml$/', '/^infra/scripts/.*\\.sh$/'],
+      matchStrings: ['(?<depName>ghcr\\.io/[a-z0-9._/-]+):(?<currentValue>v[0-9][A-Za-z0-9._-]*)'],
+      datasourceTemplate: 'docker',
+    },
+  ],
+}

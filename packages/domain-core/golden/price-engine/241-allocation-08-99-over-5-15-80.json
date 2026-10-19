@@ -1,0 +1,33 @@
+{
+  "name": "allocation 08: 99 over 5/15/80",
+  "description": "Hamilton oracle: 5 + 15 + 79 = 99.",
+  "tags": ["allocation", "order-discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 5 },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 15 },
+        { "id": "l3", "variantId": "v-3", "quantity": "1", "defaultUnitPriceMinor": 80 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 99 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "orderDiscountMinor": 99,
+    "totalMinor": 1,
+    "lines": [
+      { "orderDiscountMinor": 5 },
+      { "orderDiscountMinor": 15 },
+      { "orderDiscountMinor": 79 }
+    ]
+  }
+}

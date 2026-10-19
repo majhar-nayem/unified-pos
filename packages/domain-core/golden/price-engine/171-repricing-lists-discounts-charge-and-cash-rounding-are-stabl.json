@@ -1,0 +1,43 @@
+{
+  "name": "repricing: lists, discounts, charge and cash rounding are stable",
+  "description": "Pricing the output again with the resolved unit prices as overrides gives the same totals.",
+  "tags": ["repricing"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "3",
+          "defaultUnitPriceMinor": 1000,
+          "modifiers": [{ "id": "m", "priceMinor": 50 }],
+          "manualDiscount": { "id": "d", "kind": "percent", "value": "15" }
+        },
+        { "id": "l2", "variantId": "v-2", "quantity": "2", "defaultUnitPriceMinor": 333 }
+      ],
+      "manualDiscounts": [{ "id": "od", "kind": "amount", "value": 77 }],
+      "charges": [{ "id": "sc", "kind": "service_charge", "percent": "10" }],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "pl",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "pl-e1", "variantId": "v-1", "priceMinor": 950 }],
+          "assignments": [{ "scopeKind": "tenant" }]
+        }
+      ]
+    }
+  },
+  "expected": {}
+}

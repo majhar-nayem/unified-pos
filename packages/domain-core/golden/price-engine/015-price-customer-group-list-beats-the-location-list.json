@@ -1,0 +1,40 @@
+{
+  "name": "price: customer group list beats the location list",
+  "description": "Member list (customer group tier) 800 beats location list 850 regardless of priority.",
+  "tags": ["price", "list", "customer"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "customer": { "id": "c-1", "groupIds": ["g-member"] }
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "loc-list",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "loc-list-e1", "variantId": "v-1", "priceMinor": 850 }],
+          "assignments": [{ "scopeKind": "location", "scopeId": "loc-syd", "priority": 1 }]
+        },
+        {
+          "id": "member",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "member-e1", "variantId": "v-1", "priceMinor": 800 }],
+          "assignments": [{ "scopeKind": "customer_group", "scopeId": "g-member" }],
+          "kind": "member"
+        }
+      ]
+    }
+  },
+  "expected": { "totalMinor": 800, "lines": [{ "priceSource": { "priceListId": "member" } }] }
+}

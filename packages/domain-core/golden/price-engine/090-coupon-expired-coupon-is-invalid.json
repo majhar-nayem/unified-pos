@@ -1,0 +1,47 @@
+{
+  "name": "coupon: expired coupon is invalid",
+  "description": "expiresAt before the sale.",
+  "tags": ["coupon"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "couponCodes": ["SAVE10"]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "cp",
+          "name": "cp",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "requiresCoupon": true
+        }
+      ],
+      "coupons": [
+        {
+          "id": "cu1",
+          "promotionId": "cp",
+          "code": "SAVE10",
+          "status": "active",
+          "maxUses": 1,
+          "usesCount": 0,
+          "expiresAt": "2026-10-01T00:00:00Z"
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 0, "skippedPromotions": [{ "reason": "coupon_invalid" }] }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "promo amount_off per order is allocated by largest remainder",
+  "description": "500 over [900, 600, 300] (1800): exact 250, 166.67, 83.33 -> floors 250,166,83 (499), spare to 166.67 -> 250,167,83.",
+  "tags": ["promo", "amount_off", "allocation"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-a", "quantity": "1", "defaultUnitPriceMinor": 900 },
+        { "id": "l2", "variantId": "v-b", "quantity": "1", "defaultUnitPriceMinor": 600 },
+        { "id": "l3", "variantId": "v-c", "quantity": "1", "defaultUnitPriceMinor": 300 }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "p",
+          "name": "p",
+          "kind": "amount_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "amount_off", "amountMinor": 500, "per": "order" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 500,
+    "totalMinor": 1300,
+    "lines": [
+      { "promotionDiscountMinor": 250 },
+      { "promotionDiscountMinor": 167 },
+      { "promotionDiscountMinor": 83 }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "tax: exempt customer on an inclusive line pays the tax-free amount",
+  "description": "1100 inclusive includes 100 GST; exempt customer pays 1000, taxExempt 100.",
+  "tags": ["tax", "exempt"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1100 }],
+      "customer": { "id": "c", "taxExempt": true, "taxExemptionReason": "diplomat" }
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "totalMinor": 1000,
+    "taxMinor": 0,
+    "taxExemptMinor": 100,
+    "lines": [{ "taxExemptMinor": 100, "totalMinor": 1000 }],
+    "$traceIncludes": [{ "step": "tax_exemption", "detail": "diplomat" }]
+  }
+}

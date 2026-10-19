@@ -1,0 +1,109 @@
+{
+  "name": "05 restaurant check with 10% service charge, AUD cash rounding",
+  "description": "2 x $18.50 mains and a $12.00 drink (GST inclusive), $4.48 GST-free water. 10% service charge on the lines' net 5348 = 534.8 -> 535, itself GST inclusive (535 x 10/110 = 48.64 -> 49). Total 5883; cash tender rounds to the nearest 5c (step 7): 5885, rounding +2.",
+  "input": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "2",
+        "unitPriceMinor": 1850,
+        "taxRate": "0.10",
+        "taxInclusive": true
+      },
+      {
+        "id": "l2",
+        "quantity": "1",
+        "unitPriceMinor": 1200,
+        "taxRate": "0.10",
+        "taxInclusive": true
+      },
+      { "id": "l3", "quantity": "1", "unitPriceMinor": 448, "taxRate": "0", "taxInclusive": true }
+    ],
+    "charges": [
+      {
+        "id": "c1",
+        "kind": "service_charge",
+        "percent": "10",
+        "taxRate": "0.10",
+        "taxInclusive": true
+      }
+    ],
+    "tender": { "method": "cash" }
+  },
+  "expected": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "2",
+        "unitPriceMinor": 1850,
+        "grossMinor": 3700,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 3700,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxMinor": 336,
+        "totalMinor": 3700
+      },
+      {
+        "id": "l2",
+        "quantity": "1",
+        "unitPriceMinor": 1200,
+        "grossMinor": 1200,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 1200,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxMinor": 109,
+        "totalMinor": 1200
+      },
+      {
+        "id": "l3",
+        "quantity": "1",
+        "unitPriceMinor": 448,
+        "grossMinor": 448,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 448,
+        "taxRate": "0",
+        "taxInclusive": true,
+        "taxMinor": 0,
+        "totalMinor": 448
+      }
+    ],
+    "charges": [
+      {
+        "id": "c1",
+        "kind": "service_charge",
+        "amountMinor": 535,
+        "taxInclusive": true,
+        "taxMinor": 49,
+        "totalMinor": 535
+      }
+    ],
+    "subtotalMinor": 5348,
+    "lineDiscountMinor": 0,
+    "orderDiscountMinor": 0,
+    "discountMinor": 0,
+    "netMinor": 5348,
+    "taxMinor": 494,
+    "chargesMinor": 535,
+    "totalMinor": 5883,
+    "roundingMinor": 2,
+    "amountDueMinor": 5885,
+    "trace": [
+      { "step": "base_price", "ref": "l1", "amountMinor": 3700 },
+      { "step": "base_price", "ref": "l2", "amountMinor": 1200 },
+      { "step": "base_price", "ref": "l3", "amountMinor": 448 },
+      { "step": "tax", "ref": "l1", "amountMinor": 336 },
+      { "step": "tax", "ref": "l2", "amountMinor": 109 },
+      { "step": "tax", "ref": "l3", "amountMinor": 0 },
+      { "step": "charge", "ref": "c1", "amountMinor": 535, "detail": "service_charge" },
+      { "step": "tax", "ref": "c1", "amountMinor": 49 },
+      { "step": "cash_rounding", "ref": "tender", "amountMinor": 2 }
+    ]
+  }
+}

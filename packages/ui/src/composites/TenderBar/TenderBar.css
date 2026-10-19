@@ -1,0 +1,115 @@
+.pos-tender-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pos-touch-destructive-gap);
+  padding: var(--pos-space-md);
+  border-top: var(--pos-border-thick) solid var(--pos-color-border-strong);
+  background: var(--pos-color-surface-raised);
+  color: var(--pos-color-text);
+}
+
+.pos-tender-bar--offline {
+  border-top-color: var(--pos-color-offline-border);
+}
+
+.pos-tender-bar__leading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pos-touch-destructive-gap);
+  /* Destructive actions (Void) never sit within the tender gap of a primary tender. */
+  margin-inline-end: var(--pos-touch-destructive-gap);
+}
+
+.pos-tender-bar__due {
+  display: flex;
+  flex-direction: column;
+  min-width: var(--pos-touch-bump);
+  margin-inline-end: auto;
+}
+
+.pos-tender-bar__due-label,
+.pos-tender-bar__rounding {
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  color: var(--pos-color-text-muted);
+}
+
+.pos-tender-bar__due-amount {
+  font-size: var(--pos-text-heading-size);
+  line-height: var(--pos-text-heading-line);
+  font-weight: var(--pos-weight-bold);
+}
+
+.pos-tender-bar__tenders {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--pos-space-md);
+}
+
+.pos-tender-bar__button {
+  flex: 1 1 var(--pos-touch-bump);
+  max-width: 100%;
+  justify-content: space-between;
+  text-align: start;
+}
+
+.pos-tender-bar__button .pos-button__label {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pos-space-md);
+  min-width: 0;
+}
+
+.pos-tender-bar__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.pos-tender-bar__label {
+  overflow-wrap: anywhere;
+}
+
+.pos-tender-bar__amount {
+  font-weight: var(--pos-weight-bold);
+}
+
+.pos-tender-bar__hint {
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  font-weight: var(--pos-weight-regular);
+  overflow-wrap: anywhere;
+}
+
+.pos-tender-bar__key {
+  flex: none;
+  padding: 0 var(--pos-space-sm);
+  border: var(--pos-border-thin) solid currentcolor;
+  border-radius: var(--pos-radius-sm);
+  font-family: var(--pos-font-mono);
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  font-weight: var(--pos-weight-semibold);
+  opacity: 0.85;
+}
+
+.pos-tender-bar__reason {
+  display: flex;
+  flex: 1 0 100%;
+  align-items: center;
+  gap: var(--pos-space-sm);
+  margin: 0;
+  padding: var(--pos-space-sm) var(--pos-space-md);
+  border: var(--pos-border-thin) solid var(--pos-color-offline-border);
+  border-radius: var(--pos-radius-md);
+  background: var(--pos-color-offline-subtle);
+  color: var(--pos-color-offline-text);
+  font-weight: var(--pos-weight-semibold);
+}

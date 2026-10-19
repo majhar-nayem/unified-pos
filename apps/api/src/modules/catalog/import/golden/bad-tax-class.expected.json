@@ -1,0 +1,4 @@
+{
+  "summary": { "rows": 2, "items": 2, "variants": 2, "barcodes": 0, "errors": 1 },
+  "errors": [{ "line": 3, "column": "tax_class_code", "code": "UNKNOWN_TAX_CLASS" }]
+}

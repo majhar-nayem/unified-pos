@@ -1,0 +1,8 @@
+{
+  "ui.loading": "Loading…",
+  "ui.close": "Close",
+  "ui.dismiss": "Dismiss",
+  "ui.required": "required",
+  "ui.optional": "optional",
+  "ui.status.offline": "Offline"
+}

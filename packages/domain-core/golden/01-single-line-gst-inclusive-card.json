@@ -1,0 +1,51 @@
+{
+  "name": "01 single GST-inclusive line, card tender",
+  "description": "2 x $4.50 flat white, AU GST 10% inclusive. Tax is the GST component of the inclusive price: 900 x 10/110 = 81.82 -> 82. Card tender, so no cash rounding.",
+  "input": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "2",
+        "unitPriceMinor": 450,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxClass": "standard"
+      }
+    ],
+    "tender": { "method": "card" }
+  },
+  "expected": {
+    "currency": "AUD",
+    "lines": [
+      {
+        "id": "l1",
+        "quantity": "2",
+        "unitPriceMinor": 450,
+        "grossMinor": 900,
+        "lineDiscountMinor": 0,
+        "orderDiscountMinor": 0,
+        "netMinor": 900,
+        "taxRate": "0.10",
+        "taxInclusive": true,
+        "taxMinor": 82,
+        "totalMinor": 900
+      }
+    ],
+    "charges": [],
+    "subtotalMinor": 900,
+    "lineDiscountMinor": 0,
+    "orderDiscountMinor": 0,
+    "discountMinor": 0,
+    "netMinor": 900,
+    "taxMinor": 82,
+    "chargesMinor": 0,
+    "totalMinor": 900,
+    "roundingMinor": 0,
+    "amountDueMinor": 900,
+    "trace": [
+      { "step": "base_price", "ref": "l1", "amountMinor": 900 },
+      { "step": "tax", "ref": "l1", "amountMinor": 82 }
+    ]
+  }
+}

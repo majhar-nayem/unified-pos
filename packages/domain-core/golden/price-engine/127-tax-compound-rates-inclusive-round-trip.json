@@ -1,0 +1,44 @@
+{
+  "name": "tax: compound rates, inclusive round trip",
+  "description": "1210 inclusive of excise + compound GST extracts 210.",
+  "tags": ["tax", "compound"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1210 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "excise",
+        "name": "Excise",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": true,
+        "priority": 100
+      },
+      {
+        "id": "gst",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": true,
+        "compound": true,
+        "priority": 99
+      }
+    ],
+    "stackTaxRules": true
+  },
+  "expected": {
+    "totalMinor": 1210,
+    "taxMinor": 210,
+    "lines": [{ "taxes": [{ "amountMinor": 100 }, { "amountMinor": 110 }] }]
+  }
+}

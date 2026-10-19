@@ -1,0 +1,21 @@
+{
+  "name": "cash rounding: 1000 on a cash tender",
+  "description": "RBA rule for the last digit 0: rounding +0.",
+  "tags": ["cash-rounding"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 1000, "roundingMinor": 0, "amountDueMinor": 1000 }
+}

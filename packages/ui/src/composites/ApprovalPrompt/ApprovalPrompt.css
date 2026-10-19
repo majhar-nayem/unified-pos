@@ -1,0 +1,31 @@
+.pos-approval {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-lg);
+}
+
+.pos-approval__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-space-xs);
+}
+
+.pos-approval__passkey {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--pos-space-md);
+}
+
+.pos-approval__message {
+  min-height: var(--pos-text-body-line);
+  font-size: var(--pos-text-body-size);
+}
+
+.pos-approval__error {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-sm);
+  color: var(--pos-color-danger-text);
+  font-weight: var(--pos-weight-semibold);
+}

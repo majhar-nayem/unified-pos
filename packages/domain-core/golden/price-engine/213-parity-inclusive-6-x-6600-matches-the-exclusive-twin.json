@@ -1,0 +1,20 @@
+{
+  "name": "parity: inclusive 6 x 6600 matches the exclusive twin",
+  "description": "Inclusive 39600 extracts 3600 GST, equal to the exclusive twin's 3600.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "6", "defaultUnitPriceMinor": 6600 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 39600, "taxMinor": 3600, "lines": [{ "taxInclusive": true }] }
+}

@@ -1,0 +1,4 @@
+{
+  "summary": { "rows": 2, "items": 2, "variants": 2, "barcodes": 0, "errors": 1 },
+  "errors": [{ "line": 2, "column": "unit", "code": "UNKNOWN_UNIT" }]
+}

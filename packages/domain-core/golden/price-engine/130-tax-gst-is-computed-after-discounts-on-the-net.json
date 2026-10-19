@@ -1,0 +1,28 @@
+{
+  "name": "tax: GST is computed after discounts on the net",
+  "description": "1000 less a 100 discount = 900; 900/11 = 81.8 -> 82.",
+  "tags": ["tax", "discount"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1000,
+          "manualDiscount": { "id": "d", "kind": "amount", "value": 100 }
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 900, "taxMinor": 82 }
+}

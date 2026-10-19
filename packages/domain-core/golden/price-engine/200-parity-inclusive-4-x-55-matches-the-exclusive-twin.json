@@ -1,0 +1,20 @@
+{
+  "name": "parity: inclusive 4 x 55 matches the exclusive twin",
+  "description": "Inclusive 220 extracts 20 GST, equal to the exclusive twin's 20.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "4", "defaultUnitPriceMinor": 55 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "totalMinor": 220, "taxMinor": 20, "lines": [{ "taxInclusive": true }] }
+}

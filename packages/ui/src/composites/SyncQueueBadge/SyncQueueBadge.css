@@ -1,0 +1,28 @@
+.pos-sync-queue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pos-space-sm) var(--pos-space-lg);
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  color: var(--pos-color-text);
+}
+
+.pos-sync-queue__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-sm);
+  min-width: 0;
+}
+
+.pos-sync-queue__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pos-sync-queue__item--error .pos-sync-queue__text strong {
+  color: var(--pos-color-danger-text);
+  font-weight: var(--pos-weight-bold);
+}

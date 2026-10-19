@@ -1,0 +1,41 @@
+{
+  "name": "schedule: weekday filter excludes Sunday",
+  "description": "2026-10-18 is a Sunday.",
+  "tags": ["schedule"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-18T05:30:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "hh",
+          "name": "hh",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "schedule": {
+            "daysOfWeek": [1, 2, 3, 4, 5],
+            "windows": [{ "from": "16:00", "to": "18:00" }]
+          }
+        }
+      ]
+    }
+  },
+  "expected": {
+    "promotionDiscountMinor": 0,
+    "skippedPromotions": [{ "reason": "outside_schedule" }]
+  }
+}

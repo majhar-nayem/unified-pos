@@ -1,0 +1,69 @@
+name: Publish images to ECR (reusable)
+
+# Copies the images built once into GHCR into one environment's ECR repositories, keeping the digest.
+# ECR tags are immutable; an existing tag is left alone, so re-running a pipeline is safe.
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      tag:
+        type: string
+        required: true
+    outputs:
+      registry:
+        description: ECR registry host
+        value: ${{ jobs.publish.outputs.registry }}
+
+permissions:
+  contents: read
+  id-token: write
+  packages: read
+
+jobs:
+  publish:
+    name: Publish to ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: ${{ inputs.environment }}
+    outputs:
+      registry: ${{ steps.ecr.outputs.registry }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'ap-southeast-2' }}
+
+      - name: Log in to ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Copy api, worker, payments and migrate
+        env:
+          PREFIX: ${{ vars.PREFIX }}
+          TAG: ${{ inputs.tag }}
+          ECR: ${{ steps.ecr.outputs.registry }}
+        run: |
+          repo="${GITHUB_REPOSITORY,,}"
+          for image in api worker payments migrate; do
+            if aws ecr describe-images --repository-name "${PREFIX}/${image}" --image-ids "imageTag=${TAG}" >/dev/null 2>&1; then
+              echo "${image}:${TAG} already in ECR, skipping"
+              continue
+            fi
+            docker buildx imagetools create \
+              --tag "${ECR}/${PREFIX}/${image}:${TAG}" \
+              "ghcr.io/${repo}/${image}:${TAG}"
+          done

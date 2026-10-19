@@ -1,0 +1,54 @@
+{
+  "name": "price: draft, archived and foreign-currency lists never apply",
+  "description": "Only the active AUD list (900) counts.",
+  "tags": ["price", "list", "status"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "draft",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "draft",
+          "entries": [{ "id": "draft-e1", "variantId": "v-1", "priceMinor": 100 }],
+          "assignments": [{ "scopeKind": "tenant", "priority": 1 }]
+        },
+        {
+          "id": "archived",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "archived",
+          "entries": [{ "id": "archived-e1", "variantId": "v-1", "priceMinor": 100 }],
+          "assignments": [{ "scopeKind": "tenant", "priority": 1 }]
+        },
+        {
+          "id": "usd",
+          "currency": "USD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "usd-e1", "variantId": "v-1", "priceMinor": 100 }],
+          "assignments": [{ "scopeKind": "tenant", "priority": 1 }]
+        },
+        {
+          "id": "live",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "live-e1", "variantId": "v-1", "priceMinor": 900 }],
+          "assignments": [{ "scopeKind": "tenant", "priority": 50 }]
+        }
+      ]
+    }
+  },
+  "expected": { "totalMinor": 900, "lines": [{ "priceSource": { "priceListId": "live" } }] }
+}

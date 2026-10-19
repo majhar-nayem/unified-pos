@@ -1,0 +1,54 @@
+{
+  "name": "tax: mixed GST and GST-free basket",
+  "description": "Coffee 480 (GST) + bread 2 x 350 (free): tax only on the coffee, 480/11 = 43.6 -> 44. Total 1180.",
+  "tags": ["tax", "mixed-rates"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        { "id": "l1", "variantId": "v-coffee", "quantity": "1", "defaultUnitPriceMinor": 480 },
+        {
+          "id": "l2",
+          "variantId": "v-bread",
+          "quantity": "2",
+          "defaultUnitPriceMinor": 350,
+          "taxClassId": "free"
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-std",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": true,
+        "country": "AU"
+      },
+      {
+        "id": "gst-free",
+        "name": "GST-free",
+        "taxClassId": "free",
+        "rate": "0",
+        "inclusiveDefault": true,
+        "country": "AU"
+      }
+    ]
+  },
+  "expected": {
+    "totalMinor": 1180,
+    "taxMinor": 44,
+    "taxSummary": [
+      { "name": "GST-free", "rate": "0", "taxMinor": 0, "taxableMinor": 700 },
+      { "name": "GST", "rate": "0.10", "taxMinor": 44, "taxableMinor": 436 }
+    ]
+  }
+}

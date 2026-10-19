@@ -1,0 +1,247 @@
+import {
+  bigint,
+  boolean,
+  char,
+  date,
+  integer,
+  jsonb,
+  numeric,
+  pgSchema,
+  smallint,
+  text,
+  timestamp,
+  uuid,
+} from 'drizzle-orm/pg-core';
+
+/**
+ * Drizzle mirror of db/schema_part2.sql (orders schema, F4). Identifiers and row types only: SQL
+ * stays explicit in the orders module. `pnpm --filter @pos/db schema:check` and the Testcontainers
+ * mirror test compare every column, type, nullability and default presence with the live schema.
+ */
+export const ordersSchema = pgSchema('orders');
+
+const tstz = (name: string) => timestamp(name, { withTimezone: true });
+
+export const orderNumberSequences = ordersSchema.table('order_number_sequences', {
+  tenantId: uuid('tenant_id').notNull(),
+  locationId: uuid('location_id').notNull(),
+  businessDate: date('business_date').notNull(),
+  nextValue: integer('next_value').notNull().default(1),
+});
+
+export const orders = ordersSchema.table('orders', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  locationId: uuid('location_id').notNull(),
+  registerId: uuid('register_id'),
+  deviceId: uuid('device_id'),
+  orderNumber: integer('order_number'),
+  clientOrderRef: text('client_order_ref'),
+  businessDate: date('business_date').notNull(),
+  kind: text('kind').notNull(),
+  channel: text('channel').notNull().default('pos'),
+  status: text('status').notNull().default('open'),
+  fulfillmentStatus: text('fulfillment_status').notNull().default('unfulfilled'),
+  paymentStatus: text('payment_status').notNull().default('unpaid'),
+  customerId: uuid('customer_id'),
+  tableSessionId: uuid('table_session_id'),
+  guestCount: smallint('guest_count'),
+  employeeId: uuid('employee_id'),
+  currency: char('currency', { length: 3 }).notNull(),
+  pricingMode: text('pricing_mode').notNull().default('tax_inclusive'),
+  priceListId: uuid('price_list_id'),
+  configVersion: integer('config_version'),
+  subtotalMinor: bigint('subtotal_minor', { mode: 'bigint' }).notNull().default(0n),
+  discountMinor: bigint('discount_minor', { mode: 'bigint' }).notNull().default(0n),
+  taxMinor: bigint('tax_minor', { mode: 'bigint' }).notNull().default(0n),
+  chargesMinor: bigint('charges_minor', { mode: 'bigint' }).notNull().default(0n),
+  tipMinor: bigint('tip_minor', { mode: 'bigint' }).notNull().default(0n),
+  roundingMinor: bigint('rounding_minor', { mode: 'bigint' }).notNull().default(0n),
+  totalMinor: bigint('total_minor', { mode: 'bigint' }).notNull().default(0n),
+  paidMinor: bigint('paid_minor', { mode: 'bigint' }).notNull().default(0n),
+  refundedMinor: bigint('refunded_minor', { mode: 'bigint' }).notNull().default(0n),
+  sourceOrderId: uuid('source_order_id'),
+  externalRef: text('external_ref'),
+  scheduledFor: tstz('scheduled_for'),
+  notes: text('notes'),
+  metadata: jsonb('metadata').notNull().default({}),
+  placedAt: tstz('placed_at'),
+  completedAt: tstz('completed_at'),
+  cancelledAt: tstz('cancelled_at'),
+  voidedAt: tstz('voided_at'),
+  voidReason: text('void_reason'),
+  voidApprovalId: uuid('void_approval_id'),
+  reopenedAt: tstz('reopened_at'),
+  reopenedReason: text('reopened_reason'),
+  clientCreatedAt: tstz('client_created_at'),
+  syncedAt: tstz('synced_at'),
+  settlementPending: boolean('settlement_pending').notNull().default(false),
+  version: integer('version').notNull().default(1),
+  createdAt: tstz('created_at').notNull().defaultNow(),
+  updatedAt: tstz('updated_at').notNull().defaultNow(),
+});
+
+export const checks = ordersSchema.table('checks', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderId: uuid('order_id').notNull(),
+  number: smallint('number').notNull().default(1),
+  label: text('label'),
+  status: text('status').notNull().default('open'),
+  subtotalMinor: bigint('subtotal_minor', { mode: 'bigint' }).notNull().default(0n),
+  discountMinor: bigint('discount_minor', { mode: 'bigint' }).notNull().default(0n),
+  taxMinor: bigint('tax_minor', { mode: 'bigint' }).notNull().default(0n),
+  chargesMinor: bigint('charges_minor', { mode: 'bigint' }).notNull().default(0n),
+  tipMinor: bigint('tip_minor', { mode: 'bigint' }).notNull().default(0n),
+  roundingMinor: bigint('rounding_minor', { mode: 'bigint' }).notNull().default(0n),
+  totalMinor: bigint('total_minor', { mode: 'bigint' }).notNull().default(0n),
+  paidMinor: bigint('paid_minor', { mode: 'bigint' }).notNull().default(0n),
+  refundedMinor: bigint('refunded_minor', { mode: 'bigint' }).notNull().default(0n),
+  closedAt: tstz('closed_at'),
+  closedBy: uuid('closed_by'),
+  version: integer('version').notNull().default(1),
+  createdAt: tstz('created_at').notNull().defaultNow(),
+  updatedAt: tstz('updated_at').notNull().defaultNow(),
+});
+
+export const orderLines = ordersSchema.table('order_lines', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderId: uuid('order_id').notNull(),
+  checkId: uuid('check_id').notNull(),
+  seq: integer('seq').notNull(),
+  parentLineId: uuid('parent_line_id'),
+  variantId: uuid('variant_id'),
+  itemSnapshot: jsonb('item_snapshot').notNull(),
+  quantity: numeric('quantity', { precision: 14, scale: 4 }).notNull(),
+  unitOfMeasure: text('unit_of_measure').notNull().default('each'),
+  listPriceMinor: bigint('list_price_minor', { mode: 'bigint' }).notNull(),
+  unitPriceMinor: bigint('unit_price_minor', { mode: 'bigint' }).notNull(),
+  priceOverrideReason: text('price_override_reason'),
+  priceOverrideApprovalId: uuid('price_override_approval_id'),
+  discountMinor: bigint('discount_minor', { mode: 'bigint' }).notNull().default(0n),
+  taxMinor: bigint('tax_minor', { mode: 'bigint' }).notNull().default(0n),
+  totalMinor: bigint('total_minor', { mode: 'bigint' }).notNull(),
+  costMinor: bigint('cost_minor', { mode: 'bigint' }),
+  seatNumber: smallint('seat_number'),
+  courseNumber: smallint('course_number'),
+  status: text('status').notNull().default('active'),
+  voidReason: text('void_reason'),
+  voidedBy: uuid('voided_by'),
+  voidApprovalId: uuid('void_approval_id'),
+  voidedAt: tstz('voided_at'),
+  kitchenStatus: text('kitchen_status'),
+  fulfillmentMode: text('fulfillment_mode').notNull().default('take'),
+  returnOfLineId: uuid('return_of_line_id'),
+  returnedQuantity: numeric('returned_quantity', { precision: 14, scale: 4 })
+    .notNull()
+    .default('0'),
+  serialId: uuid('serial_id'),
+  lotId: uuid('lot_id'),
+  notes: text('notes'),
+  metadata: jsonb('metadata').notNull().default({}),
+  createdAt: tstz('created_at').notNull().defaultNow(),
+});
+
+export const orderLineModifiers = ordersSchema.table('order_line_modifiers', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderLineId: uuid('order_line_id').notNull(),
+  modifierId: uuid('modifier_id'),
+  groupName: text('group_name'),
+  name: text('name').notNull(),
+  kind: text('kind').notNull().default('add'),
+  quantity: smallint('quantity').notNull().default(1),
+  priceDeltaMinor: bigint('price_delta_minor', { mode: 'bigint' }).notNull().default(0n),
+});
+
+export const orderLineTaxes = ordersSchema.table('order_line_taxes', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderLineId: uuid('order_line_id').notNull(),
+  taxRuleId: uuid('tax_rule_id'),
+  taxName: text('tax_name').notNull(),
+  rate: numeric('rate', { precision: 9, scale: 6 }).notNull(),
+  taxableMinor: bigint('taxable_minor', { mode: 'bigint' }).notNull(),
+  taxMinor: bigint('tax_minor', { mode: 'bigint' }).notNull(),
+  inclusive: boolean('inclusive').notNull(),
+  exemptReason: text('exempt_reason'),
+});
+
+export const orderDiscounts = ordersSchema.table('order_discounts', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderId: uuid('order_id').notNull(),
+  orderLineId: uuid('order_line_id'),
+  kind: text('kind').notNull(),
+  promotionId: uuid('promotion_id'),
+  couponId: uuid('coupon_id'),
+  description: text('description').notNull(),
+  percent: numeric('percent', { precision: 7, scale: 4 }),
+  amountMinor: bigint('amount_minor', { mode: 'bigint' }).notNull(),
+  approvalId: uuid('approval_id'),
+  appliedBy: uuid('applied_by'),
+  appliedAt: tstz('applied_at').notNull().defaultNow(),
+  trace: jsonb('trace'),
+});
+
+export const orderCharges = ordersSchema.table('order_charges', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderId: uuid('order_id').notNull(),
+  checkId: uuid('check_id'),
+  kind: text('kind').notNull(),
+  description: text('description').notNull(),
+  amountMinor: bigint('amount_minor', { mode: 'bigint' }).notNull(),
+  taxMinor: bigint('tax_minor', { mode: 'bigint' }).notNull().default(0n),
+  isGratuity: boolean('is_gratuity').notNull().default(false),
+  /** Tip pooling in the schema; the orders module also keeps `{percent, taxable}` of a rule-based charge here. */
+  distribution: jsonb('distribution'),
+});
+
+/** Append-only (trigger platform.fn_forbid_mutation), partitioned monthly by occurred_at. */
+export const orderEvents = ordersSchema.table('order_events', {
+  id: uuid('id').notNull().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderId: uuid('order_id').notNull(),
+  kind: text('kind').notNull(),
+  fromStatus: text('from_status'),
+  toStatus: text('to_status'),
+  actorUserId: uuid('actor_user_id'),
+  deviceId: uuid('device_id'),
+  approvalId: uuid('approval_id'),
+  clientCommandId: text('client_command_id'),
+  payload: jsonb('payload').notNull().default({}),
+  occurredAt: tstz('occurred_at').notNull(),
+  recordedAt: tstz('recorded_at').notNull().defaultNow(),
+});
+
+export const receipts = ordersSchema.table('receipts', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  orderId: uuid('order_id').notNull(),
+  checkId: uuid('check_id'),
+  number: text('number').notNull(),
+  kind: text('kind').notNull(),
+  templateKey: text('template_key').notNull(),
+  renderedUri: text('rendered_uri'),
+  deliveredVia: text('delivered_via').array().notNull().default([]),
+  fiscalData: jsonb('fiscal_data'),
+  printedBy: uuid('printed_by'),
+  deviceId: uuid('device_id'),
+  createdAt: tstz('created_at').notNull().defaultNow(),
+});
+
+export const returnAuthorizations = ordersSchema.table('return_authorizations', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull(),
+  locationId: uuid('location_id').notNull(),
+  sourceOrderId: uuid('source_order_id'),
+  customerId: uuid('customer_id'),
+  number: text('number').notNull(),
+  status: text('status').notNull().default('requested'),
+  reason: text('reason'),
+  lines: jsonb('lines').notNull().default([]),
+  approvedBy: uuid('approved_by'),
+  createdAt: tstz('created_at').notNull().defaultNow(),
+});

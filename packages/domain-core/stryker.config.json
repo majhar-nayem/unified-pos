@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stryker-mutator/stryker/master/packages/core/schema/stryker-core.json",
+  "packageManager": "pnpm",
+  "testRunner": "vitest",
+  "plugins": ["@stryker-mutator/vitest-runner"],
+  "mutate": [
+    "src/price-engine/**/*.ts",
+    "!src/price-engine/__tests__/**",
+    "!src/price-engine/**/*.test.ts",
+    "!src/price-engine/types.ts",
+    "!src/price-engine/promotion-types.ts",
+    "!src/price-engine/index.ts"
+  ],
+  "vitest": {
+    "configFile": "vitest.config.ts",
+    "dir": "."
+  },
+  "coverageAnalysis": "perTest",
+  "reporters": ["clear-text", "json"],
+  "thresholds": {
+    "high": 90,
+    "low": 85,
+    "break": 85
+  },
+  "timeoutMS": 20000,
+  "tempDirName": ".stryker-tmp",
+  "cleanTempDir": true,
+  "jsonReporter": {
+    "fileName": "node_modules/.cache/stryker/mutation.json"
+  }
+}

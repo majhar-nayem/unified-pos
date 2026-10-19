@@ -1,0 +1,93 @@
+.pos-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pos-space-xs);
+  max-width: 100%;
+  padding: 0 var(--pos-space-sm);
+  border: var(--pos-border-thin) solid var(--tone-border);
+  border-radius: var(--pos-radius-sm);
+  background: var(--tone-bg);
+  color: var(--tone-fg);
+  font-size: var(--pos-text-caption-size);
+  line-height: var(--pos-text-caption-line);
+  font-weight: var(--pos-weight-medium);
+}
+
+.pos-tag--sm {
+  padding: 0 var(--pos-space-xs);
+}
+
+.pos-tag__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pos-tag[data-tone='neutral'] {
+  --tone-bg: var(--pos-color-surface-sunken);
+  --tone-fg: var(--pos-color-text);
+  --tone-border: var(--pos-color-border-strong);
+}
+
+.pos-tag[data-tone='brand'] {
+  --tone-bg: var(--pos-color-brand-subtle);
+  --tone-fg: var(--pos-color-brand-text);
+  --tone-border: var(--pos-color-brand-border);
+}
+
+.pos-tag[data-tone='success'] {
+  --tone-bg: var(--pos-color-success-subtle);
+  --tone-fg: var(--pos-color-success-text);
+  --tone-border: var(--pos-color-success-border);
+}
+
+.pos-tag[data-tone='warning'] {
+  --tone-bg: var(--pos-color-warning-subtle);
+  --tone-fg: var(--pos-color-warning-text);
+  --tone-border: var(--pos-color-warning-border);
+}
+
+.pos-tag[data-tone='danger'] {
+  --tone-bg: var(--pos-color-danger-subtle);
+  --tone-fg: var(--pos-color-danger-text);
+  --tone-border: var(--pos-color-danger-border);
+}
+
+.pos-tag[data-tone='info'] {
+  --tone-bg: var(--pos-color-info-subtle);
+  --tone-fg: var(--pos-color-info-text);
+  --tone-border: var(--pos-color-info-border);
+}
+
+.pos-tag[data-tone='offline'] {
+  --tone-bg: var(--pos-color-offline-subtle);
+  --tone-fg: var(--pos-color-offline-text);
+  --tone-border: var(--pos-color-offline-border);
+}
+
+.pos-tag__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  /* Meets the 24 px minimum target size (WCAG 2.2 AA 2.5.8). */
+  width: var(--pos-space-xl);
+  height: var(--pos-space-xl);
+  margin: 0 calc(var(--pos-space-xs) * -1) 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--pos-radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-tag__remove:hover {
+  background: color-mix(in srgb, var(--tone-fg) 14%, transparent);
+}
+
+.pos-tag__remove:active {
+  background: color-mix(in srgb, var(--tone-fg) 24%, transparent);
+}

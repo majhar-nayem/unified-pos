@@ -1,0 +1,29 @@
+{
+  "name": "parity: 7 x 20 exclusive equals 7 x 22 inclusive",
+  "description": "Exclusive 140 + 14 GST = 154; inclusive 154 holds the same 14 GST.",
+  "tags": ["parity", "tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "7", "defaultUnitPriceMinor": 20 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-ex",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": false
+      }
+    ]
+  },
+  "expected": { "totalMinor": 154, "taxMinor": 14, "lines": [{ "taxInclusive": false }] }
+}

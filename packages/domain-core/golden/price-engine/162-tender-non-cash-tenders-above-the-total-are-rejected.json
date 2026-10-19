@@ -1,0 +1,21 @@
+{
+  "name": "tender: non-cash tenders above the total are rejected",
+  "description": "Card 2000 on an order of 1000.",
+  "tags": ["tender", "error"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }],
+      "tenders": [{ "method": "card", "amountMinor": 2000 }, { "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expectError": "exceed the order total"
+}

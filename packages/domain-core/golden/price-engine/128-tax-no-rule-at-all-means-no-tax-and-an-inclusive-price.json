@@ -1,0 +1,21 @@
+{
+  "name": "tax: no rule at all means no tax and an inclusive price",
+  "description": "Empty rule table.",
+  "tags": ["tax"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": []
+  },
+  "expected": { "totalMinor": 1000, "taxMinor": 0 }
+}

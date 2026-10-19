@@ -1,0 +1,24 @@
+{
+  "name": "edge: an empty order prices to zero",
+  "description": "No lines.",
+  "tags": ["edge"],
+  "input": {
+    "draft": { "currency": "AUD", "lines": [] },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": {
+    "subtotalMinor": 0,
+    "totalMinor": 0,
+    "taxMinor": 0,
+    "amountDueMinor": 0,
+    "lines": [],
+    "trace": []
+  }
+}

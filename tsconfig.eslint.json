@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@pos/*": ["packages/*/src/index.ts"]
+    }
+  },
+  "include": ["apps/*/src", "packages/*/src", "tools"]
+}

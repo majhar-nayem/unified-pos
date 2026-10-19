@@ -1,0 +1,21 @@
+{
+  "name": "edge: cash-rounding uses only the cash portion of charges and discounts together",
+  "description": "1004 total in cash rounds up to 1005.",
+  "tags": ["edge", "cash-rounding"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1004 }],
+      "tenders": [{ "method": "cash" }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    }
+  },
+  "expected": { "roundingMinor": 1, "amountDueMinor": 1005 }
+}

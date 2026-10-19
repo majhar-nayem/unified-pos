@@ -1,0 +1,47 @@
+{
+  "name": "tax: the tax class is passed to the resolver",
+  "description": "Class \"free\" is GST-free, the default class is taxed.",
+  "tags": ["tax", "class"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-1",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1100,
+          "taxClassId": "free"
+        },
+        { "id": "l2", "variantId": "v-2", "quantity": "1", "defaultUnitPriceMinor": 1100 }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" }
+    },
+    "taxRules": [
+      {
+        "id": "gst-std",
+        "name": "GST",
+        "taxClassId": null,
+        "rate": "0.10",
+        "inclusiveDefault": true,
+        "country": "AU"
+      },
+      {
+        "id": "gst-free",
+        "name": "GST-free",
+        "taxClassId": "free",
+        "rate": "0",
+        "inclusiveDefault": true,
+        "country": "AU"
+      }
+    ]
+  },
+  "expected": { "taxMinor": 100, "lines": [{ "taxMinor": 0 }, { "taxMinor": 100 }] }
+}

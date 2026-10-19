@@ -1,0 +1,75 @@
+.pos-segmented {
+  display: inline-flex;
+  gap: var(--pos-space-xs);
+  padding: var(--pos-space-xs);
+  background: var(--pos-color-surface-sunken);
+  border: var(--pos-border-thin) solid var(--pos-color-border-strong);
+  border-radius: var(--pos-radius-lg);
+}
+
+.pos-segmented--full {
+  display: flex;
+  width: 100%;
+}
+
+.pos-segmented__option {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.pos-segmented__option--disabled {
+  cursor: not-allowed;
+}
+
+.pos-segmented__text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pos-space-sm);
+  min-width: var(--pos-touch-min);
+  min-height: calc(var(--pos-control-height) - var(--pos-space-sm));
+  padding: 0 var(--pos-space-lg);
+  background: transparent;
+  color: var(--pos-color-text);
+  border-radius: var(--pos-radius-md);
+  font-size: var(--pos-text-body-size);
+  line-height: var(--pos-text-body-line);
+  font-weight: var(--pos-weight-semibold);
+  white-space: nowrap;
+  transition: background-color var(--pos-duration-fast) var(--pos-easing-standard);
+}
+
+.pos-segmented--lg .pos-segmented__text {
+  min-height: var(--pos-touch-min);
+  padding: 0 var(--pos-space-xl);
+  font-size: var(--pos-text-emphasis-size);
+  line-height: var(--pos-text-emphasis-line);
+}
+
+.pos-segmented__option:hover .pos-segmented__input:not(:disabled, :checked) + .pos-segmented__text {
+  background: var(--pos-color-surface-raised);
+}
+
+.pos-segmented__input:checked + .pos-segmented__text {
+  background: var(--pos-color-brand-solid);
+  color: var(--pos-color-brand-on-solid);
+}
+
+.pos-segmented__input:focus-visible + .pos-segmented__text {
+  outline: var(--pos-focus-width) solid var(--pos-color-focus-ring);
+  outline-offset: var(--pos-focus-offset);
+}
+
+.pos-segmented__input:disabled + .pos-segmented__text {
+  color: var(--pos-color-text-muted);
+}
+
+.pos-segmented__input:disabled:checked + .pos-segmented__text {
+  background: var(--pos-color-border-strong);
+  color: var(--pos-color-surface);
+}

@@ -1,0 +1,38 @@
+{
+  "name": "price: list without an entry for the variant falls through to the next list",
+  "description": "Higher-ranked list prices another variant; the lower-ranked one prices v-1 at 880.",
+  "tags": ["price", "list"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "priceLists": [
+        {
+          "id": "other",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "x", "variantId": "v-other", "priceMinor": 100 }],
+          "assignments": [{ "scopeKind": "tenant", "priority": 1 }]
+        },
+        {
+          "id": "mine",
+          "currency": "AUD",
+          "taxInclusive": true,
+          "status": "active",
+          "entries": [{ "id": "mine-e1", "variantId": "v-1", "priceMinor": 880 }],
+          "assignments": [{ "scopeKind": "tenant", "priority": 2 }]
+        }
+      ]
+    }
+  },
+  "expected": { "totalMinor": 880 }
+}

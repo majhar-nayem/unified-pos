@@ -1,0 +1,77 @@
+{
+  "name": "burger meal deal: burger + fries + drink for $18.00",
+  "description": "Burger 1400 + fries 600 + drink 450 = 2450; bundle price 1800 so the discount is 650. Largest remainder over [1400,600,450]: floors 371,159,119 (sum 649), remainders 1050,450,950 so the burger takes the spare cent: 372,159,119. Nets 1028,441,331. GST inclusive: 1028/11=93.45->93, 441/11=40.09->40, 331/11=30.09->30.",
+  "tags": ["brief", "bundle", "allocation"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [
+        {
+          "id": "l1",
+          "variantId": "v-burger",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 1400,
+          "itemId": "i-burger"
+        },
+        {
+          "id": "l2",
+          "variantId": "v-fries",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 600,
+          "itemId": "i-fries"
+        },
+        {
+          "id": "l3",
+          "variantId": "v-drink",
+          "quantity": "1",
+          "defaultUnitPriceMinor": 450,
+          "itemId": "i-drink"
+        }
+      ]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "meal-deal",
+          "name": "meal-deal",
+          "kind": "fixed_price",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": {
+              "kind": "fixed_price",
+              "priceMinor": 1800,
+              "bundle": [
+                { "targets": { "variantIds": ["v-burger"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-fries"] }, "quantity": 1 },
+                { "targets": { "variantIds": ["v-drink"] }, "quantity": 1 }
+              ]
+            }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "subtotalMinor": 2450,
+    "promotionDiscountMinor": 650,
+    "discountMinor": 650,
+    "totalMinor": 1800,
+    "taxMinor": 163,
+    "amountDueMinor": 1800,
+    "lines": [
+      { "id": "l1", "promotionDiscountMinor": 372, "netMinor": 1028, "taxMinor": 93 },
+      { "id": "l2", "promotionDiscountMinor": 159, "netMinor": 441, "taxMinor": 40 },
+      { "id": "l3", "promotionDiscountMinor": 119, "netMinor": 331, "taxMinor": 30 }
+    ],
+    "promotions": [{ "promotionId": "meal-deal", "amountMinor": 650, "applications": 1 }]
+  }
+}

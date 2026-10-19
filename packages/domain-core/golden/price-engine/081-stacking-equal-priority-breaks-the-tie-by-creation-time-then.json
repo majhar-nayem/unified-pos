@@ -1,0 +1,50 @@
+{
+  "name": "stacking: equal priority breaks the tie by creation time then id",
+  "description": "Both in one group, same priority: the older (createdAt) wins.",
+  "tags": ["stacking", "priority"],
+  "input": {
+    "draft": {
+      "currency": "AUD",
+      "lines": [{ "id": "l1", "variantId": "v-1", "quantity": "1", "defaultUnitPriceMinor": 1000 }]
+    },
+    "context": {
+      "at": "2026-10-19T02:00:00Z",
+      "timezone": "Australia/Sydney",
+      "locationId": "loc-syd",
+      "orgUnitPath": ["ou-nsw", "ou-root"],
+      "channel": "pos",
+      "jurisdiction": { "country": "AU", "region": "NSW" },
+      "promotions": [
+        {
+          "id": "newer",
+          "name": "newer",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "30" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "stackGroup": "g",
+          "createdAt": "2026-06-01T00:00:00Z"
+        },
+        {
+          "id": "older",
+          "name": "older",
+          "kind": "percent_off",
+          "rules": {
+            "version": 1,
+            "targets": { "all": true },
+            "effect": { "kind": "percent_off", "percent": "10" }
+          },
+          "validFrom": "2026-01-01T00:00:00Z",
+          "status": "active",
+          "stackGroup": "g",
+          "createdAt": "2026-01-01T00:00:00Z"
+        }
+      ]
+    }
+  },
+  "expected": { "promotionDiscountMinor": 100, "promotions": [{ "promotionId": "older" }] }
+}
